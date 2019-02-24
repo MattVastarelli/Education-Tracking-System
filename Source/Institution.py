@@ -4,31 +4,47 @@ from Source import Account
 
 class Institution(Account):
 
-    # public
-    def __init__(self):
-        self.name = ''
-        self.address = ''
-        self.type = ''
-        self.gradeMin = 0
-        self.gradeMax = 0
-        self.mainPhoneNum = ''
+    def __init__(self, name='', address='', institution_type='', grade_min=0, grade_max=0, main_phone_num=''):
+
+        # public
+        self.name = name
+
+        # public
+        self.address = address
+
+        # public
+        self.institution_type = institution_type
+
+        # public
+        self.grade_min = grade_min
+
+        # public
+        self.grade_max = grade_max
+
+        # public
+        self.main_phone_num = main_phone_num
 
     # private
-    def __add_educator(self, accessLevel=1):
+    def __add_educator(self, access_level=1):
         pass
 
-    def __add_student(self, accessLevel=2):
+    # private
+    def __add_student(self, access_level=2):
         pass
 
+    # private
     def __offer_subject(self):
         pass
 
+    # private
     def __change_access(self, account, level):
         pass
 
-    def __bulk_assign_section(self, educator_ID, course, section, student_ID):
+    # private
+    def __bulk_assign_section(self, educator_id, course, section, student_id):
         pass
 
-    def __bulk_add_records(self, accessLevel, uploadFileName):
+    # private
+    def __bulk_add_records(self, access_level, upload_file_name):
         pass
 
