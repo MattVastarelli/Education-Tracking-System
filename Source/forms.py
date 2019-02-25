@@ -25,27 +25,19 @@ class Form:
         self.type = str()
 
         # gui elements
-        self.frame = None
-        self.address_frame = None
-        self.name_frame = None
-        self.grade_min_frame = None
-        self.grade_max_frame = None
-        self.phone_frame = None
-        self.type_frame = None
-
-        self.name = None
-        self.address = None
-        self.grade_min = None
-        self.grade_max = None
-        self.phone = None
-        self.institution_type = None
-
         self.name_box = None
+        self.password_box = None
         self.address_box = None
         self.grade_min_box = None
         self.grade_max_box = None
         self.phone_box = None
         self.institution_type_box = None
+        self.f_name_box = None
+        self.l_name_box = None
+        self.courses_box = None
+        self.preferred_subject_box = None
+        self.email_box = None
+        self.edu_license_box = None
 
     def add_new(self, access_level):
         # form to add a new record
@@ -53,69 +45,156 @@ class Form:
         self.top.geometry("550x350")
 
         # main frame
-        self.frame = tk.Frame(self.top)
-        self.frame.pack()
+        frame = tk.Frame(self.top)
+        frame.pack()
 
         if access_level is 0:
             self.top.title("Add New Institution")
 
             # frames
-            self.name_frame = tk.Frame(self.frame)
-            self.name_frame.pack()
+            name_frame = tk.Frame(frame)
+            name_frame.pack()
 
-            self.address_frame = tk.Frame(self.frame)
-            self.address_frame.pack()
+            password_frame = tk.Frame(frame)
+            password_frame.pack()
 
-            self.grade_min_frame = tk.Frame(self.frame)
-            self.grade_min_frame.pack()
+            address_frame = tk.Frame(frame)
+            address_frame.pack()
 
-            self.grade_max_frame = tk.Frame(self.frame)
-            self.grade_max_frame.pack()
+            grade_min_frame = tk.Frame(frame)
+            grade_min_frame.pack()
 
-            self.phone_frame = tk.Frame(self.frame)
-            self.phone_frame.pack()
+            grade_max_frame = tk.Frame(frame)
+            grade_max_frame.pack()
 
-            self.type_frame = tk.Frame(self.frame)
-            self.type_frame.pack()
+            phone_frame = tk.Frame(frame)
+            phone_frame.pack()
+
+            type_frame = tk.Frame(frame)
+            type_frame.pack()
 
             # labels
-            self.name = tk.Label(self.name_frame, text="Institution Name: ", anchor="nw")
-            self.address = tk.Label(self.address_frame, text="Address: ", anchor="nw")
-            self.grade_min = tk.Label(self.grade_min_frame, text="Lowest Grade: ", anchor="nw")
-            self.grade_max = tk.Label(self.grade_max_frame, text="Highest Grade: ", anchor="nw")
-            self.phone = tk.Label(self.phone_frame, text="Institution Phone: ", anchor="nw")
-            self.institution_type = tk.Label(self.type_frame, text="Institution Type: ", anchor="nw")
+            name = tk.Label(name_frame, text="Institution Name: ", anchor="nw")
+            password = tk.Label(password_frame, text="Password: ", anchor="nw")
+            address = tk.Label(address_frame, text="Address: ", anchor="nw")
+            grade_min = tk.Label(grade_min_frame, text="Lowest Grade: ", anchor="nw")
+            grade_max = tk.Label(grade_max_frame, text="Highest Grade: ", anchor="nw")
+            phone = tk.Label(phone_frame, text="Institution Phone: ", anchor="nw")
+            institution_type = tk.Label(type_frame, text="Institution Type: ", anchor="nw")
 
             # text boxes
-            self.name_box = tk.Entry(self.name_frame)
-            self.address_box = tk.Entry(self.address_frame)
-            self.grade_min_box = tk.Entry(self.grade_min_frame)
-            self.grade_max_box = tk.Entry(self.grade_max_frame)
-            self.phone_box = tk.Entry(self.phone_frame)
-            self.institution_type_box = tk.Entry(self.type_frame)
+            self.name_box = tk.Entry(name_frame)
+            self.password_box = tk.Entry(password_frame)
+            self.address_box = tk.Entry(address_frame)
+            self.grade_min_box = tk.Entry(grade_min_frame)
+            self.grade_max_box = tk.Entry(grade_max_frame)
+            self.phone_box = tk.Entry(phone_frame)
+            self.institution_type_box = tk.Entry(type_frame)
 
             # pack items
-            self.name.pack(side=tk.LEFT)
+            name.pack(side=tk.LEFT)
             self.name_box.pack(side=tk.LEFT)
 
-            self.address.pack(side=tk.LEFT)
+            password.pack(side=tk.LEFT)
+            self.password_box.pack(side=tk.LEFT)
+
+            address.pack(side=tk.LEFT)
             self.address_box.pack(side=tk.LEFT)
 
-            self.grade_min.pack(side=tk.LEFT)
+            grade_min.pack(side=tk.LEFT)
             self.grade_min_box.pack(side=tk.LEFT)
 
-            self.grade_max.pack(side=tk.LEFT)
+            grade_max.pack(side=tk.LEFT)
             self.grade_max_box.pack(side=tk.LEFT)
 
-            self.phone.pack(side=tk.LEFT)
+            phone.pack(side=tk.LEFT)
             self.phone_box.pack(side=tk.LEFT)
 
-            self.institution_type.pack(side=tk.LEFT)
+            institution_type.pack(side=tk.LEFT)
             self.institution_type_box.pack(side=tk.LEFT)
 
             return self.top
         elif access_level is 1:
             self.top.title("Add New Educator")
+
+            # frames
+            f_name_frame = tk.Frame(frame)
+            f_name_frame.pack()
+
+            l_name_frame = tk.Frame(frame)
+            l_name_frame.pack()
+
+            phone_frame = tk.Frame(frame)
+            phone_frame.pack()
+
+            email_frame = tk.Frame(frame)
+            email_frame.pack()
+
+            password_frame = tk.Frame(frame)
+            password_frame.pack()
+
+            address_frame = tk.Frame(frame)
+            address_frame.pack()
+
+            courses_frame = tk.Frame(frame)
+            courses_frame.pack()
+
+            pref_subject_frame = tk.Frame(frame)
+            pref_subject_frame.pack()
+
+            license_frame = tk.Frame(frame)
+            license_frame.pack()
+
+            # labels
+            f_name = tk.Label(f_name_frame, text="First Name: ", anchor="nw")
+            l_name = tk.Label(l_name_frame, text="Last Name: ", anchor="nw")
+            password = tk.Label(password_frame, text="Password: ", anchor="nw")
+            address = tk.Label(address_frame, text="Address: ", anchor="nw")
+            courses = tk.Label(courses_frame, text="Courses Taught: ", anchor="nw")
+            phone = tk.Label(phone_frame, text="Phone: ", anchor="nw")
+            pref_subject = tk.Label(pref_subject_frame, text="Preferred Subjects: ", anchor="nw")
+            edu_license = tk.Label(license_frame, text="Educational License: ", anchor="nw")
+            email = tk.Label(email_frame, text="Email: ", anchor="nw")
+
+            # text boxes
+            self.f_name_box = tk.Entry(f_name_frame)
+            self.l_name_box = tk.Entry(l_name_frame)
+            self.password_box = tk.Entry(password_frame)
+            self.address_box = tk.Entry(address_frame)
+            self.courses_box = tk.Entry(courses_frame)
+            self.preferred_subject_box = tk.Entry(pref_subject_frame)
+            self.phone_box = tk.Entry(phone_frame)
+            self.email_box = tk.Entry(email_frame)
+            self.edu_license_box = tk.Entry(license_frame)
+
+            # pack items
+            f_name.pack(side=tk.LEFT)
+            self.f_name_box.pack(side=tk.LEFT)
+
+            l_name.pack(side=tk.LEFT)
+            self.l_name_box.pack(side=tk.LEFT)
+
+            password.pack(side=tk.LEFT)
+            self.password_box.pack(side=tk.LEFT)
+
+            address.pack(side=tk.LEFT)
+            self.address_box.pack(side=tk.LEFT)
+
+            courses.pack(side=tk.LEFT)
+            self.courses_box.pack(side=tk.LEFT)
+
+            phone.pack(side=tk.LEFT)
+            self.phone_box.pack(side=tk.LEFT)
+
+            pref_subject.pack(side=tk.LEFT)
+            self.preferred_subject_box.pack(side=tk.LEFT)
+
+            edu_license.pack(side=tk.LEFT)
+            self.edu_license_box.pack(side=tk.LEFT)
+
+            email.pack(side=tk.LEFT)
+            self.email_box.pack(side=tk.LEFT)
+
             return self.top
         elif access_level is 2:
             self.top.title("Add New Student")
