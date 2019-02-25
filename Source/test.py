@@ -12,7 +12,7 @@ Process to handle form
 5 direct user to the correct view
 '''
 d = forms.Form()  # create instance
-top = d.add_new(access_level=1)  # call the method to receive the top level obj
+top = d.add_new(access_level=2)  # call the method to receive the top level obj
 
 '''
 add the buttons you want to the frame to use the methods you want

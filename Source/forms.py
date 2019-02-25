@@ -38,6 +38,12 @@ class Form:
         self.preferred_subject_box = None
         self.email_box = None
         self.edu_license_box = None
+        self.emergency_contact_box = None
+        self.ec_phone_box = None
+        self.ec_relation = None
+        self.ec_email_box = None
+        self.current_grade_box = None
+        self.medical_notes_box = None
 
     def add_new(self, access_level):
         # form to add a new record
@@ -198,6 +204,93 @@ class Form:
             return self.top
         elif access_level is 2:
             self.top.title("Add New Student")
+
+            # frames
+            f_name_frame = tk.Frame(frame)
+            f_name_frame.pack()
+
+            l_name_frame = tk.Frame(frame)
+            l_name_frame.pack()
+
+            ec_phone_frame = tk.Frame(frame)
+            ec_phone_frame.pack()
+
+            ec_email_frame = tk.Frame(frame)
+            ec_email_frame.pack()
+
+            emergency_contact_frame = tk.Frame(frame)
+            emergency_contact_frame.pack()
+
+            relation_frame = tk.Frame(frame)
+            relation_frame.pack()
+
+            password_frame = tk.Frame(frame)
+            password_frame.pack()
+
+            medical_notes_frame = tk.Frame(frame)
+            medical_notes_frame.pack()
+
+            current_grade_frame = tk.Frame(frame)
+            current_grade_frame.pack()
+
+            address_frame = tk.Frame(frame)
+            address_frame.pack()
+
+            # labels
+            f_name = tk.Label(f_name_frame, text="First Name: ", anchor="nw")
+            l_name = tk.Label(l_name_frame, text="Last Name: ", anchor="nw")
+            password = tk.Label(password_frame, text="Password: ", anchor="nw")
+            address = tk.Label(address_frame, text="Address: ", anchor="nw")
+            emergency_contact = tk.Label(emergency_contact_frame, text="Emergency Contact Name: ", anchor="nw")
+            ec_phone = tk.Label(ec_phone_frame, text="Emergency Contact Phone: ", anchor="nw")
+            ec_email = tk.Label(ec_email_frame, text="Emergency Contact Email: ", anchor="nw")
+            ec_relation = tk.Label(relation_frame, text="Emergency Contact Relation: ", anchor="nw")
+            current_grade = tk.Label(current_grade_frame, text="Current Grade: ", anchor="nw")
+            medical_notes = tk.Label(medical_notes_frame, text="Medical Notes: ", anchor="nw")
+
+            # text boxes
+            self.f_name_box = tk.Entry(f_name_frame)
+            self.l_name_box = tk.Entry(l_name_frame)
+            self.password_box = tk.Entry(password_frame)
+            self.address_box = tk.Entry(address_frame)
+            self.emergency_contact_box = tk.Entry(emergency_contact_frame)
+            self.ec_phone_box = tk.Entry(ec_phone_frame)
+            self.ec_relation = tk.Entry(relation_frame)
+            self.ec_email_box = tk.Entry(ec_email_frame)
+            self.current_grade_box = tk.Entry(current_grade_frame)
+            self.medical_notes_box = tk.Entry(medical_notes_frame)
+
+            # pack items
+            f_name.pack(side=tk.LEFT)
+            self.f_name_box.pack(side=tk.LEFT)
+
+            l_name.pack(side=tk.LEFT)
+            self.l_name_box.pack(side=tk.LEFT)
+
+            password.pack(side=tk.LEFT)
+            self.password_box.pack(side=tk.LEFT)
+
+            address.pack(side=tk.LEFT)
+            self.address_box.pack(side=tk.LEFT)
+
+            emergency_contact.pack(side=tk.LEFT)
+            self.emergency_contact_box.pack(side=tk.LEFT)
+
+            ec_phone.pack(side=tk.LEFT)
+            self.ec_phone_box.pack(side=tk.LEFT)
+
+            ec_email.pack(side=tk.LEFT)
+            self.ec_email_box.pack(side=tk.LEFT)
+
+            ec_relation.pack(side=tk.LEFT)
+            self.ec_relation.pack(side=tk.LEFT)
+
+            current_grade.pack(side=tk.LEFT)
+            self.current_grade_box.pack(side=tk.LEFT)
+
+            medical_notes.pack(side=tk.LEFT)
+            self.medical_notes_box.pack(side=tk.LEFT)
+
             return self.top
         else:
             pass
