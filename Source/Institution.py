@@ -4,7 +4,8 @@ from Source import Account
 
 class Institution(Account):
 
-    def __init__(self, username, password, access, name='', address='', institution_type='', grade_min=0, grade_max=0, main_phone_num=''):
+    def __init__(self, username, password, access, name='', address='', institution_type='', grade_min=0, grade_max=0,
+                 main_phone_num=''):
 
         Account.__init__(self, username, password, access)
 
