@@ -8,7 +8,7 @@ class Account(ABC):
     # next id for a given account
     nextID = 1
 
-    def __init__(self, uname, password, access=1):
+    def __init__(self, uname, password, access=0):
         # class attributes
         # public
         self.ownerID = __class__.nextID
