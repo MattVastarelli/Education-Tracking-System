@@ -1,6 +1,13 @@
 from Source import forms
 import tkinter as tk
 
+"""
+login
+view class types
+add new classes
+
+"""
+
 '''
 Process to handle form 
 
