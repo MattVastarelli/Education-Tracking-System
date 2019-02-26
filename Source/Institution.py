@@ -53,15 +53,12 @@ class Institution(Account):
 
     # private
     # add student object with level = 2
-    def add_student(self, access_level=2):
+    def __add_student(self, access_level=2):
         s = forms.Form()  # create instance
         top = s.add_new(access_level=2)  # call the method to receive the top level obj
         top.title("Add New Student")
         button_frame = tk.Frame(top)
         button_frame.pack()
-
-        name = s.f_name_box.get()
-        print(name)
 
         save_button = tk.Button(button_frame, text="Save", command=lambda: self.create_new(2, s.f_name_box.get()))
         save_button.pack(side=tk.LEFT)
@@ -115,7 +112,6 @@ class Institution(Account):
 
     # private
     def create_new(self, access_level, something):
-
         if access_level is 2:
             print(something)
 
