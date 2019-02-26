@@ -4,33 +4,34 @@ from Source.Account import Account
 
 class Institution(Account):
 
-    def __init__(self, username, password, access):
+    def __init__(self, username, password, access, name, address, institution_type, grade_min, grade_max,
+                 main_phone_num):
 
-        super().__init__()
+        super().__init__(username, password, access)
 
         # public
         # institution name
-        self.name = None
+        self.name = name
 
         # public
         # institution address
-        self.address = None
+        self.address = address
 
         # public
         # institution type
-        self.institution_type = None
+        self.institution_type = institution_type
 
         # public
         # institution grade min
-        self.grade_min = None
+        self.grade_min = grade_min
 
         # public
         # institution grade max
-        self.grade_max = None
+        self.grade_max = grade_max
 
         # public
         # institution main phone number
-        self.main_phone_num = None
+        self.main_phone_num = main_phone_num
 
     # private
     # add educator object with level = 1
@@ -62,5 +63,22 @@ class Institution(Account):
     def __bulk_add_records(self, access_level, upload_file_name):
         pass
 
+    # private
+    def __log_in(self, user_name, password):
+        pass
 
-print(Institution)
+    # private
+    def __log_out(self):
+        pass
+
+    # private
+    def __view(self):
+        pass
+
+    # private
+    def __edit(self):
+        pass
+
+    # private
+    def create_new(self, access_level):
+        pass
