@@ -1,29 +1,84 @@
+import tkinter as tk
+import os as os
 from Source.Account import Account
+from Source.Institution import Institution
+from Source.Student import Student
 
 
 class Educator(Account):
-    # attributes of an Educator, that are not inherited from Account class
-    accessLevel = int()
-    username = ""
-    password = ""
-    fname = ""
-    lname = ""
-    __homeAddress = ""
-    __phoneNum = 0
-    __email = ""
-    __educatorID = int()
-    licenses = list()
-    __courses = list()
-    __prefSubjects = list()
-    gradeLevels = list()
-    currentInst = None
 
     # constructor
-    def __init__(self, username, password):
+    def __init__(self, username, password, fname, lname, home_add, phonenum, email = "", ed_id = int(), licenses = list(), courses = list(), pref_subjs = list(), gradelevels = list(), currentinst = None):
         super().__init__(username, password, 1)
+
+        # public
+        # first name
+        self.fname = fname
+
+        # public
+        # last name
+        self.lname = lname
+
+        # private
+        # home address
+        self.__homeAddress = home_add
+
+        # private
+        # phone number
+        self.__phoneNum = phonenum
+
+        # private
+        # email
+        self.__email = email
+
+        # private
+        # educator ID
+        self.__educatorID = ed_id
+
+        # public
+        # list of licenses held
+        self.licenses = licenses
+
+        # private
+        # courses taught/teaching
+        self.__courses = courses
+
+        # private
+        # preferred subjects to teach (if any)
+        self.__prefSubjects = pref_subjs
+
+        # public
+        # grade levels currently teaching
+        self.gradeLevels = gradelevels
+
+        # public
+        # current Institution/Employer
+        self.currentInst = currentinst
 
     # private
     def __view(self):
+        # what an Educator can see on their own profile
+        formInfo = [1,1]
+        formInfo.append(self.get_name())
+        formInfo.extend(self.get_personal_info())
+        formInfo.extend(self.get_professional_info())
+
+        # returns list: [viewer profile access level, viewed profile access level, Full Name,
+        # Phone Number, Email address, Home Address, Licenses Held, Educator ID, Preferred Subjects,
+        # Grade Levels Currently Teaching, Employer/Institution]
+        return formInfo
+
+
+    # private
+    def __viewStudent(self, Student):
+        # What an Educator sees on a Student's profile
+
+        pass
+
+    # private
+    def __viewInstitution(self):
+        # What an Educator sees on an Institution's profile
+
         pass
 
     # private
@@ -34,16 +89,20 @@ class Educator(Account):
     def create_new(self, access_level):
         return None
 
-    # ------------- Setters & Getters -------------------------
+    # ------------- Getters & Setters -------------------------
     def get_name(self):
-        name = ' '.join(self.fname, self.lname)
+        name = self.fname + " " + self.lname
         return name
 
     def get_personal_info(self):
-        return [self.__phoneNum, self.__email, self.__homeaddress]
+        return [self.__phoneNum, self.__email, self.__homeAddress]
 
     def get_professional_info(self):
-        return [self.license, self.__educatorID, self.__prefSubject, self.gradeLevel, self.currentInstitution]
+        return [self.licenses, self.__educatorID, self.__prefSubjects, self.gradeLevels, self.currentInst]
+
+    # getter for only public attributes, for when profile view called by lower access level
+    def get_public_info(self):
+        return [self.get_name(), self.licenses, self.gradeLevels, self.currentInst]
 
     # Functions for actions done by an Educator within system
 

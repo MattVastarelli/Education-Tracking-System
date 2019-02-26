@@ -1,6 +1,7 @@
 
 from Source.Account import Account
-
+from Source.Educator import Educator
+from Source.Student import Student
 
 class Institution(Account):
 
@@ -41,6 +42,21 @@ class Institution(Account):
     # private
     # add student object with level = 2
     def __add_student(self, access_level=2):
+        pass
+
+    # private
+    # view institution self
+    def __view_institution(self):
+        pass
+
+    # private
+    # view educator profile
+    def __view_educator(self):
+        pass
+
+    # private
+    # view student profile
+    def __view_student(self):
         pass
 
     # private

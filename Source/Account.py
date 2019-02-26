@@ -1,3 +1,7 @@
+#from .db import uss
+import os
+
+
 class Account:
     # this is the main abstract base account from which all accounts
     # will inherits and define the abstract methods
@@ -19,7 +23,7 @@ class Account:
 
     # private
     def log_in(self, user_name, password):
-        raise NotImplementedError
+        pass
 
     # private
     def log_out(self):
