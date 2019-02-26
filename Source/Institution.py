@@ -64,14 +64,6 @@ class Institution(Account):
         pass
 
     # private
-    def __log_in(self, user_name, password):
-        pass
-
-    # private
-    def __log_out(self):
-        pass
-
-    # private
     def __view(self):
         pass
 
@@ -81,4 +73,4 @@ class Institution(Account):
 
     # private
     def create_new(self, access_level):
-        pass
+        return None

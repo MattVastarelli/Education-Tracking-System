@@ -23,14 +23,6 @@ class Educator(Account):
         super().__init__(username, password, 1)
 
     # private
-    def __log_in(self, user_name, password):
-            pass
-
-    # private
-    def __log_out(self):
-            pass
-
-    # private
     def __view(self):
         pass
 
@@ -40,7 +32,7 @@ class Educator(Account):
 
     # private
     def create_new(self, access_level):
-        pass
+        return None
 
     # ------------- Setters & Getters -------------------------
     def get_name(self):
