@@ -78,8 +78,15 @@ class Educator(Account):
     # private
     def __viewInstitution(self):
         # What an Educator sees on an Institution's profile
+        # 2-25-19 NOT FINISHED! IN PROGRESS
+        script_dir = os.path.dirname(__file__)  # absolute dir the script is in
+        rel_path = "db/info.txt"
+        abs_file_path = os.path.join(script_dir, rel_path)
 
-        pass
+        file = open(abs_file_path, 'r')
+        file.close()
+        InstForm = [1, 0]
+        return InstForm
 
     # private
     def __edit(self):
