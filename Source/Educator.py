@@ -1,7 +1,7 @@
-from Source import Account, Institution
+from Source.Account import Account
 
 
-class Educator:
+class Educator(Account):
     # attributes of an Educator, that are not inherited from Account class
     accessLevel = int()
     username = ""
@@ -16,18 +16,13 @@ class Educator:
     courses = list()
     prefSubjects = list()
     gradeLevels = list()
-    currentInst = Institution()
+    currentInst = None
 
     # methods for the Educator class
 
     # constructor
-    def __init__(self, username, password):
-        Account.__init__(self, username, password, access=1)
-
-        # inherited data items being assigned
-        self.accessLevel = Account.access
-        self.username = Account.username
-        self.password = Account.password
+    def __init__(self, username, password, access_level):
+        super().__init__(username, password, access_level)
 
     # private function to replace a current grade with a new grade
     # done by pulling the table row specified by the passed in arguments, and updating the Grade attribute
@@ -40,7 +35,8 @@ class Educator:
         pass
 
     # private function to add a new grade object/row to every student in a given section
-    # done by creating grade objects for each student in the list of IDs, and adding their corresponding grade in the Grades list
+    # done by creating grade objects for each student in the list of IDs
+    # and adding their corresponding grade in the Grades list
     def __bulkAddGrades(studentIDs, Section, Unit, Grades):
         pass
 
@@ -59,3 +55,24 @@ class Educator:
     # function to view students assigned to Educator's active sections
     def viewStudents(self):
         pass
+
+    # private
+    def __log_in(self, user_name, password):
+            pass
+
+    # private
+    def __log_out(self):
+            pass
+
+    # private
+    def __view(self):
+        pass
+
+    # private
+    def __edit(self):
+        pass
+
+    # private
+    def create_new(self, access_level):
+        pass
+
