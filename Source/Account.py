@@ -36,3 +36,15 @@ class Account:
     # private
     def create_new(self, access_level):
         raise NotImplementedError
+
+    def get_user_name(self):
+        return self.__userName
+
+    def get_password(self):
+        return self.__password
+
+    def set_userName(self, username):
+        self.__userName = username
+
+    def set_password(self, password):
+        self.__password = password
