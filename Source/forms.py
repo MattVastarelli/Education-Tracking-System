@@ -97,6 +97,7 @@ class Form:
             self.phone_box = tk.Entry(phone_frame)
             self.institution_type_box = tk.Entry(type_frame)
 
+
             # pack items
             name.pack(side=tk.LEFT)
             self.name_box.pack(side=tk.LEFT)

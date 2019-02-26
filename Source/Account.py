@@ -18,11 +18,11 @@ class Account:
         self.__password = password
 
     # private
-    def __log_in(self, user_name, password):
+    def log_in(self, user_name, password):
         raise NotImplementedError
 
     # private
-    def __log_out(self):
+    def log_out(self):
         raise NotImplementedError
 
     # private
