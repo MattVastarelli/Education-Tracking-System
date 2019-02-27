@@ -1,5 +1,6 @@
 import tkinter as tk
-import os as os
+import os
+import csv
 from Source.Account import Account
 from Source.Institution import Institution
 from Source.Student import Student
@@ -70,22 +71,70 @@ class Educator(Account):
 
 
     # private
-    def __viewStudent(self, Student):
+    def __viewStudent(self, studentName):
         # What an Educator sees on a Student's profile
+        # passed in argument is student's full name
+        searchList = []
 
-        pass
-
-    # private
-    def __viewInstitution(self):
-        # What an Educator sees on an Institution's profile
-        # 2-25-19 NOT FINISHED! IN PROGRESS
         script_dir = os.path.dirname(__file__)  # absolute dir the script is in
-        rel_path = "db/info.txt"
+        rel_path = "db/students.txt"
         abs_file_path = os.path.join(script_dir, rel_path)
 
+        # processing the rows of the file to find correct Institute account info
         file = open(abs_file_path, 'r')
+        readRows = csv.reader(file, delimiter='\t')
+        for row in readRows:
+            searchList.append(row)
         file.close()
+
+        # searching for row with matching name
+        index = 0
+        for record in searchList:
+            name = record[4] + ' ' + record[5]
+            if name == studentName:
+                break
+            index += 1
+
+        StudForm = [1, 0]
+        # want to add items 4, 5, 10, 11, 12 from list at indicated index to StudForm
+        StudForm.append(name)
+        for i in range(10, 13):
+            StudForm.append(searchList[index][i])
+
+        # returns list: [viewer profile access level, viewed profile access level, Student Name,
+        # Current Grade Level, Grades, Grade Notes]
+        return StudForm
+
+    # private
+    def __viewInstitution(self, instName):
+        # What an Educator sees on an Institution's profile
+        searchList = []
+
+        script_dir = os.path.dirname(__file__)  # absolute dir the script is in
+        rel_path = "db/institutions.txt"
+        abs_file_path = os.path.join(script_dir, rel_path)
+
+        # processing in the rows of the file
+        file = open(abs_file_path, 'r')
+        readRows = csv.reader(file,delimiter='\t')
+        for row in readRows:
+            searchList.append(row)
+        file.close()
+
+        # searching for row with matching name
+        index = 0
+        for record in searchList:
+            if record[4] == instName:
+                break
+            index += 1
+
         InstForm = [1, 0]
+        # want to add items 4, 5, 6, 7, 8, 9 from list at indicated index to InstForm
+        for i in range(4,10):
+            InstForm.append(searchList[index][i])
+
+        # returns list: [viewer profile access level, viewed profile access level, Institute Name,
+        # Institute Address, Institute Type, min Grade Level, max Grade Level, Phone Number]
         return InstForm
 
     # private

@@ -1,10 +1,10 @@
 place all flat files in this directory
 
 Institutions file column order (tab-delimited):
-Access Level    Institute ID    username    password    Name	full address	type	min grade	max grade	phone number
+AccessLevel    InstituteID    username    password    Name	full-address	type	min-grade	max-grade	phone-number
 
 Educators file column order (tab-delimited):
-Access Level	educator ID	    username	password	first_name	last_name	full address	phone number	email	licenses	courses	preferred subjects	grade levels	current Institution (ID)
+AccessLevel	educatorID	    username	password	first_name	last_name	full-address	phone-number	email	licenses	courses	preferred-subjects	grade-levels	current-InstitutionID
 
 Students file column order (tab-delimited):
-Access Level    student ID	username    password    first name	last name	EC name	EC relationship	EC email	med notes	grades	current grade	grade notes	address
+AccessLevel    studentID	username    password    first-name	last-name	EC-name	EC-relationship	EC-email	med notes	grade-level	grades	grade-notes	address
