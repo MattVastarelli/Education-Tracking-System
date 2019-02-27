@@ -31,6 +31,7 @@ MANIFEST
 *.manifest
 *.spec
 
+/.idea
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
@@ -102,3 +103,11 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+.idea\
+.idea/
+*.xml
+*.xml
+*.xml
+*.xml
+.idea/Education-Tracking-System.iml
+*.xml

@@ -1,5 +1,13 @@
 from Source import forms
 import tkinter as tk
+import os
+
+"""
+login
+view class types
+add new classes
+
+"""
 
 '''
 Process to handle form 
@@ -28,4 +36,13 @@ close_button = tk.Button(button_frame, text="Close", command=top.destroy)
 close_button.pack(side=tk.LEFT)
 
 
-top.mainloop()  # run the code
+#top.mainloop()  # run the code
+
+script_dir = os.path.dirname(__file__)  # absolute dir the script is in
+rel_path = "db/info.txt"
+abs_file_path = os.path.join(script_dir, rel_path)
+
+file = open(abs_file_path, 'r')
+file.close()
+
+print(file.readlines())
