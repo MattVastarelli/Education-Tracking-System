@@ -7,23 +7,6 @@ class Form:
 
     def __init__(self):
         self.top = tk.Tk()
-        self.f_name = str()
-        self.l_name = str()
-        self.address = str()
-        self.grade_min = 0
-        self.grade_max = 12
-        self.phone = str()
-        self.license = list()
-        self.email = str()
-        self.preferred_subject = str()
-        self.student_id = int()
-        self.emergency_phone = str()
-        self.emergency_contact = str()
-        self.emergency_relation = str()
-        self.emergency_email = str()
-        self.notes = str()
-        self.type = str()
-
         # gui elements
         self.name_box = None
         self.password_box = None
@@ -44,6 +27,54 @@ class Form:
         self.ec_email_box = None
         self.current_grade_box = None
         self.medical_notes_box = None
+        self.user_name_box = None
+        self.password_box = None
+
+    def log_in(self):
+        # form to add a new record
+        self.top.resizable(width=False, height=False)
+        self.top.geometry("300x450")
+        self.top.title("Login")
+
+        # main frame
+        frame = tk.Frame(self.top)
+        frame.pack(pady=75)
+
+        # form fields names
+        user_name_frame = tk.Frame(frame)
+        user_name_frame.pack()
+
+        password_frame = tk.Frame(frame)
+        password_frame.pack(pady=25)
+
+        # labels
+        user_name = tk.Label(user_name_frame, text="User Name: ", anchor="nw")
+        password = tk.Label(password_frame, text="Password: ", anchor="nw")
+
+        # entry
+        self.user_name_box = tk.Entry(user_name_frame)
+        self.password_box = tk.Entry(password_frame)
+
+        # pack
+        user_name.pack(side=tk.LEFT)
+        self.user_name_box.pack(side=tk.LEFT)
+
+        password.pack(side=tk.LEFT)
+        self.password_box.pack(side=tk.LEFT)
+
+        return self.top
+
+    def get_login_data(self):
+        # use to retrieve login form data
+
+        u = self.user_name_box.get()
+        p = self.password_box.get()
+
+        data = {
+            "user_name": u, "password": p
+        }
+
+        return data
 
     def add_new(self, access_level):
         # form to add a new record
@@ -96,7 +127,6 @@ class Form:
             self.grade_max_box = tk.Entry(grade_max_frame)
             self.phone_box = tk.Entry(phone_frame)
             self.institution_type_box = tk.Entry(type_frame)
-
 
             # pack items
             name.pack(side=tk.LEFT)
@@ -348,7 +378,7 @@ class Form:
         # finds and displays a students grade
         pass
 
-    def eddit_account_info(self):
+    def edit_account_info(self):
         # edit form
         pass
 

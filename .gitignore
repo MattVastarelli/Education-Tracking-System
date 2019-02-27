@@ -111,3 +111,6 @@ venv.bak/
 *.xml
 .idea/Education-Tracking-System.iml
 *.xml
+.DS_Store
+*.xml
+.idea/misc.xml
