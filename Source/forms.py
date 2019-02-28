@@ -324,7 +324,64 @@ class Form:
 
             return self.top
         else:
-            pass
+            return None
+
+    def get_educator_data(self):
+        f_name = self.f_name_box.get()
+        l_name = self.l_name_box.get()
+        password = self.password_box.get()
+        address = self.address_box.get()
+        courses = self.courses_box.get()
+        pref_subject = self.preferred_subject_box.get()
+        phone = self.phone_box.get()
+        email = self.email_box.get()
+        edu_license = self.edu_license_box.get()
+
+        data = {
+            "first_name": f_name, "last_name": l_name, "password": password, "address": address,
+            "courses": courses, "preferred_subject": pref_subject, "phone": phone, "email": email,
+            "edu_license": edu_license
+        }
+
+        return data
+
+    def get_student_data(self):
+        f_name = self.f_name_box.get()
+        l_name = self.l_name_box.get()
+        password = self.password_box.get()
+        address = self.address_box.get()
+        ec_contact = self.emergency_contact_box.get()
+        phone = self.ec_phone_box.get()
+        relation = self.ec_relation.get()
+        email = self.ec_email_box.get()
+        current_grade = self.current_grade_box.get()
+        medical = self.medical_notes_box.get()
+
+        data = {
+            "first_name": f_name, "last_name": l_name, "password": password, "address": address,
+            "emergency_contact": ec_contact, "emergency_contact_phone": phone, "emergency_contact_email": email,
+            "emergency_contact_relation": relation, "current_grade": current_grade, "medical": medical
+        }
+
+        return data
+
+    def get_institution_data(self):
+
+        name = self.name_box.get()
+        password = self.password_box.get()
+        address = self.address_box.get()
+        min_grade = self.grade_min_box.get()
+        max_grade = self.grade_max_box.get()
+        phone = self.phone_box.get()
+        institution_type = self.institution_type_box.get()
+
+        data = {
+            "name": name, "password": password, "address": address,
+            "grade_min": min_grade, "grade_max": max_grade,
+            "phone": phone, "instution_type": institution_type
+        }
+
+        return data
 
     def view_student(self, access_level, data):
         self.top.resizable(width=False, height=False)

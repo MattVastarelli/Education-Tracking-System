@@ -5,7 +5,6 @@ import os
 """
 view class types
 add new classes
-
 """
 
 '''
