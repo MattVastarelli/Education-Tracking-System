@@ -324,7 +324,351 @@ class Form:
 
             return self.top
         else:
-            pass
+            return None
+
+    def get_educator_data(self):
+        f_name = self.f_name_box.get()
+        l_name = self.l_name_box.get()
+        password = self.password_box.get()
+        address = self.address_box.get()
+        courses = self.courses_box.get()
+        pref_subject = self.preferred_subject_box.get()
+        phone = self.phone_box.get()
+        email = self.email_box.get()
+        edu_license = self.edu_license_box.get()
+
+        data = {
+            "first_name": f_name, "last_name": l_name, "password": password, "address": address,
+            "courses": courses, "preferred_subject": pref_subject, "phone": phone, "email": email,
+            "edu_license": edu_license
+        }
+
+        return data
+
+    def get_student_data(self):
+        f_name = self.f_name_box.get()
+        l_name = self.l_name_box.get()
+        password = self.password_box.get()
+        address = self.address_box.get()
+        ec_contact = self.emergency_contact_box.get()
+        phone = self.ec_phone_box.get()
+        relation = self.ec_relation.get()
+        email = self.ec_email_box.get()
+        current_grade = self.current_grade_box.get()
+        medical = self.medical_notes_box.get()
+
+        data = {
+            "first_name": f_name, "last_name": l_name, "password": password, "address": address,
+            "emergency_contact": ec_contact, "emergency_contact_phone": phone, "emergency_contact_email": email,
+            "emergency_contact_relation": relation, "current_grade": current_grade, "medical": medical
+        }
+
+        return data
+
+    def get_institution_data(self):
+
+        name = self.name_box.get()
+        password = self.password_box.get()
+        address = self.address_box.get()
+        min_grade = self.grade_min_box.get()
+        max_grade = self.grade_max_box.get()
+        phone = self.phone_box.get()
+        institution_type = self.institution_type_box.get()
+
+        data = {
+            "name": name, "password": password, "address": address,
+            "grade_min": min_grade, "grade_max": max_grade,
+            "phone": phone, "instution_type": institution_type
+        }
+
+        return data
+
+    def view_student(self, access_level, data):
+        self.top.resizable(width=False, height=False)
+        self.top.geometry("550x350")
+        self.top.title("Student")
+
+        # main frame
+        frame = tk.Frame(self.top)
+        frame.pack()
+
+        # the items everyone can see
+        # frames
+        f_name_frame = tk.Frame(frame)
+        f_name_frame.pack()
+
+        l_name_frame = tk.Frame(frame)
+        l_name_frame.pack()
+
+        current_grade_frame = tk.Frame(frame)
+        current_grade_frame.pack()
+
+        current_institution_frame = tk.Frame(frame)
+        current_institution_frame.pack()
+
+        student_id_frame = tk.Frame(frame)
+        student_id_frame.pack()
+
+        # labels
+        f_name_label = tk.Label(f_name_frame, text="First Name: ", anchor="nw")
+        l_name_label = tk.Label(l_name_frame, text="Last Name: ", anchor="nw")
+        current_grade_label = tk.Label(current_grade_frame, text="Current Grade: ", anchor="nw")
+        current_institution_label = tk.Label(current_institution_frame, text="Current Institution: ", anchor="nw")
+        student_id_label = tk.Label(student_id_frame, text="Student ID: ", anchor="nw")
+
+        # data labels
+        f_name = tk.Label(f_name_frame, text="Data", anchor="nw")
+        l_name = tk.Label(l_name_frame, text="Data", anchor="nw")
+        current_grade = tk.Label(current_grade_frame, text="Data", anchor="nw")
+        current_institution = tk.Label(current_institution_frame, text="Data", anchor="nw")
+        student_id = tk.Label(student_id_frame, text="Data", anchor="nw")
+
+        # pack
+        f_name_label.pack(side=tk.LEFT)
+        f_name.pack(side=tk.LEFT)
+
+        l_name_label.pack(side=tk.LEFT)
+        l_name.pack(side=tk.LEFT)
+
+        current_grade_label.pack(side=tk.LEFT)
+        current_grade.pack(side=tk.LEFT)
+
+        current_institution_label.pack(side=tk.LEFT)
+        current_institution.pack(side=tk.LEFT)
+
+        student_id_label.pack(side=tk.LEFT)
+        student_id.pack(side=tk.LEFT)
+
+        if access_level is 0 or access_level is 2:
+            # institution view student
+            ec_phone_frame = tk.Frame(frame)
+            ec_phone_frame.pack()
+
+            ec_email_frame = tk.Frame(frame)
+            ec_email_frame.pack()
+
+            emergency_contact_frame = tk.Frame(frame)
+            emergency_contact_frame.pack()
+
+            relation_frame = tk.Frame(frame)
+            relation_frame.pack()
+
+            medical_notes_frame = tk.Frame(frame)
+            medical_notes_frame.pack()
+
+            current_grade_frame = tk.Frame(frame)
+            current_grade_frame.pack()
+
+            address_frame = tk.Frame(frame)
+            address_frame.pack()
+
+            address_label = tk.Label(address_frame, text="Address: ", anchor="nw")
+            emergency_contact_label = tk.Label(emergency_contact_frame, text="Emergency Contact Name: ", anchor="nw")
+            ec_phone_label = tk.Label(ec_phone_frame, text="Emergency Contact Phone: ", anchor="nw")
+            ec_email_label = tk.Label(ec_email_frame, text="Emergency Contact Email: ", anchor="nw")
+            ec_relation_label = tk.Label(relation_frame, text="Emergency Contact Relation: ", anchor="nw")
+            current_grade_label = tk.Label(current_grade_frame, text="Current Grade: ", anchor="nw")
+            medical_notes_label = tk.Label(medical_notes_frame, text="Medical Notes: ", anchor="nw")
+
+            # data
+            address = tk.Label(address_frame, text="Data", anchor="nw")
+            emergency_contact = tk.Label(emergency_contact_frame, text="Data", anchor="nw")
+            ec_phone = tk.Label(ec_phone_frame, text="Data", anchor="nw")
+            ec_email = tk.Label(ec_email_frame, text="Data", anchor="nw")
+            ec_relation = tk.Label(relation_frame, text="Data", anchor="nw")
+            current_grade = tk.Label(current_grade_frame, text="Data", anchor="nw")
+            medical_notes = tk.Label(medical_notes_frame, text="Data", anchor="nw")
+
+            address_label.pack(side=tk.LEFT)
+            address.pack(side=tk.LEFT)
+
+            emergency_contact_label.pack(side=tk.LEFT)
+            emergency_contact.pack(side=tk.LEFT)
+
+            ec_phone_label.pack(side=tk.LEFT)
+            ec_phone.pack(side=tk.LEFT)
+
+            ec_email_label.pack(side=tk.LEFT)
+            ec_email.pack(side=tk.LEFT)
+
+            ec_relation_label.pack(side=tk.LEFT)
+            ec_relation.pack(side=tk.LEFT)
+
+            current_grade_label.pack(side=tk.LEFT)
+            current_grade.pack(side=tk.LEFT)
+
+            medical_notes_label.pack(side=tk.LEFT)
+            medical_notes.pack(side=tk.LEFT)
+
+            return self.top
+        elif access_level is 1:
+            return  self.top
+        else:
+            return None
+
+    def view_educator(self, access_level, data):
+        self.top.resizable(width=False, height=False)
+        self.top.geometry("550x350")
+        self.top.title("Educator")
+
+        # main frame
+        frame = tk.Frame(self.top)
+        frame.pack()
+
+        f_name_frame = tk.Frame(frame)
+        f_name_frame.pack()
+
+        l_name_frame = tk.Frame(frame)
+        l_name_frame.pack()
+
+        email_frame = tk.Frame(frame)
+        email_frame.pack()
+
+        current_institution_frame = tk.Frame(frame)
+        current_institution_frame.pack()
+
+        # labels
+        f_name_label = tk.Label(f_name_frame, text="First Name: ", anchor="nw")
+        l_name_label = tk.Label(l_name_frame, text="Last Name: ", anchor="nw")
+        email_label = tk.Label(email_frame, text="Email: ", anchor="nw")
+        current_institution_label = tk.Label(current_institution_frame, text="Current Institution: ", anchor="nw")
+
+
+        # data labels
+        f_name = tk.Label(f_name_frame, text="Data", anchor="nw")
+        l_name = tk.Label(l_name_frame, text="Data", anchor="nw")
+        email = tk.Label(email_frame, text="Data", anchor="nw")
+        current_institution = tk.Label(current_institution_frame, text="Data", anchor="nw")
+
+        # pack
+        f_name_label.pack(side=tk.LEFT)
+        f_name.pack(side=tk.LEFT)
+
+        l_name_label.pack(side=tk.LEFT)
+        l_name.pack(side=tk.LEFT)
+
+        email_label.pack(side=tk.LEFT)
+        email.pack(side=tk.LEFT)
+
+        current_institution_label.pack(side=tk.LEFT)
+        current_institution.pack(side=tk.LEFT)
+
+        if access_level is 2:
+            return self.top
+        elif access_level is 0 or access_level is 1:
+            phone_frame = tk.Frame(frame)
+            phone_frame.pack()
+
+            address_frame = tk.Frame(frame)
+            address_frame.pack()
+
+            courses_frame = tk.Frame(frame)
+            courses_frame.pack()
+
+            pref_subject_frame = tk.Frame(frame)
+            pref_subject_frame.pack()
+
+            license_frame = tk.Frame(frame)
+            license_frame.pack()
+
+            # labels
+            address_label = tk.Label(address_frame, text="Address: ", anchor="nw")
+            courses_label = tk.Label(courses_frame, text="Courses Taught: ", anchor="nw")
+            phone_label = tk.Label(phone_frame, text="Phone: ", anchor="nw")
+            pref_subject_label = tk.Label(pref_subject_frame, text="Preferred Subjects: ", anchor="nw")
+            edu_license_label = tk.Label(license_frame, text="Educational License: ", anchor="nw")
+
+            address = tk.Label(address_frame, text="Data", anchor="nw")
+            courses = tk.Label(courses_frame, text="Data", anchor="nw")
+            phone = tk.Label(phone_frame, text="Data", anchor="nw")
+            pref_subject = tk.Label(pref_subject_frame, text="Data", anchor="nw")
+            edu_license = tk.Label(license_frame, text="Data", anchor="nw")
+
+            # pack
+            address_label.pack(side=tk.LEFT)
+            address.pack(side=tk.LEFT)
+
+            courses_label.pack(side=tk.LEFT)
+            courses.pack(side=tk.LEFT)
+
+            phone_label.pack(side=tk.LEFT)
+            phone.pack(side=tk.LEFT)
+
+            pref_subject_label.pack(side=tk.LEFT)
+            pref_subject.pack(side=tk.LEFT)
+
+            edu_license_label.pack(side=tk.LEFT)
+            edu_license.pack(side=tk.LEFT)
+
+            return self.top
+        else:
+            return None
+
+    def view_institution(self, access_level, data):
+        self.top.resizable(width=False, height=False)
+        self.top.geometry("550x350")
+        self.top.title("Institution")
+
+        # main frame
+        frame = tk.Frame(self.top)
+        frame.pack()
+
+        # frames
+        name_frame = tk.Frame(frame)
+        name_frame.pack()
+
+        password_frame = tk.Frame(frame)
+        password_frame.pack()
+
+        address_frame = tk.Frame(frame)
+        address_frame.pack()
+
+        grade_min_frame = tk.Frame(frame)
+        grade_min_frame.pack()
+
+        grade_max_frame = tk.Frame(frame)
+        grade_max_frame.pack()
+
+        phone_frame = tk.Frame(frame)
+        phone_frame.pack()
+
+        type_frame = tk.Frame(frame)
+        type_frame.pack()
+
+        # labels
+        name_label = tk.Label(name_frame, text="Institution Name: ", anchor="nw")
+        address_label = tk.Label(address_frame, text="Address: ", anchor="nw")
+        grade_min_label = tk.Label(grade_min_frame, text="Lowest Grade: ", anchor="nw")
+        grade_max_label = tk.Label(grade_max_frame, text="Highest Grade: ", anchor="nw")
+        phone_label = tk.Label(phone_frame, text="Institution Phone: ", anchor="nw")
+        institution_type_label = tk.Label(type_frame, text="Institution Type: ", anchor="nw")
+
+        name = tk.Label(name_frame, text="Data", anchor="nw")
+        address = tk.Label(address_frame, text="Data", anchor="nw")
+        grade_min = tk.Label(grade_min_frame, text="Data", anchor="nw")
+        grade_max = tk.Label(grade_max_frame, text="Data", anchor="nw")
+        phone = tk.Label(phone_frame, text="Data", anchor="nw")
+        institution_type = tk.Label(type_frame, text="Data", anchor="nw")
+
+        name_label.pack(side=tk.LEFT)
+        name.pack(side=tk.LEFT)
+
+        address_label.pack(side=tk.LEFT)
+        address.pack(side=tk.LEFT)
+
+        grade_min_label.pack(side=tk.LEFT)
+        grade_min.pack(side=tk.LEFT)
+
+        grade_max_label.pack(side=tk.LEFT)
+        grade_max.pack(side=tk.LEFT)
+
+        phone_label.pack(side=tk.LEFT)
+        phone.pack(side=tk.LEFT)
+
+        institution_type_label.pack(side=tk.LEFT)
+        institution_type.pack(side=tk.LEFT)
+
+        return self.top
 
     def offer_subject(self):
         # form to offer a subject

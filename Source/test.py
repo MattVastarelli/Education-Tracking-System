@@ -5,7 +5,6 @@ import os
 """
 view class types
 add new classes
-
 """
 
 '''
@@ -19,7 +18,7 @@ Process to handle form
 5 direct user to the correct view
 '''
 d = forms.Form()  # create instance
-top = d.log_in()  # call the method to receive the top level obj
+top = d.view_institution(0, None)  # call the method to receive the top level obj
 
 
 # declaration of local func
@@ -36,6 +35,8 @@ def foobar(form_instace, data):
 add the buttons you want to the frame to use the methods you want
 to use to check the data
 '''
+
+"""
 button_frame = tk.Frame(top)
 button_frame.pack()
 
@@ -44,6 +45,8 @@ save_button.pack(side=tk.LEFT)
 
 close_button = tk.Button(button_frame, text="Close", command=top.destroy)
 close_button.pack(side=tk.LEFT)
+"""
+
 
 
 top.mainloop()  # run the code
