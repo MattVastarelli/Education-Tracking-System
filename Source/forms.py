@@ -556,14 +556,62 @@ class Form:
         frame = tk.Frame(self.top)
         frame.pack()
 
-        if access_level is 0:
-            pass
-        elif access_level is 1:
-            pass
-        elif access_level is 2:
-            pass
-        else:
-            return None
+        # frames
+        name_frame = tk.Frame(frame)
+        name_frame.pack()
+
+        password_frame = tk.Frame(frame)
+        password_frame.pack()
+
+        address_frame = tk.Frame(frame)
+        address_frame.pack()
+
+        grade_min_frame = tk.Frame(frame)
+        grade_min_frame.pack()
+
+        grade_max_frame = tk.Frame(frame)
+        grade_max_frame.pack()
+
+        phone_frame = tk.Frame(frame)
+        phone_frame.pack()
+
+        type_frame = tk.Frame(frame)
+        type_frame.pack()
+
+        # labels
+        name_label = tk.Label(name_frame, text="Institution Name: ", anchor="nw")
+        address_label = tk.Label(address_frame, text="Address: ", anchor="nw")
+        grade_min_label = tk.Label(grade_min_frame, text="Lowest Grade: ", anchor="nw")
+        grade_max_label = tk.Label(grade_max_frame, text="Highest Grade: ", anchor="nw")
+        phone_label = tk.Label(phone_frame, text="Institution Phone: ", anchor="nw")
+        institution_type_label = tk.Label(type_frame, text="Institution Type: ", anchor="nw")
+
+        name = tk.Label(name_frame, text="Data", anchor="nw")
+        address = tk.Label(address_frame, text="Data", anchor="nw")
+        grade_min = tk.Label(grade_min_frame, text="Data", anchor="nw")
+        grade_max = tk.Label(grade_max_frame, text="Data", anchor="nw")
+        phone = tk.Label(phone_frame, text="Data", anchor="nw")
+        institution_type = tk.Label(type_frame, text="Data", anchor="nw")
+
+        name_label.pack(side=tk.LEFT)
+        name.pack(side=tk.LEFT)
+
+        address_label.pack(side=tk.LEFT)
+        address.pack(side=tk.LEFT)
+
+        grade_min_label.pack(side=tk.LEFT)
+        grade_min.pack(side=tk.LEFT)
+
+        grade_max_label.pack(side=tk.LEFT)
+        grade_max.pack(side=tk.LEFT)
+
+        phone_label.pack(side=tk.LEFT)
+        phone.pack(side=tk.LEFT)
+
+        institution_type_label.pack(side=tk.LEFT)
+        institution_type.pack(side=tk.LEFT)
+
+        return self.top
 
     def offer_subject(self):
         # form to offer a subject
