@@ -19,7 +19,7 @@ Process to handle form
 5 direct user to the correct view
 '''
 d = forms.Form()  # create instance
-top = d.view_student(0, None)  # call the method to receive the top level obj
+top = d.view_educator(0, None)  # call the method to receive the top level obj
 
 
 # declaration of local func

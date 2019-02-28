@@ -382,7 +382,7 @@ class Form:
         student_id_label.pack(side=tk.LEFT)
         student_id.pack(side=tk.LEFT)
 
-        if access_level is 0 or 2:
+        if access_level is 0 or access_level is 2:
             # institution view student
             ec_phone_frame = tk.Frame(frame)
             ec_phone_frame.pack()
@@ -458,12 +458,92 @@ class Form:
         frame = tk.Frame(self.top)
         frame.pack()
 
-        if access_level is 0:
-            pass
-        elif access_level is 1:
-            pass
-        elif access_level is 2:
-            pass
+        f_name_frame = tk.Frame(frame)
+        f_name_frame.pack()
+
+        l_name_frame = tk.Frame(frame)
+        l_name_frame.pack()
+
+        email_frame = tk.Frame(frame)
+        email_frame.pack()
+
+        current_institution_frame = tk.Frame(frame)
+        current_institution_frame.pack()
+
+        # labels
+        f_name_label = tk.Label(f_name_frame, text="First Name: ", anchor="nw")
+        l_name_label = tk.Label(l_name_frame, text="Last Name: ", anchor="nw")
+        email_label = tk.Label(email_frame, text="Email: ", anchor="nw")
+        current_institution_label = tk.Label(current_institution_frame, text="Current Institution: ", anchor="nw")
+
+
+        # data labels
+        f_name = tk.Label(f_name_frame, text="Data", anchor="nw")
+        l_name = tk.Label(l_name_frame, text="Data", anchor="nw")
+        email = tk.Label(email_frame, text="Data", anchor="nw")
+        current_institution = tk.Label(current_institution_frame, text="Data", anchor="nw")
+
+        # pack
+        f_name_label.pack(side=tk.LEFT)
+        f_name.pack(side=tk.LEFT)
+
+        l_name_label.pack(side=tk.LEFT)
+        l_name.pack(side=tk.LEFT)
+
+        email_label.pack(side=tk.LEFT)
+        email.pack(side=tk.LEFT)
+
+        current_institution_label.pack(side=tk.LEFT)
+        current_institution.pack(side=tk.LEFT)
+
+        if access_level is 2:
+            return self.top
+        elif access_level is 0 or access_level is 1:
+            phone_frame = tk.Frame(frame)
+            phone_frame.pack()
+
+            address_frame = tk.Frame(frame)
+            address_frame.pack()
+
+            courses_frame = tk.Frame(frame)
+            courses_frame.pack()
+
+            pref_subject_frame = tk.Frame(frame)
+            pref_subject_frame.pack()
+
+            license_frame = tk.Frame(frame)
+            license_frame.pack()
+
+            # labels
+            address_label = tk.Label(address_frame, text="Address: ", anchor="nw")
+            courses_label = tk.Label(courses_frame, text="Courses Taught: ", anchor="nw")
+            phone_label = tk.Label(phone_frame, text="Phone: ", anchor="nw")
+            pref_subject_label = tk.Label(pref_subject_frame, text="Preferred Subjects: ", anchor="nw")
+            edu_license_label = tk.Label(license_frame, text="Educational License: ", anchor="nw")
+
+            address = tk.Label(address_frame, text="Data", anchor="nw")
+            courses = tk.Label(courses_frame, text="Data", anchor="nw")
+            phone = tk.Label(phone_frame, text="Data", anchor="nw")
+            pref_subject = tk.Label(pref_subject_frame, text="Data", anchor="nw")
+            edu_license = tk.Label(license_frame, text="Data", anchor="nw")
+
+            # pack
+            address_label.pack(side=tk.LEFT)
+            address.pack(side=tk.LEFT)
+
+            courses_label.pack(side=tk.LEFT)
+            courses.pack(side=tk.LEFT)
+
+            phone_label.pack(side=tk.LEFT)
+            phone.pack(side=tk.LEFT)
+
+            pref_subject_label.pack(side=tk.LEFT)
+            pref_subject.pack(side=tk.LEFT)
+
+            edu_license_label.pack(side=tk.LEFT)
+            edu_license.pack(side=tk.LEFT)
+
+            return self.top
         else:
             return None
 
