@@ -26,19 +26,19 @@ def start_screen(top):
     return top
 
 
-def create_institution(top):
+def create_institution_obj(top):
     top.destroy()
     f = Form()
     main_screen(f,0)
     return None
 
-def create_educator(top):
+def create_educator_obj(top):
     top.destroy()
     f = Form()
     main_screen(f, 0)
     return None
 
-def create_student(top):
+def create_student_obj(top):
     top.destroy()
     f = Form()
     main_screen(f, 0)
