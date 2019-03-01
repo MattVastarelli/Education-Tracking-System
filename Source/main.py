@@ -20,7 +20,7 @@ def start_screen(top):
     log_in_button.pack(side=tk.LEFT)
 
     institution_button = tk.Button(institution_frame, text="Create new Institution",
-                                   command= lambda: create_institution(top))
+                                   command= lambda: institution_creation(top))
     institution_button.pack(side=tk.LEFT)
 
     return top
