@@ -27,12 +27,21 @@ def start_screen(top):
 
 
 def create_institution(top):
+    top.destroy()
+    f = Form()
+    main_screen(f,0)
     return None
 
 def create_educator(top):
+    top.destroy()
+    f = Form()
+    main_screen(f, 0)
     return None
 
 def create_student(top):
+    top.destroy()
+    f = Form()
+    main_screen(f, 0)
     return None
 
 def institution_creation(top):
