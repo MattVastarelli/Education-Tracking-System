@@ -167,10 +167,10 @@ class Educator(Account):
     def __changeGrade__(studentID, Section, Unit, newGrade):
         pass
 
-    # private function to add a grade to a student's record
-    # done by adding the grade to the Grade table, then linking the Section, Unit, and Student ID to that entry
-    def __addGrade__(studentID, Section, Unit, Grade):
-        pass
+        # private function to add a grade to a student's record
+        # done by adding the grade to the Grade table, then linking the Section, Unit, and Student ID to that entry
+        def __addGrade__(studentID, Section, Unit, Grade):
+            pass
 
     # private function to add a new grade object/row to every student in a given section
     # done by creating grade objects for each student in the list of IDs
