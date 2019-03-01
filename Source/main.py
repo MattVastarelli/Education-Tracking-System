@@ -59,7 +59,7 @@ def institution_creation(top):
     back = tk.Button(button_frame, text="Back", command=lambda: main_screen(f, 0))
     back.pack(side=tk.LEFT, padx=10)
 
-    save_button = tk.Button(button_frame, text="Save", command=lambda: create_institution(f))
+    save_button = tk.Button(button_frame, text="Save", command=lambda: create_institution_obj(f))
     save_button.pack(side=tk.LEFT)
 
     return None
@@ -80,7 +80,7 @@ def student_creation(top):
     back.pack(side=tk.LEFT, padx=10)
 
 
-    save_button = tk.Button(button_frame, text="Save", command=lambda: create_student(f))
+    save_button = tk.Button(button_frame, text="Save", command=lambda: create_student_obj(f))
     save_button.pack(side=tk.LEFT)
 
     return None
@@ -101,7 +101,7 @@ def educator_creation(top):
     back.pack(side=tk.LEFT, padx=10)
 
 
-    save_button = tk.Button(button_frame, text="Save", command=lambda: create_educator(f))
+    save_button = tk.Button(button_frame, text="Save", command=lambda: create_educator_obj(f))
     save_button.pack(side=tk.LEFT)
 
     return None
