@@ -71,10 +71,10 @@ class Educator(Account):
 
 
     # private
-    def __viewStudent(self, studentName):
+    def __viewStudent(self, studentname):
         # What an Educator sees on a Student's profile
         # passed in argument is student's full name
-        searchList = []
+        searchlist = []
 
         script_dir = os.path.dirname(__file__)  # absolute dir the script is in
         rel_path = "db/students.txt"
@@ -82,16 +82,16 @@ class Educator(Account):
 
         # processing the rows of the file to find correct Institute account info
         file = open(abs_file_path, 'r')
-        readRows = csv.reader(file, delimiter='\t')
-        for row in readRows:
-            searchList.append(row)
+        readrows = csv.reader(file, delimiter='\t')
+        for row in readrows:
+            searchlist.append(row)
         file.close()
 
         # searching for row with matching name
         index = 0
-        for record in searchList:
+        for record in searchlist:
             name = record[4] + ' ' + record[5]
-            if name == studentName:
+            if name == studentname:
                 break
             index += 1
 
@@ -99,16 +99,16 @@ class Educator(Account):
         # want to add items 4, 5, 10, 11, 12 from list at indicated index to StudForm
         StudForm.append(name)
         for i in range(10, 13):
-            StudForm.append(searchList[index][i])
+            StudForm.append(searchlist[index][i])
 
         # returns list: [viewer profile access level, viewed profile access level, Student Name,
         # Current Grade Level, Grades, Grade Notes]
         return StudForm
 
     # private
-    def __viewInstitution(self, instName):
+    def __viewInstitution(self, instname):
         # What an Educator sees on an Institution's profile
-        searchList = []
+        searchlist = []
 
         script_dir = os.path.dirname(__file__)  # absolute dir the script is in
         rel_path = "db/institutions.txt"
@@ -118,20 +118,20 @@ class Educator(Account):
         file = open(abs_file_path, 'r')
         readRows = csv.reader(file,delimiter='\t')
         for row in readRows:
-            searchList.append(row)
+            searchlist.append(row)
         file.close()
 
         # searching for row with matching name
         index = 0
-        for record in searchList:
-            if record[4] == instName:
+        for record in searchlist:
+            if record[4] == instname:
                 break
             index += 1
 
         InstForm = [1, 0]
         # want to add items 4, 5, 6, 7, 8, 9 from list at indicated index to InstForm
         for i in range(4,10):
-            InstForm.append(searchList[index][i])
+            InstForm.append(searchlist[index][i])
 
         # returns list: [viewer profile access level, viewed profile access level, Institute Name,
         # Institute Address, Institute Type, min Grade Level, max Grade Level, Phone Number]
@@ -160,6 +160,49 @@ class Educator(Account):
     def get_public_info(self):
         return [self.get_name(), self.licenses, self.gradeLevels, self.currentInst]
 
+    def set_pw(self, password):
+        self.set_password(password)
+
+    def set_name(self, fname, lname):
+        self.fname = fname
+        self.lname = lname
+
+    def set_homeAddress(self, newadd):
+        self.__homeAddress = newadd
+
+    def set_phone(self, newphone):
+        self.__phoneNum = newphone
+
+    def set_email(self, newemail):
+        self.__email = newemail
+
+    def set_edID(self, newid):
+        self.__educatorID = newid
+
+    # private function to add a license to the licenses list
+    def new_lic(self, newLicense):
+        self.licenses.append(newLicense)
+
+    # private function to remove a license from the licenses list
+    def remove_lic(self, license):
+        self.licenses.remove(license)
+
+    # function to add new preferred subject to the preferred subject list
+    def new_pref_subj(self, subject):
+        self.__prefSubjects.append(subject)
+
+    # function to remove a subject type from the preferred subjects list
+    def remove_subject(self, subject):
+        self.__prefSubjects.remove(subject)
+
+    # function to add a grade level to the Educator's gradeLevels list
+    def new_gradelevel(self, gradenum):
+        self.gradeLevels.append(gradenum)
+
+    # function to remove a grade level from the gradeLevels list
+    def remove_gradelevel(self, gradenum):
+        self.gradeLevels.remove(gradenum)
+
     # Functions for actions done by an Educator within system
 
     # private function to replace a current grade with a new grade
@@ -167,10 +210,10 @@ class Educator(Account):
     def __changeGrade__(studentID, Section, Unit, newGrade):
         pass
 
-    # private function to add a grade to a student's record
-    # done by adding the grade to the Grade table, then linking the Section, Unit, and Student ID to that entry
-    def __addGrade__(studentID, Section, Unit, Grade):
-        pass
+        # private function to add a grade to a student's record
+        # done by adding the grade to the Grade table, then linking the Section, Unit, and Student ID to that entry
+        def __addGrade__(studentID, Section, Unit, Grade):
+            pass
 
     # private function to add a new grade object/row to every student in a given section
     # done by creating grade objects for each student in the list of IDs
@@ -181,10 +224,6 @@ class Educator(Account):
     # function to add a note for a grade, linked to a student account
     def addGradeNote(studentID, Section, Unit, Grade):
         pass
-
-    # private function to add a license to the list currently in the account
-    def __newLic__(self, newLicense):
-        self.licenses.append(newLicense)
 
     # function to view courses linked to current educator
     def viewCourses(self):
