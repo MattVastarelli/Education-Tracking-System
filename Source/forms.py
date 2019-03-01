@@ -30,6 +30,24 @@ class Form:
         self.user_name_box = None
         self.password_box = None
 
+    def main_screen(self):
+        self.top.resizable(width=False, height=False)
+        self.top.geometry("300x450")
+        self.top.title("EduTrack Dashboard")
+
+        return self.top
+
+    def destroy(self):
+        self.top.destroy()
+        return None
+
+    def start_screen(self):
+        self.top.resizable(width=False, height=False)
+        self.top.geometry("300x450")
+        self.top.title("Get Started")
+
+        return self.top
+
     def log_in(self):
         # form to add a new record
         self.top.resizable(width=False, height=False)
@@ -83,7 +101,7 @@ class Form:
 
         # main frame
         frame = tk.Frame(self.top)
-        frame.pack()
+        frame.pack(pady=25)
 
         if access_level is 0:
             self.top.title("Add New Institution")
