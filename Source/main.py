@@ -82,7 +82,7 @@ def start_screen(top):
     return top
 
 
-def create_institution_obj(top, data):
+def create_institution_obj(top, data, is_new):
     top.destroy()
     f = Form()
 
@@ -93,25 +93,29 @@ def create_institution_obj(top, data):
 
     inst.set_data(data_list)
 
-    write_list = [0, inst.ownerID, data['name'], data['password'], data['name'], data["address"],
-                  data['instution_type'], data['grade_max'], data['grade_min'], data['phone']]
+    if is_new:
+        write_list = [0, inst.ownerID, data['name'], data['password'], data['name'], data["address"],
+                      data['instution_type'], data['grade_max'], data['grade_min'], data['phone']]
 
-    write_to_file('institution', write_list,)
+        write_to_file('institution', write_list)
+        main_screen(f, 0, inst)
+    else:
+        return inst
 
-    main_screen(f,0, inst)
-    return None
 
-def create_educator_obj(top):
+def create_educator_obj(top, data, is_new):
     top.destroy()
     f = Form()
     main_screen(f, 0, None)
     return None
 
-def create_student_obj(top):
+
+def create_student_obj(top, data, is_new):
     top.destroy()
     f = Form()
     main_screen(f, 0, None)
     return None
+
 
 def institution_creation(top):
     top.destroy()
@@ -128,11 +132,12 @@ def institution_creation(top):
     back = tk.Button(button_frame, text="Back", command=lambda: main_screen(f, 0, None))
     back.pack(side=tk.LEFT, padx=10)
 
-    save_button = tk.Button(button_frame, text="Save", command=lambda: create_institution_obj(f,
-                                                                                              f.get_institution_data()))
+    save_button = tk.Button(button_frame, text="Save",
+                            command=lambda: create_institution_obj(f, f.get_institution_data(), True))
     save_button.pack(side=tk.LEFT)
 
     return None
+
 
 def first_creation(top):
     top.destroy()
@@ -155,6 +160,7 @@ def first_creation(top):
 
     return None
 
+
 def student_creation(top):
     top.destroy()
     f = Form()
@@ -175,6 +181,7 @@ def student_creation(top):
     save_button.pack(side=tk.LEFT)
 
     return None
+
 
 def educator_creation(top):
     top.destroy()
@@ -197,6 +204,7 @@ def educator_creation(top):
 
     return None
 
+
 def view_edu(top, access_level):
     top.destroy()
     f = Form()
@@ -213,6 +221,7 @@ def view_edu(top, access_level):
     back.pack(side=tk.LEFT, padx=10)
 
     return None
+
 
 def view_inst(top, access_level):
     top.destroy()
@@ -231,6 +240,7 @@ def view_inst(top, access_level):
 
     return None
 
+
 def view_student(top, access_level):
     top.destroy()
     f = Form()
@@ -247,6 +257,7 @@ def view_student(top, access_level):
     back.pack(side=tk.LEFT, padx=10)
 
     return None
+
 
 def main_screen(top, access_level, user):
     top.destroy()
@@ -302,6 +313,7 @@ def main_screen(top, access_level, user):
     close_button.pack(side=tk.LEFT, padx=10)
 
     return None
+
 
 def log_in(top):
     top.destroy()
