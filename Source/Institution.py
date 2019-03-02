@@ -59,22 +59,22 @@ class Institution(Account):
     def __set_main_phone_num(self, main_phone_num):
         self.main_phone_num = main_phone_num
 
-    def __get_name(self):
+    def get_name(self):
         return self.name
 
-    def __get_address(self):
+    def get_address(self):
         return self.address
 
-    def __get_institution_type(self):
+    def get_institution_type(self):
         return self.institution_type
 
-    def __get_grade_min(self):
+    def get_grade_min(self):
         return self.grade_min
 
-    def __get__grade_max(self):
+    def get__grade_max(self):
         return self.grade_max
 
-    def __get_main_phone_num(self):
+    def get_main_phone_num(self):
         return self.main_phone_num
 
     # private
