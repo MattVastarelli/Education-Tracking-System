@@ -3,63 +3,61 @@ from Source.Account import Account
 
 class Student(Account):
 
-    def __init__(self, username, password, access_level, fname='', lname='', student_id=0, emergency_contact='',
-                 relationship='', ec_email='', medical_notes='', grades='', educators='', current_institution='',
-                 current_grade=0, grade_notes='', home_address=''):
+    def __init__(self, username, password, access_level):
 
         super().__init__(username, password, access_level)
 
         # private
         # student first name
-        self.__fname = fname
+        self.__fname = ''
 
         # private
         # student first name
-        self.__lname = lname
+        self.__lname = ''
 
         # private
         # student studentID
-        self.__student_id = student_id
+        self.__student_id = 0
 
         # private
         # student emergency contact
-        self.__emergency_contact = emergency_contact
+        self.__emergency_contact = ''
 
         # private
         # student emergency contact relationship
-        self.__relationship = relationship
+        self.__relationship = ''
 
         # private
         # student emergency contact email
-        self.__ec_email = ec_email
+        self.__ec_email = ''
 
         # private
         # student medical notes
-        self.__medical_notes = medical_notes
+        self.__medical_notes = ''
 
         # private
         # student grades
-        self.__grades = grades
+        self.__grades = ''
 
         # private
         # student educators
-        self.__educators = educators
+        self.__educators = ''
 
         # private
         # student current institution
-        self.__current_institution = current_institution
+        self.__current_institution = ''
 
         # private
         # student current grade
-        self.__current_grade = current_grade
+        self.__current_grade = 0
 
         # private
         # student grade notes
-        self.__grade_notes = grade_notes
+        self.__grade_notes = ''
 
         # private
         # student home address
-        self.__home_address = home_address
+        self.__home_address = ''
 
     # private
     # view History
