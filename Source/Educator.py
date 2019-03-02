@@ -9,8 +9,8 @@ from Source.Student import Student
 class Educator(Account):
 
     # constructor
-    def __init__(self, username, password):
-        super().__init__(username, password, 1)
+    def __init__(self, username, password, is_new):
+        super().__init__(username, password, 1, is_new)
 
         # public
         # first name
@@ -173,6 +173,9 @@ class Educator(Account):
     # getter for only public attributes, for when profile view called by lower access level
     def get_public_info(self):
         return [self.get_name(), self.licenses, self.gradeLevels, self.currentInst]
+
+    def set_id(self, new_id):
+        self.set_id(new_id)
 
     def set_pw(self, password):
         self.set_password(password)

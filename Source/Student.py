@@ -3,9 +3,9 @@ from Source.Account import Account
 
 class Student(Account):
 
-    def __init__(self, username, password, access_level):
+    def __init__(self, username, password, access_level, is_new):
 
-        super().__init__(username, password, access_level)
+        super().__init__(username, password, access_level, is_new)
 
         # private
         # student first name
@@ -153,6 +153,9 @@ class Student(Account):
     # get home address
     def get_home_address(self):
         return self.__home_address
+
+    def set_id(self, new_id):
+        self.ownerID = new_id
 
     def set_fname(self, fname, lname):
         self.__fname = fname

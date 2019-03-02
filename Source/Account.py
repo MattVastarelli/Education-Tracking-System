@@ -81,3 +81,6 @@ class Account:
 
     def set_password(self, password):
         self.__password = password
+
+    def set_id(self, new_id):
+        self.ownerID = new_id

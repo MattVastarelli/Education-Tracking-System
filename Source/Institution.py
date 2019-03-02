@@ -3,9 +3,9 @@ from Source.Account import Account
 
 class Institution(Account):
 
-    def __init__(self, username, password, access):
+    def __init__(self, username, password, access, is_new):
 
-        super().__init__(username, password, access)
+        super().__init__(username, password, access, is_new)
 
         # public
         # institution name
@@ -40,6 +40,9 @@ class Institution(Account):
         self.main_phone_num = data[5]
 
         return None
+
+    def set_id(self, new_id):
+        self.ownerID = new_id
 
     def __set_name(self, name):
         self.name = name
