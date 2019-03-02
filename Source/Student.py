@@ -59,20 +59,20 @@ class Student(Account):
         # student home address
         self.__home_address = ''
 
-    def set_data(self):
-        self.__fname = ''
-        self.__lname = ''
-        self.__student_id = 0
-        self.__emergency_contact = ''
-        self.__relationship = ''
-        self.__ec_email = ''
-        self.__medical_notes = ''
-        self.__grades = ''
-        self.__educators = ''
-        self.__current_institution = ''
-        self.__current_grade = 0
-        self.__grade_notes = ''
-        self.__home_address = ''
+    def set_data(self, data):
+        self.__fname = data[0]
+        self.__lname = data[1]
+        self.__student_id = data[2]
+        self.__emergency_contact = data[3]
+        self.__relationship = data[4]
+        self.__ec_email = data[5]
+        self.__medical_notes = data[6]
+        self.__grades = data[6]
+        self.__educators = data[7]
+        self.__current_institution = data[8]
+        self.__current_grade = data[9]
+        self.__grade_notes = data[10]
+        self.__home_address = data[11]
         return None
 
     # private
