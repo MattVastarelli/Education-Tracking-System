@@ -59,6 +59,22 @@ class Student(Account):
         # student home address
         self.__home_address = ''
 
+    def set_data(self):
+        self.__fname = ''
+        self.__lname = ''
+        self.__student_id = 0
+        self.__emergency_contact = ''
+        self.__relationship = ''
+        self.__ec_email = ''
+        self.__medical_notes = ''
+        self.__grades = ''
+        self.__educators = ''
+        self.__current_institution = ''
+        self.__current_grade = 0
+        self.__grade_notes = ''
+        self.__home_address = ''
+        return None
+
     # private
     # view History
     def view_history(self):
