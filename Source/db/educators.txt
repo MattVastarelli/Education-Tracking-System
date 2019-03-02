@@ -1,5 +1,5 @@
-1	beide	biddie	Biddie	Eidelman	"98 American Alley, Schenectady, NY, 12305"	518-179-6886	beidelman0@home.pl	96313	"Math, English, Elementary Education"	''	Math	3	23
-1	rbrem	rosana	Rosana	Bremen	"353 Arrowood Point, New York City, NY, 10045"	212-137-1512	rbremen1@archive.org	5060	"Secondary Education, History"	''	History	"9, 10"	34
-1	aclem	adele	Adele	Clementet	"4792 Warrior Alley, Rochester, NY, 14614"	315-777-0681	aclementet2@wikispaces.com	12	Elementary Education	''	"English, Science"	4	23
-1	clabo	cosimo	Cosimo	Laborde	"93 Di Loreto Point, Elizabeth, NJ, 07208"	908-744-1931	claborde3@usatoday.com	6166	"History, Latin"	''	"Latin 1, World History"	"10, 11"	34
-1	bweat	brier	Brier	Weathey	"385 Pond Circle, Bronx, NY, 10459"	718-762-4466	bweathey4@youtu.be	23	"English, Secondary Education, Math"	''	English	5	34
+1	13  beide	biddie	Biddie	Eidelman	"98 American Alley, Schenectady, NY, 12305"	518-179-6886	beidelman0@home.pl	96313	"Math, English, Elementary Education"	''	Math	3	0
+1	14  rbrem	rosana	Rosana	Bremen	"353 Arrowood Point, New York City, NY, 10045"	212-137-1512	rbremen1@archive.org	5060	"Secondary Education, History"	''	History	"9, 10"	1
+1	15  aclem	adele	Adele	Clementet	"4792 Warrior Alley, Rochester, NY, 14614"	315-777-0681	aclementet2@wikispaces.com	12	Elementary Education	''	"English, Science"	4	0
+1	16  clabo	cosimo	Cosimo	Laborde	"93 Di Loreto Point, Elizabeth, NJ, 07208"	908-744-1931	claborde3@usatoday.com	6166	"History, Latin"	''	"Latin 1, World History"	"10, 11"	1
+1	17  bweat	brier	Brier	Weathey	"385 Pond Circle, Bronx, NY, 10459"	718-762-4466	bweathey4@youtu.be	23	"English, Secondary Education, Math"	''	English	5	1

@@ -5,14 +5,20 @@ class Account:
     # this is the main abstract base account from which all accounts
     # will inherits and define the abstract methods
 
-    # next id for a given account
-    nextID = 1
-
     def __init__(self, uname, password, access):
         # class attributes
         # public
-        self.ownerID = __class__.nextID
-        __class__.nextID += 1
+        script_dir = os.path.dirname(__file__)  # absolute dir the script is in
+        rel_path = "db/users.txt"
+        abs_file_path = os.path.join(script_dir, rel_path)
+        file = open(abs_file_path, 'r+')
+        next_id = int(file.read())
+
+        self.ownerID = next_id
+        next_id += 1
+        file.write(str(next_id))
+        file.close()
+
 
         self.accessLevel = access
 
