@@ -1,39 +1,45 @@
 
-from Source import Account
-from Source import main
-from Source import forms
-import tkinter as tk
+from Source.Account import Account
 
 class Institution(Account):
 
-    def __init__(self, username, password, access, name, address, institution_type, grade_min, grade_max,
-                 main_phone_num):
+    def __init__(self, username, password, access):
 
         super().__init__(username, password, access)
 
         # public
         # institution name
-        self.name = name
+        self.name = ''
 
         # public
         # institution address
-        self.address = address
+        self.address = ''
 
         # public
         # institution type
-        self.institution_type = institution_type
+        self.institution_type = ''
 
         # public
         # institution grade min
-        self.grade_min = grade_min
+        self.grade_min = ''
 
         # public
         # institution grade max
-        self.grade_max = grade_max
+        self.grade_max = ''
 
         # public
         # institution main phone number
-        self.main_phone_num = main_phone_num
+        self.main_phone_num = ''
+
+    def set_data(self, data):
+        self.name = data[0]
+        self.address = data[1]
+        self.institution_type = data[2]
+        self.grade_max = data[3]
+        self.grade_min = data[4]
+        self.main_phone_num = data[5]
+
+        return None
 
     def __set_name(self, name):
         self.name = name
