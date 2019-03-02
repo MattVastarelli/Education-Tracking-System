@@ -9,52 +9,67 @@ from Source.Student import Student
 class Educator(Account):
 
     # constructor
-    def __init__(self, username, password, fname, lname, home_add, phonenum, email = "", ed_id = int(), licenses = list(), courses = list(), pref_subjs = list(), gradelevels = list(), currentinst = None):
+    def __init__(self, username, password):
         super().__init__(username, password, 1)
 
         # public
         # first name
-        self.fname = fname
+        self.fname = ''
 
         # public
         # last name
-        self.lname = lname
+        self.lname = ''
 
         # private
         # home address
-        self.__homeAddress = home_add
+        self.__homeAddress = ''
 
         # private
         # phone number
-        self.__phoneNum = phonenum
+        self.__phoneNum = ''
 
         # private
         # email
-        self.__email = email
+        self.__email = ''
 
         # private
         # educator ID
-        self.__educatorID = ed_id
+        self.__educatorID = 0
 
         # public
         # list of licenses held
-        self.licenses = licenses
+        self.licenses = list()
 
         # private
         # courses taught/teaching
-        self.__courses = courses
+        self.__courses = list()
 
         # private
         # preferred subjects to teach (if any)
-        self.__prefSubjects = pref_subjs
+        self.__prefSubjects = ''
 
         # public
         # grade levels currently teaching
-        self.gradeLevels = gradelevels
+        self.gradeLevels = list()
 
         # public
         # current Institution/Employer
-        self.currentInst = currentinst
+        self.currentInst = ''
+
+    def set_data(self, data):
+        self.fname = data[0]
+        self.lname = data[1]
+        self.__homeAddress = data[2]
+        self.__phoneNum = data[3]
+        self.__email = data[4]
+        self.__educatorID = data[5]
+        self.licenses = data[6]
+        self.__courses = data[7]
+        self.__prefSubjects = data[8]
+        self.gradeLevels = data[9]
+        self.currentInst = data[10]
+
+        return None
 
     # private
     def __view(self):
