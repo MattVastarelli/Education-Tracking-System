@@ -33,7 +33,7 @@ def log_in_search(login_data, top):
 
             if user_name_match and password_match:
                 data = {
-                    "user_name": user, "password": password
+                    "user_name": user, "password": password, "user_id": split[3], "access_level": split[2]
                 }
 
                 if split[2] is 0:
@@ -66,7 +66,7 @@ def write_to_file(obj_type, data):
     abs_file_path = os.path.join(script_dir, user_path)
 
     user_file = open(abs_file_path, 'a', newline='')
-    user_data = [data[2], data[3], data[0]] # username pass access level
+    user_data = [data[2], data[3], data[0], data[1]] # username, pass, access level, user_id
     user_writer = csv.writer(user_file, delimiter='\t')
     user_writer.writerow(user_data)
     user_file.close()
@@ -102,7 +102,7 @@ def create_institution_obj(top, data, is_new):
 
     f = Form()
 
-    inst = Institution(data['name'], data['password'], 0)
+    inst = Institution(data['name'], data['password'], 0, is_new)
 
     if is_new:
         data_list = [data['name'], data["address"], data['instution_type'], data['grade_max'],
@@ -110,15 +110,32 @@ def create_institution_obj(top, data, is_new):
 
         inst.set_data(data_list)
 
-        write_list = [0, inst.ownerID, data['name'], data['password'], data['name'], data["address"],
+        write_list = [inst.ownerID, 0, data['name'], data['password'], data['name'], data["address"],
                       data['instution_type'], data['grade_min'], data['grade_max'], data['phone']]
 
         write_to_file('institution', write_list)
         main_screen(f, 0, inst)
     else:
+        # "user_name": user, "password": password, "user_id": split[3], "access_level": split[2]
         # search for record
+        script_dir = os.path.dirname(__file__)  # absolute dir the script is in
+        rel_path = "db/institutions.txt"
+        abs_file_path = os.path.join(script_dir, rel_path)
 
+        return_list = list()
+
+        with open(abs_file_path) as f:
+            content = f.readlines()
+            content = [x.strip() for x in content]
+
+            for line in content:
+                split = line.split()  # choose split type
+                if split[0] == str(1):
+                    return_list = line.split()
         # fill in data
+        inst.set_id(return_list[0])
+        inst.set_data(return_list[4:])
+
         return inst
 
 

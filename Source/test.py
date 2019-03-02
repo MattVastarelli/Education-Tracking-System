@@ -7,6 +7,30 @@ view class types
 add new classes
 """
 
+
+
+script_dir = os.path.dirname(__file__)  # absolute dir the script is in
+rel_path = "db/test.txt"
+abs_file_path = os.path.join(script_dir, rel_path)
+
+return_list = list()
+
+with open(abs_file_path) as f:
+    content = f.readlines()
+    content = [x.strip() for x in content]
+
+    for line in content:
+        split = line.split()  # choose split type
+        if split[0]  == str(1):
+            return_list = line.split()
+
+
+
+    print(return_list)
+
+
+
+
 '''
 Process to handle form 
 
@@ -17,8 +41,8 @@ Process to handle form
 4 process the data in the correct object
 5 direct user to the correct view
 '''
-d = forms.Form()  # create instance
-top = d.view_institution(0, None)  # call the method to receive the top level obj
+#d = forms.Form()  # create instance
+#top = d.view_institution(0, None)  # call the method to receive the top level obj
 
 
 # declaration of local func
@@ -48,7 +72,7 @@ close_button.pack(side=tk.LEFT)
 """
 
 
-top.mainloop()  # run the code
+#top.mainloop()  # run the code
 
 """
 script_dir = os.path.dirname(__file__)  # absolute dir the script is in

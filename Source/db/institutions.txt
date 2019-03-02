@@ -1,2 +1,2 @@
 0	0	chelem	123abc	Chatterbridge Elementary	"590 Surrey Avenue, Hicksville, NY, 11854"	Public	K	5	516-657-6771
-0	1	dmzinst	abc123	Demizz Institute	"3 Carpenter Plaza, Rochester, NY, 14619"	Private	K	12	585-702-0083
+1	0	dmzinst	abc123	Demizz Institute	"3 Carpenter Plaza, Rochester, NY, 14619"	Private	K	12	585-702-0083
