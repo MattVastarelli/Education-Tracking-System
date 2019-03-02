@@ -1,2 +1,3 @@
 0	0	chelem	123abc	Chatterbridge Elementary	"590 Surrey Avenue, Hicksville, NY, 11854"	Public	K	5	516-657-6771
 1	0	dmzinst	abc123	Demizz Institute	"3 Carpenter Plaza, Rochester, NY, 14619"	Private	K	12	585-702-0083
+19	0	Fairfield Middle School	ffld	Fairfield Middle School	1 Woods Rd, Fairfield	Public	6	8	203-555-5555
