@@ -32,6 +32,7 @@ def write_to_file(obj_type, data):
 
     return None
 
+
 def start_screen(top):
     # main frame
     frame = tk.Frame(top)
@@ -47,7 +48,7 @@ def start_screen(top):
     log_in_button.pack(side=tk.LEFT)
 
     institution_button = tk.Button(institution_frame, text="Create new Institution",
-                                   command= lambda: institution_creation(top))
+                                   command= lambda: first_creation(top))
     institution_button.pack(side=tk.LEFT)
 
     return top
@@ -97,6 +98,27 @@ def institution_creation(top):
     button_frame.pack()
 
     back = tk.Button(button_frame, text="Back", command=lambda: main_screen(f, 0, None))
+    back.pack(side=tk.LEFT, padx=10)
+
+    save_button = tk.Button(button_frame, text="Save", command=lambda: create_institution_obj(f,
+                                                                                              f.get_institution_data()))
+    save_button.pack(side=tk.LEFT)
+
+    return None
+
+def first_creation(top):
+    top.destroy()
+    f = Form()
+
+    f.add_new(0)
+
+    frame = tk.Frame()
+    frame.pack(pady=10)
+
+    button_frame = tk.Frame(frame)
+    button_frame.pack()
+
+    back = tk.Button(button_frame, text="Close", command=f.destroy)
     back.pack(side=tk.LEFT, padx=10)
 
     save_button = tk.Button(button_frame, text="Save", command=lambda: create_institution_obj(f,
