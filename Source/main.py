@@ -24,7 +24,6 @@ def log_in_search(login_data, top):
 
         for line in content:
             split = line.split()  # choose split type
-            print(split)
 
             if user in split[0]:
                 user_name_match = True
@@ -36,17 +35,16 @@ def log_in_search(login_data, top):
                     "user_name": user, "password": password, "user_id": split[3], "access_level": split[2]
                 }
 
-                if split[2] is 0:
-                    obj = create_institution_obj(None, data, False)
-                elif split[2] is 1:
+                if split[2] == str(0):
+                    top.destroy()
+                    obj = create_institution_obj(top, data, False)
+                    main_screen(top, int(split[2]), obj)
+                elif split[2] == str(1):
                     pass
-                elif split[2] is 2:
+                elif split[2] == str(2):
                     pass
                 else:
                     return None
-
-                main_screen(top, split[2], obj)
-
     return None
 
 def write_to_file(obj_type, data):
@@ -96,15 +94,12 @@ def start_screen(top):
 
 
 def create_institution_obj(top, data, is_new):
-
-    if top is not None:
-        top.destroy()
+    #top.destroy()
 
     f = Form()
 
-    inst = Institution(data['name'], data['password'], 0, is_new)
-
     if is_new:
+        inst = Institution(data['name'], data['password'], 0, is_new)
         data_list = [data['name'], data["address"], data['instution_type'], data['grade_max'],
                      data['grade_min'], data['phone']]
 
@@ -116,6 +111,7 @@ def create_institution_obj(top, data, is_new):
         write_to_file('institution', write_list)
         main_screen(f, 0, inst)
     else:
+        inst = Institution(data['user_name'], data['password'], 0, is_new)
         # "user_name": user, "password": password, "user_id": split[3], "access_level": split[2]
         # search for record
         script_dir = os.path.dirname(__file__)  # absolute dir the script is in
@@ -299,7 +295,7 @@ def view_student(top, access_level):
 
 
 def main_screen(top, access_level, user):
-    top.destroy()
+    #top.destroy()
     f = Form()
     f.main_screen()
 
