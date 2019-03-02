@@ -32,7 +32,20 @@ def log_in_search(login_data, top):
                 password_match = True
 
             if user_name_match and password_match:
-                main_screen(top, split[2], None)
+                data = {
+                    "user_name": user, "password": password
+                }
+
+                if split[2] is 0:
+                    obj = create_institution_obj(None, data, False)
+                elif split[2] is 1:
+                    pass
+                elif split[2] is 2:
+                    pass
+                else:
+                    return None
+
+                main_screen(top, split[2], obj)
 
     return None
 
@@ -83,23 +96,29 @@ def start_screen(top):
 
 
 def create_institution_obj(top, data, is_new):
-    top.destroy()
+
+    if top is not None:
+        top.destroy()
+
     f = Form()
 
     inst = Institution(data['name'], data['password'], 0)
 
-    data_list = [data['name'], data["address"], data['instution_type'], data['grade_max'],
-                 data['grade_min'], data['phone']]
-
-    inst.set_data(data_list)
-
     if is_new:
+        data_list = [data['name'], data["address"], data['instution_type'], data['grade_max'],
+                     data['grade_min'], data['phone']]
+
+        inst.set_data(data_list)
+
         write_list = [0, inst.ownerID, data['name'], data['password'], data['name'], data["address"],
-                      data['instution_type'], data['grade_max'], data['grade_min'], data['phone']]
+                      data['instution_type'], data['grade_min'], data['grade_max'], data['phone']]
 
         write_to_file('institution', write_list)
         main_screen(f, 0, inst)
     else:
+        # search for record
+
+        # fill in data
         return inst
 
 
@@ -154,8 +173,8 @@ def first_creation(top):
     back = tk.Button(button_frame, text="Close", command=f.destroy)
     back.pack(side=tk.LEFT, padx=10)
 
-    save_button = tk.Button(button_frame, text="Save", command=lambda: create_institution_obj(f,
-                                                                                              f.get_institution_data()))
+    save_button = tk.Button(button_frame, text="Save",
+                            command=lambda: create_institution_obj(f, f.get_institution_data(), True))
     save_button.pack(side=tk.LEFT)
 
     return None
@@ -198,7 +217,6 @@ def educator_creation(top):
     back = tk.Button(button_frame, text="Back", command=lambda: main_screen(f, 0, None))
     back.pack(side=tk.LEFT, padx=10)
 
-
     save_button = tk.Button(button_frame, text="Save", command=lambda: create_educator_obj(f))
     save_button.pack(side=tk.LEFT)
 
@@ -223,11 +241,15 @@ def view_edu(top, access_level):
     return None
 
 
-def view_inst(top, access_level):
+def view_inst(top, access_level, user):
     top.destroy()
     f = Form()
 
-    f.view_institution(access_level, None)
+    # get the data form the obj
+    data = [user.get_name(), user.get_address(), user.get_institution_type(),
+            user.get_grade_min(), user.get__grade_max(), user.get_main_phone_num()]
+
+    f.view_institution(access_level, data)
 
     frame = tk.Frame()
     frame.pack(pady=10)
@@ -301,7 +323,7 @@ def main_screen(top, access_level, user):
         view_edu_button = tk.Button(button_frame_3, text="View Educator", command=lambda: view_edu(f, 0))
         view_edu_button.pack(side=tk.LEFT, pady=10)
 
-        view_inst_button = tk.Button(button_frame_4, text="View Institution", command=lambda: view_inst(f, 0))
+        view_inst_button = tk.Button(button_frame_4, text="View Institution", command=lambda: view_inst(f, 0, user))
         view_inst_button.pack(side=tk.LEFT, pady=10)
 
         view_student_button = tk.Button(button_frame_5, text="View Student", command=lambda: view_student(f, 0))
