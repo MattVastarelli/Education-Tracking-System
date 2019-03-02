@@ -1,4 +1,3 @@
-#from .db import uss
 import os
 
 
@@ -24,7 +23,7 @@ class Account:
     # private
     def log_in(self, user_name, password):
         script_dir = os.path.dirname(__file__)  # absolute dir the script is in
-        rel_path = "db/info.txt"
+        rel_path = "db/users.txt"
         abs_file_path = os.path.join(script_dir, rel_path)
         user_name_match = False
         password_match = False

@@ -33,7 +33,7 @@ class Form:
     def main_screen(self):
         self.top.resizable(width=False, height=False)
         self.top.geometry("300x450")
-        self.top.title("EduTrack Dashboard")
+        self.top.title("EduTrac Dashboard")
 
         return self.top
 

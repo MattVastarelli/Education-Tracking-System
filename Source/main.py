@@ -8,6 +8,34 @@ import csv
 import os
 
 
+def log_in_search(login_data, top):
+    user = login_data['user_name']
+    password = login_data['password']
+
+    script_dir = os.path.dirname(__file__)  # absolute dir the script is in
+    rel_path = "db/users.txt"
+    abs_file_path = os.path.join(script_dir, rel_path)
+    user_name_match = False
+    password_match = False
+
+    with open(abs_file_path) as f:
+        content = f.readlines()
+        content = [x.strip() for x in content]
+
+        for line in content:
+            split = line.split()  # choose split type
+            print(split)
+
+            if user in split[0]:
+                user_name_match = True
+            if password in split[1]:
+                password_match = True
+
+            if user_name_match and password_match:
+                main_screen(top, split[2], None)
+
+    return None
+
 def write_to_file(obj_type, data):
     # write to the correct user type file
     script_dir = os.path.dirname(__file__)  # absolute dir the script is in
@@ -25,7 +53,7 @@ def write_to_file(obj_type, data):
     abs_file_path = os.path.join(script_dir, user_path)
 
     user_file = open(abs_file_path, 'a', newline='')
-    user_data = [data[2], data[3], data[0]]
+    user_data = [data[2], data[3], data[0]] # username pass access level
     user_writer = csv.writer(user_file, delimiter='\t')
     user_writer.writerow(user_data)
     user_file.close()
@@ -290,7 +318,7 @@ def log_in(top):
     close_button = tk.Button(button_frame, text="Close", command=f.destroy)
     close_button.pack(side=tk.LEFT, padx=10)
 
-    log_in_button = tk.Button(button_frame, text="Log In", command=lambda: main_screen(f, 0))
+    log_in_button = tk.Button(button_frame, text="Log In", command=lambda: log_in_search(f.get_login_data(), f))
     log_in_button.pack(side=tk.LEFT, padx=10)
 
     return None
