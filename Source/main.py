@@ -1,8 +1,13 @@
 from Source.Account import Account
+
 from Source.Educator import Educator
+
 from Source.forms import Form
+
 from Source.Student import Student
+
 from Source.Institution import Institution
+
 import tkinter as tk
 
 def start_screen(top):
@@ -231,7 +236,6 @@ def log_in(top):
     log_in_button.pack(side=tk.LEFT, padx=10)
 
     return None
-
 
 # start the program
 forms = Form()

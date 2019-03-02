@@ -48,7 +48,6 @@ close_button.pack(side=tk.LEFT)
 """
 
 
-
 top.mainloop()  # run the code
 
 """

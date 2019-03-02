@@ -69,7 +69,6 @@ class Educator(Account):
         # Grade Levels Currently Teaching, Employer/Institution]
         return formInfo
 
-
     # private
     def __viewStudent(self, studentname):
         # What an Educator sees on a Student's profile
