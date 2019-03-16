@@ -36,19 +36,21 @@ def log_in_search(login_data, top):
                 data = {
                     "user_name": user, "password": password, "user_id": split[2], "access_level": split[3]
                 }
+                break
+    f.close()
 
-                if int(split[3]) is 0:
-                    obj = create_institution_obj(None, data, False)
-                elif split[3] is 1:
-                    pass
-                elif split[3] is 2:
-                    pass
-                else:
-                    return None
+    if int(split[3]) is 0:
+        obj = create_institution_obj(None, data, False)
+    elif int(split[3]) is 1:
+        pass
+    elif int(split[3]) is 2:
+        pass
+    else:
+        return None
 
-                main_screen(top, data, obj)
-
+    main_screen(top, int(split[3]), obj)
     return None
+
 
 def write_to_file(obj_type, data):
     # write to the correct user type file
