@@ -34,21 +34,21 @@ def log_in_search(login_data, top):
             if user_name_match and password_match:
                 print(split)
                 data = {
-                    "user_name": user, "password": password, "user_id": split[2], "access_level": split[3]
+                    "user_name": user, "password": password, "user_id": split[3], "access_level": split[2]
                 }
                 break
     f.close()
 
-    if int(split[3]) is 0:
+    if int(split[2]) is 0:
         obj = create_institution_obj(None, data, False)
-    elif int(split[3]) is 1:
+    elif int(split[2]) is 1:
         pass
-    elif int(split[3]) is 2:
+    elif int(split[2]) is 2:
         pass
     else:
         return None
 
-    main_screen(top, int(split[3]), obj)
+    main_screen(top, int(split[2]), obj)
     return None
 
 
