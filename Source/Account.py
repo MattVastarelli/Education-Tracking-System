@@ -10,9 +10,9 @@ class Account:
         # public
         if is_new:
             script_dir = os.path.dirname(__file__)  # absolute dir the script is in
-            rel_path = "db/users.txt"
+            rel_path = "db/metadata.txt"
             abs_file_path = os.path.join(script_dir, rel_path)
-            file = open(abs_file_path, 'r+')
+            file = open(abs_file_path, 'r')
             next_id = int(file.read())
 
             self.ownerID = next_id
