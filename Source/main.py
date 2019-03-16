@@ -7,373 +7,390 @@ import tkinter as tk
 import csv
 import os
 
+class Main:
+    def __init__(self):
+        self.educators = list()
 
-def log_in_search(login_data, top):
-    user = login_data['user_name']
-    password = login_data['password']
+    def log_in_search(self, login_data, f):
+        user = login_data['user_name']
+        password = login_data['password']
 
-    script_dir = os.path.dirname(__file__)  # absolute dir the script is in
-    rel_path = "db/users.txt"
-    abs_file_path = os.path.join(script_dir, rel_path)
-    user_name_match = False
-    password_match = False
-
-    with open(abs_file_path) as f:
-        content = f.readlines()
-        content = [x.strip() for x in content]
-
-        for line in content:
-            split = line.split()  # choose split type
-
-            if user in split[0]:
-                user_name_match = True
-            if password in split[1]:
-                password_match = True
-
-            if user_name_match and password_match:
-                data = {
-                    "user_name": user, "password": password, "user_id": split[3], "access_level": split[2]
-                }
-
-                if split[2] == str(0):
-                    top.destroy()
-                    obj = create_institution_obj(top, data, False)
-                    main_screen(top, int(split[2]), obj)
-                elif split[2] == str(1):
-                    pass
-                elif split[2] == str(2):
-                    pass
-                else:
-                    return None
-    return None
-
-def write_to_file(obj_type, data):
-    # write to the correct user type file
-    script_dir = os.path.dirname(__file__)  # absolute dir the script is in
-    rel_path = "db/" + obj_type + "s.txt" # student , institution, educator
-    #rel_path = 'db/test.txt'
-    abs_file_path = os.path.join(script_dir, rel_path)
-
-    file = open(abs_file_path, 'a', newline='')
-    writer = csv.writer(file, delimiter='\t')
-    writer.writerow(data)
-    file.close()
-
-    # write the the users file
-    user_path = "db/users.txt"  # student , institution, educator
-    abs_file_path = os.path.join(script_dir, user_path)
-
-    user_file = open(abs_file_path, 'a', newline='')
-    user_data = [data[2], data[3], data[0], data[1]] # username, pass, access level, user_id
-    user_writer = csv.writer(user_file, delimiter='\t')
-    user_writer.writerow(user_data)
-    user_file.close()
-
-    return None
-
-
-def start_screen(top):
-    # main frame
-    frame = tk.Frame(top)
-    frame.pack(pady=100)
-
-    institution_frame = tk.Frame(frame)
-    institution_frame.pack()
-
-    log_in_frame = tk.Frame(frame)
-    log_in_frame.pack(pady=30)
-
-    log_in_button = tk.Button(log_in_frame, text="Log In", command=lambda: log_in(top))
-    log_in_button.pack(side=tk.LEFT)
-
-    institution_button = tk.Button(institution_frame, text="Create new Institution",
-                                   command= lambda: first_creation(top))
-    institution_button.pack(side=tk.LEFT)
-
-    return top
-
-
-def create_institution_obj(top, data, is_new):
-    #top.destroy()
-
-    f = Form()
-
-    if is_new:
-        inst = Institution(data['name'], data['password'], 0, is_new)
-        data_list = [data['name'], data["address"], data['instution_type'], data['grade_max'],
-                     data['grade_min'], data['phone']]
-
-        inst.set_data(data_list)
-
-        write_list = [inst.ownerID, 0, data['name'], data['password'], data['name'], data["address"],
-                      data['instution_type'], data['grade_min'], data['grade_max'], data['phone']]
-
-        write_to_file('institution', write_list)
-        main_screen(f, 0, inst)
-    else:
-        inst = Institution(data['user_name'], data['password'], 0, is_new)
-        # "user_name": user, "password": password, "user_id": split[3], "access_level": split[2]
-        # search for record
         script_dir = os.path.dirname(__file__)  # absolute dir the script is in
-        rel_path = "db/institutions.txt"
+        rel_path = "db/users.txt"
         abs_file_path = os.path.join(script_dir, rel_path)
+        user_name_match = False
+        password_match = False
 
-        return_list = list()
-
-        with open(abs_file_path) as f:
-            content = f.readlines()
+        with open(abs_file_path) as file:
+            content = file.readlines()
             content = [x.strip() for x in content]
 
             for line in content:
                 split = line.split()  # choose split type
-                if split[0] == str(1):
-                    return_list = line.split()
-        # fill in data
-        inst.set_id(return_list[0])
-        inst.set_data(return_list[4:])
 
-        return inst
+                if user in split[0]:
+                    user_name_match = True
+                if password in split[1]:
+                    password_match = True
+
+                if user_name_match and password_match:
+                    data = {
+                        "user_name": user, "password": password, "user_id": split[3], "access_level": split[2]
+                    }
+
+                    if split[2] == str(0):
+                        # self.form.destroy()
+                        obj = self.create_institution_obj(data, False, f)
+                        self.main_screen(int(split[2]), obj, f)
+                    elif split[2] == str(1):
+                        pass
+                    elif split[2] == str(2):
+                        pass
+                    else:
+                        return None
+        return None
+
+    def write_to_file(self, obj_type, data):
+        # write to the correct user type file
+        script_dir = os.path.dirname(__file__)  # absolute dir the script is in
+        rel_path = "db/" + obj_type + "s.txt"  # student , institution, educator
+        # rel_path = 'db/test.txt'
+        abs_file_path = os.path.join(script_dir, rel_path)
+
+        file = open(abs_file_path, 'a', newline='')
+        writer = csv.writer(file, delimiter='\t')
+        writer.writerow(data)
+        file.close()
+
+        # write the the users file
+        user_path = "db/users.txt"  # student , institution, educator
+        abs_file_path = os.path.join(script_dir, user_path)
+
+        user_file = open(abs_file_path, 'a', newline='')
+        user_data = [data[2], data[3], data[0], data[1]]  # username, pass, access level, user_id
+        user_writer = csv.writer(user_file, delimiter='\t')
+        user_writer.writerow(user_data)
+        user_file.close()
 
+        return None
 
-def create_educator_obj(top, data, is_new):
-    top.destroy()
-    f = Form()
-    main_screen(f, 0, None)
-    return None
+    def start_screen(self):
+        # main frame
+        f = Form()
 
+        go = f.start_screen()
 
-def create_student_obj(top, data, is_new):
-    top.destroy()
-    f = Form()
-    main_screen(f, 0, None)
-    return None
+        frame = tk.Frame(go)
+        frame.pack(pady=100)
 
+        institution_frame = tk.Frame(frame)
+        institution_frame.pack()
 
-def institution_creation(top):
-    top.destroy()
-    f = Form()
+        log_in_frame = tk.Frame(frame)
+        log_in_frame.pack(pady=30)
 
-    f.add_new(0)
+        log_in_button = tk.Button(log_in_frame, text="Log In", command=lambda: self.log_in(f))
+        log_in_button.pack(side=tk.LEFT)
 
-    frame = tk.Frame()
-    frame.pack(pady=10)
+        institution_button = tk.Button(institution_frame, text="Create new Institution",
+                                       command=lambda: self.first_creation(f))
+        institution_button.pack(side=tk.LEFT)
 
-    button_frame = tk.Frame(frame)
-    button_frame.pack()
+        go.mainloop()
 
-    back = tk.Button(button_frame, text="Back", command=lambda: main_screen(f, 0, None))
-    back.pack(side=tk.LEFT, padx=10)
+        return None
 
-    save_button = tk.Button(button_frame, text="Save",
-                            command=lambda: create_institution_obj(f, f.get_institution_data(), True))
-    save_button.pack(side=tk.LEFT)
+    def create_institution_obj(self, data, is_new, f):
+        # self.top.destroy()
 
-    return None
+        if is_new:
+            inst = Institution(data['name'], data['password'], 0, is_new)
+            data_list = [data['name'], data["address"], data['instution_type'], data['grade_max'],
+                         data['grade_min'], data['phone']]
 
+            inst.set_data(data_list)
 
-def first_creation(top):
-    top.destroy()
-    f = Form()
+            write_list = [inst.ownerID, 0, data['name'], data['password'], data['name'], data["address"],
+                          data['instution_type'], data['grade_min'], data['grade_max'], data['phone']]
 
-    f.add_new(0)
+            self.write_to_file('institution', write_list)
+            self.main_screen(0, inst, f)
+        else:
+            inst = Institution(data['user_name'], data['password'], 0, is_new)
+            # "user_name": user, "password": password, "user_id": split[3], "access_level": split[2]
+            # search for record
+            script_dir = os.path.dirname(__file__)  # absolute dir the script is in
+            rel_path = "db/institutions.txt"
+            abs_file_path = os.path.join(script_dir, rel_path)
 
-    frame = tk.Frame()
-    frame.pack(pady=10)
+            return_list = list()
 
-    button_frame = tk.Frame(frame)
-    button_frame.pack()
+            with open(abs_file_path) as f:
+                content = f.readlines()
+                content = [x.strip() for x in content]
 
-    back = tk.Button(button_frame, text="Close", command=f.destroy)
-    back.pack(side=tk.LEFT, padx=10)
+                for line in content:
+                    split = line.split()  # choose split type
+                    if split[0] == str(1):
+                        return_list = line.split()
+            # fill in data
+            inst.set_id(return_list[0])
+            inst.set_data(return_list[4:])
 
-    save_button = tk.Button(button_frame, text="Save",
-                            command=lambda: create_institution_obj(f, f.get_institution_data(), True))
-    save_button.pack(side=tk.LEFT)
+            return inst
 
-    return None
+    def create_educator_obj(self, data, is_new, f):
+        # self.top.destroy()
+        f.destroy()
 
+        f = Form()
+        self.main_screen(0, None, f)
+        return None
 
-def student_creation(top):
-    top.destroy()
-    f = Form()
+    def create_student_obj(self, data, is_new, f):
+        # self.top.destroy()
+        f.destroy()
 
-    f.add_new(2)
+        f = Form()
+        self.main_screen(0, None, f)
+        return None
 
-    frame = tk.Frame()
-    frame.pack(pady=10)
+    def institution_creation(self, f):
+        # self.top.destroy()
+        f.destroy()
 
-    button_frame = tk.Frame(frame)
-    button_frame.pack()
+        f = Form()
 
-    back = tk.Button(button_frame, text="Back", command=lambda: main_screen(f, 0, None))
-    back.pack(side=tk.LEFT, padx=10)
+        f.add_new(0)
 
+        frame = tk.Frame()
+        frame.pack(pady=10)
 
-    save_button = tk.Button(button_frame, text="Save", command=lambda: create_student_obj(f))
-    save_button.pack(side=tk.LEFT)
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
 
-    return None
+        back = tk.Button(button_frame, text="Back", command=lambda: self.main_screen(0, None, f))
+        back.pack(side=tk.LEFT, padx=10)
 
+        save_button = tk.Button(button_frame, text="Save",
+                                command=lambda: self.create_institution_obj(f.get_institution_data(), True, f))
+        save_button.pack(side=tk.LEFT)
 
-def educator_creation(top):
-    top.destroy()
-    f = Form()
+        return None
 
-    f.add_new(1)
+    def first_creation(self, f):
+        # self.top.destroy()
+        f.destroy()
 
-    frame = tk.Frame()
-    frame.pack(pady=10)
+        f = Form()
 
-    button_frame = tk.Frame(frame)
-    button_frame.pack()
+        f.add_new(0)
 
-    back = tk.Button(button_frame, text="Back", command=lambda: main_screen(f, 0, None))
-    back.pack(side=tk.LEFT, padx=10)
+        frame = tk.Frame()
+        frame.pack(pady=10)
 
-    save_button = tk.Button(button_frame, text="Save", command=lambda: create_educator_obj(f))
-    save_button.pack(side=tk.LEFT)
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
 
-    return None
+        back = tk.Button(button_frame, text="Close", command=f.destroy)
+        back.pack(side=tk.LEFT, padx=10)
 
+        save_button = tk.Button(button_frame, text="Save",
+                                command=lambda: self.create_institution_obj(f.get_institution_data(), True, f))
+        save_button.pack(side=tk.LEFT)
 
-def view_edu(top, access_level):
-    top.destroy()
-    f = Form()
+        return None
 
-    f.view_educator(0, None)
+    def student_creation(self, f):
+        # self.top.destroy()
+        f.destroy()
 
-    frame = tk.Frame()
-    frame.pack(pady=10)
+        f = Form()
 
-    button_frame = tk.Frame(frame)
-    button_frame.pack()
+        f.add_new(2)
 
-    back = tk.Button(button_frame, text="Back", command=lambda: main_screen(f, access_level, None))
-    back.pack(side=tk.LEFT, padx=10)
+        frame = tk.Frame()
+        frame.pack(pady=10)
 
-    return None
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
 
+        back = tk.Button(button_frame, text="Back", command=lambda: self.main_screen(0, None, f))
+        back.pack(side=tk.LEFT, padx=10)
 
-def view_inst(top, access_level, user):
-    top.destroy()
-    f = Form()
+        save_button = tk.Button(button_frame, text="Save", command=lambda: self.create_student_obj(None, False, f))
+        save_button.pack(side=tk.LEFT)
 
-    # get the data form the obj
-    data = [user.get_name(), user.get_address(), user.get_institution_type(),
-            user.get_grade_min(), user.get__grade_max(), user.get_main_phone_num()]
+        return None
 
-    f.view_institution(access_level, data)
+    def educator_creation(self, f):
+        # self.top.destroy()
+        f.destroy()
 
-    frame = tk.Frame()
-    frame.pack(pady=10)
+        f = Form()
 
-    button_frame = tk.Frame(frame)
-    button_frame.pack()
+        f.add_new(1)
 
-    back = tk.Button(button_frame, text="Back", command=lambda: main_screen(f, access_level, None))
-    back.pack(side=tk.LEFT, padx=10)
+        frame = tk.Frame()
+        frame.pack(pady=10)
 
-    return None
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
 
+        back = tk.Button(button_frame, text="Back", command=lambda: self.main_screen(0, None, f))
+        back.pack(side=tk.LEFT, padx=10)
 
-def view_student(top, access_level):
-    top.destroy()
-    f = Form()
+        save_button = tk.Button(button_frame, text="Save", command=lambda: self.create_educator_obj(None, False, f))
+        save_button.pack(side=tk.LEFT)
 
-    f.view_student(access_level, None)
+        return None
 
-    frame = tk.Frame()
-    frame.pack(pady=10)
+    def view_edu(self, access_level, f):
+        # self.top.destroy()
+        f.destroy()
 
-    button_frame = tk.Frame(frame)
-    button_frame.pack()
+        f = Form()
 
-    back = tk.Button(button_frame, text="Back", command=lambda: main_screen(f, access_level, None))
-    back.pack(side=tk.LEFT, padx=10)
+        f.view_educator(0, None)
 
-    return None
+        frame = tk.Frame()
+        frame.pack(pady=10)
 
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
 
-def main_screen(top, access_level, user):
-    #top.destroy()
-    f = Form()
-    f.main_screen()
+        back = tk.Button(button_frame, text="Back", command=lambda: self.main_screen(access_level, None, f))
+        back.pack(side=tk.LEFT, padx=10)
 
-    frame = tk.Frame()
-    frame.pack(pady=50)
+        return None
 
-    button_frame = tk.Frame(frame)
-    button_frame.pack()
+    def view_inst(self, access_level, user, f):
+        # self.top.destroy()
+        f.destroy()
 
-    button_frame_1 = tk.Frame(frame)
-    button_frame_1.pack()
+        f = Form()
 
-    button_frame_2 = tk.Frame(frame)
-    button_frame_2.pack()
+        # get the data form the obj
+        data = [user.get_name(), user.get_address(), user.get_institution_type(),
+                user.get_grade_min(), user.get__grade_max(), user.get_main_phone_num()]
 
-    button_frame_3 = tk.Frame(frame)
-    button_frame_3.pack()
+        f.view_institution(access_level, data)
 
-    button_frame_4 = tk.Frame(frame)
-    button_frame_4.pack()
+        frame = tk.Frame()
+        frame.pack(pady=10)
 
-    button_frame_5 = tk.Frame(frame)
-    button_frame_5.pack()
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
 
-    button_frame_6 = tk.Frame(frame)
-    button_frame_6.pack()
+        back = tk.Button(button_frame, text="Back", command=lambda: self.main_screen(access_level, None, f))
+        back.pack(side=tk.LEFT, padx=10)
 
-    if access_level is 0:
-        new_edu_button = tk.Button(button_frame, text="New Educator", command=lambda:educator_creation(f))
-        new_edu_button.pack(side=tk.LEFT, pady=10)
+        return None
 
-        new_inst_button = tk.Button(button_frame_1, text="New Institution", command=lambda: institution_creation(f))
-        new_inst_button.pack(side=tk.LEFT, pady=10)
+    def view_student(self, access_level, f):
+        # self.top.destroy()
+        f.destroy()
 
-        new_student_button = tk.Button(button_frame_2, text="New Student", command=lambda: student_creation(f))
-        new_student_button.pack(side=tk.LEFT, pady=10)
+        f = Form()
 
-        view_edu_button = tk.Button(button_frame_3, text="View Educator", command=lambda: view_edu(f, 0))
-        view_edu_button.pack(side=tk.LEFT, pady=10)
+        f.view_student(access_level, None)
 
-        view_inst_button = tk.Button(button_frame_4, text="View Institution", command=lambda: view_inst(f, 0, user))
-        view_inst_button.pack(side=tk.LEFT, pady=10)
+        frame = tk.Frame()
+        frame.pack(pady=10)
 
-        view_student_button = tk.Button(button_frame_5, text="View Student", command=lambda: view_student(f, 0))
-        view_student_button.pack(side=tk.LEFT, pady=10)
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
 
+        back = tk.Button(button_frame, text="Back", command=lambda: self.main_screen(access_level, None, f))
+        back.pack(side=tk.LEFT, padx=10)
 
+        return None
 
-    close_button = tk.Button(button_frame_6, text="Close", command=f.destroy)
-    close_button.pack(side=tk.LEFT, padx=10)
+    def main_screen(self, access_level, user, f):
+        # self.form.destroy()
+        f.destroy()
 
-    return None
+        f = Form()
+        f.main_screen()
 
+        frame = tk.Frame()
+        frame.pack(pady=50)
 
-def log_in(top):
-    top.destroy()
-    f = Form()
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
 
-    f.log_in()
+        button_frame_1 = tk.Frame(frame)
+        button_frame_1.pack()
 
-    frame = tk.Frame()
-    frame.pack(pady=10)
+        button_frame_2 = tk.Frame(frame)
+        button_frame_2.pack()
 
-    button_frame = tk.Frame(frame)
-    button_frame.pack()
+        button_frame_3 = tk.Frame(frame)
+        button_frame_3.pack()
 
-    close_button = tk.Button(button_frame, text="Close", command=f.destroy)
-    close_button.pack(side=tk.LEFT, padx=10)
+        button_frame_4 = tk.Frame(frame)
+        button_frame_4.pack()
 
-    log_in_button = tk.Button(button_frame, text="Log In", command=lambda: log_in_search(f.get_login_data(), f))
-    log_in_button.pack(side=tk.LEFT, padx=10)
+        button_frame_5 = tk.Frame(frame)
+        button_frame_5.pack()
 
-    return None
+        button_frame_6 = tk.Frame(frame)
+        button_frame_6.pack()
 
-# start the program
-forms = Form()
+        if access_level is 0:
+            new_edu_button = tk.Button(button_frame, text="New Educator", command=lambda: self.educator_creation(f))
+            new_edu_button.pack(side=tk.LEFT, pady=10)
 
-start = start_screen(forms.start_screen())
+            new_inst_button = tk.Button(button_frame_1, text="New Institution",
+                                        command=lambda: self.institution_creation(f))
+            new_inst_button.pack(side=tk.LEFT, pady=10)
 
-start.mainloop()
+            new_student_button = tk.Button(button_frame_2, text="New Student", command=lambda: self.student_creation(f))
+            new_student_button.pack(side=tk.LEFT, pady=10)
 
+            view_edu_button = tk.Button(button_frame_3, text="View Educator", command=lambda: self.view_edu(0, f))
+            view_edu_button.pack(side=tk.LEFT, pady=10)
+
+            view_inst_button = tk.Button(button_frame_4, text="View Institution",
+                                         command=lambda: self.view_inst(0, user, f))
+            view_inst_button.pack(side=tk.LEFT, pady=10)
+
+            view_student_button = tk.Button(button_frame_5, text="View Student",
+                                            command=lambda: self.view_student(0, f))
+            view_student_button.pack(side=tk.LEFT, pady=10)
+
+        close_button = tk.Button(button_frame_6, text="Close", command=f.destroy)
+        close_button.pack(side=tk.LEFT, padx=10)
+
+        return None
+
+    def log_in(self, f):
+        # self.form.destroy()
+        f.destroy()
+
+        f = Form()
+
+        f.log_in()
+
+        frame = tk.Frame()
+        frame.pack(pady=10)
+
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
+
+        close_button = tk.Button(button_frame, text="Close", command=f.destroy)
+        close_button.pack(side=tk.LEFT, padx=10)
+
+        log_in_button = tk.Button(button_frame, text="Log In",
+                                  command=lambda: self.log_in_search(f.get_login_data(), f))
+        log_in_button.pack(side=tk.LEFT, padx=10)
+
+        return None
+
+    def run(self):
+        self.start_screen()
+
+
+if __name__ == '__main__':
+    m = Main()
+    m.run()
