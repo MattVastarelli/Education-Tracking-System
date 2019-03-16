@@ -88,8 +88,7 @@ def start_screen(top):
     log_in_button = tk.Button(log_in_frame, text="Log In", command=lambda: log_in(top))
     log_in_button.pack(side=tk.LEFT)
 
-    institution_button = tk.Button(institution_frame, text="Create new Institution",
-                                   command= lambda: first_creation(top))
+    institution_button = tk.Button(institution_frame, text="Create new Institution", command= lambda: first_creation(top))
     institution_button.pack(side=tk.LEFT)
 
     return top
@@ -111,7 +110,7 @@ def create_institution_obj(top, data, is_new):
         inst.set_data(data_list)
 
         write_list = [inst.ownerID, 0, data['name'], data['password'], data['name'], data["address"],
-                      data['instution_type'], data['grade_min'], data['grade_max'], data['phone']]
+                      data['instiution_type'], data['grade_min'], data['grade_max'], data['phone']]
 
         write_to_file('institution', write_list)
         main_screen(f, 0, inst)
@@ -352,7 +351,6 @@ def main_screen(top, access_level, user):
     close_button.pack(side=tk.LEFT, padx=10)
 
     return None
-
 
 def log_in(top):
     top.destroy()

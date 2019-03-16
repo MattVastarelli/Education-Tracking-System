@@ -22,7 +22,6 @@ class Account:
         else:
             self.ownerID = 0
 
-
         self.accessLevel = access
 
         # private
