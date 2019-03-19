@@ -29,6 +29,7 @@ class Form:
         self.medical_notes_box = None
         self.user_name_box = None
         self.password_box = None
+        self.note = None
 
     def main_screen(self):
         self.top.resizable(width=False, height=False)
@@ -719,7 +720,28 @@ class Form:
 
     def view_courses(self):
         # view one or many courses
-        pass
+        self.top.resizable(width=False, height=False)
+        self.top.geometry("550x350")
+        self.top.title("Institution")
+
+        # main frame
+        frame = tk.Frame(self.top)
+        frame.pack()
+
+        # frames
+        name_frame = tk.Frame(frame)
+        name_frame.pack()
+
+        courses_frame = tk.Frame(frame)
+        courses_frame.pack()
+
+        name_label = tk.Label(name_frame, text="Course Name", anchor="nw")
+        name_label.pack()
+
+        courses_label = tk.Label(courses_frame, text="Courses: ", anchor="nw")
+        courses_label.pack()
+
+        return self.top
 
     def add_license(self):
         # add a license to a teacher
@@ -732,6 +754,34 @@ class Form:
     def add_medical_note(self):
         # add a medical note to a students account
         pass
+
+    def add_note(self):
+        # form add notes to records
+        self.top.resizable(width=False, height=False)
+        self.top.geometry("550x350")
+
+        # main frame
+        frame = tk.Frame(self.top)
+        frame.pack(pady=25)
+
+        self.top.title("Add Notes")
+
+        # frames
+        name_frame = tk.Frame(frame)
+        name_frame.pack()
+
+        # labels
+        name_label = tk.Label(name_frame, text="Add Notes: ", anchor="nw")
+        name_label.pack()
+
+        # text field
+        text_frame = tk.Frame(frame)
+        text_frame.pack()
+
+        self.note = tk.Text(text_frame)
+        self.note.pack()
+
+        return self.top
 
     def view_note(self):
         # view a students notes
