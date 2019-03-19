@@ -32,18 +32,20 @@ class Form:
         self.note = None
 
     def main_screen(self):
-        self.top.resizable(width=False, height=False)
         self.top.geometry("300x450")
         self.top.title("EduTrac Dashboard")
 
         return self.top
+
+    def run(self):
+        self.top.mainloop()
+        return None
 
     def destroy(self):
         self.top.destroy()
         return None
 
     def start_screen(self):
-        self.top.resizable(width=False, height=False)
         self.top.geometry("300x450")
         self.top.title("Get Started")
 

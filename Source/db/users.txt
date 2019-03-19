@@ -1,1 +1,2 @@
-Fairfield Middle School	ffld	19	0
+chelem	123abc  0   0
+dmzinst	abc123  0   1

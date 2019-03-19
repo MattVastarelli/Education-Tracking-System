@@ -24,7 +24,7 @@ def log_in_search(login_data, top):
 
         for line in content:
             split = line.split()  # choose split type
-            print(split)
+            #print(split)
 
             if user in split[0]:
                 user_name_match = True
@@ -32,22 +32,25 @@ def log_in_search(login_data, top):
                 password_match = True
 
             if user_name_match and password_match:
+                print(split)
                 data = {
                     "user_name": user, "password": password, "user_id": split[3], "access_level": split[2]
                 }
+                break
+    f.close()
 
-                if split[2] is 0:
-                    obj = create_institution_obj(None, data, False)
-                elif split[2] is 1:
-                    pass
-                elif split[2] is 2:
-                    pass
-                else:
-                    return None
+    if int(split[2]) is 0:
+        obj = create_institution_obj(None, data, False)
+    elif int(split[2]) is 1:
+        pass
+    elif int(split[2]) is 2:
+        pass
+    else:
+        return None
 
-                main_screen(top, split[2], obj)
-
+    main_screen(top, int(split[2]), obj)
     return None
+
 
 def write_to_file(obj_type, data):
     # write to the correct user type file
@@ -88,8 +91,7 @@ def start_screen(top):
     log_in_button = tk.Button(log_in_frame, text="Log In", command=lambda: log_in(top))
     log_in_button.pack(side=tk.LEFT)
 
-    institution_button = tk.Button(institution_frame, text="Create new Institution",
-                                   command= lambda: first_creation(top))
+    institution_button = tk.Button(institution_frame, text="Create new Institution", command= lambda: first_creation(top))
     institution_button.pack(side=tk.LEFT)
 
     return top
@@ -102,7 +104,7 @@ def create_institution_obj(top, data, is_new):
 
     f = Form()
 
-    inst = Institution(data['name'], data['password'], 0, is_new)
+    inst = Institution(data['user_name'], data['password'], 0, is_new)
 
     if is_new:
         data_list = [data['name'], data["address"], data['instution_type'], data['grade_max'],
@@ -111,7 +113,7 @@ def create_institution_obj(top, data, is_new):
         inst.set_data(data_list)
 
         write_list = [inst.ownerID, 0, data['name'], data['password'], data['name'], data["address"],
-                      data['instution_type'], data['grade_min'], data['grade_max'], data['phone']]
+                      data['instiution_type'], data['grade_min'], data['grade_max'], data['phone']]
 
         write_to_file('institution', write_list)
         main_screen(f, 0, inst)
@@ -352,7 +354,6 @@ def main_screen(top, access_level, user):
     close_button.pack(side=tk.LEFT, padx=10)
 
     return None
-
 
 def log_in(top):
     top.destroy()
