@@ -1,2 +1,7 @@
 chelem	123abc  0   0
 dmzinst	abc123  0   1
+beide	biddie  1   13
+rbrem	rosana  1   14
+aclem	adele   1   15
+clabo	cosimo  1   16
+bweat	brier   1   17

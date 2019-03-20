@@ -42,7 +42,7 @@ class Educator(Account):
 
         # private
         # courses taught/teaching
-        self.__courses = list()
+        self.__prefCourses = list()
 
         # private
         # preferred subjects to teach (if any)
@@ -64,7 +64,7 @@ class Educator(Account):
         self.__email = data[4]
         self.__educatorID = data[5]
         self.licenses = data[6]
-        self.__courses = data[7]
+        self.__prefCourses = data[7]
         self.__prefSubjects = data[8]
         self.gradeLevels = data[9]
         self.currentInst = data[10]
@@ -101,17 +101,17 @@ class Educator(Account):
         return [self.__phoneNum, self.__email, self.__homeAddress]
 
     def get_professional_info(self):
-        return [self.licenses, self.__educatorID, self.__prefSubjects, self.gradeLevels, self.currentInst]
+        return [self.licenses, self.__educatorID, self.__prefCourses, self.__prefSubjects, self.gradeLevels, self.currentInst]
 
     # getter for only public attributes, for when profile view called by lower access level
     def get_public_info(self):
         return [self.get_name(), self.licenses, self.gradeLevels, self.currentInst]
 
     def set_id(self, new_id):
-        self.set_id(new_id)
+        self.ownerID = new_id
 
     def set_pw(self, password):
-        self.set_password(password)
+        self.password = password
 
     def set_name(self, fname, lname):
         self.fname = fname
