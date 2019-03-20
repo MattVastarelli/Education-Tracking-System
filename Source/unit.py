@@ -9,6 +9,8 @@ class Unit:
         self.requirements.append(req)
         return None
 
-    def give_grade(self):
+    def give_grade(self, grade_obj, n, l):
         # updates the grade of the grade object
+        grade_obj.number_grade = n
+        grade_obj.letter_grade = l
         return None

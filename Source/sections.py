@@ -21,14 +21,18 @@ class Sections:
         # public
         # view students
     def view_students(self, student_list):
-        pass
+        return self.student_list
 
         # public
         # add students
     def add_students(self, student_id):
-        pass
+        self.student_list.append(student_id)
+
+        return None
 
         # public
         # drop students
     def drop_students(self, student_id):
-        pass
+        self.student_list.remove(student_id)
+
+        return None
