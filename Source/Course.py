@@ -1,4 +1,5 @@
 from Source.unit import Unit
+from Source.sections import Sections
 
 class Course:
     def __init__(self, subject):
@@ -9,6 +10,7 @@ class Course:
         u = Unit(req, covers, len, unit)
         return u
 
-    def add_section(self):
+    def add_section(self, student_list, time, room, offered_through):
         # creates a section and returns it
-        return None
+        s = Sections(student_list, time, room, offered_through)
+        return s
