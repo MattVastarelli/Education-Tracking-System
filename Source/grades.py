@@ -25,10 +25,13 @@ class Grades:
 
         # public
         # add notes
-    def add_notes(self, student_id, section, unit):
-        pass
+    def add_notes(self, note):
+        self.notes.append(note)
+        return None
 
         # public
         # compare to standards
-    def compare_to_standard(self, subject):
+    def compare_to_standard(self, subject, standard):
+        # takes in a standard to compare the grade to
+
         pass
