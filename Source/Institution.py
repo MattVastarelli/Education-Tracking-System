@@ -112,11 +112,6 @@ class Institution(Account):
         pass
 
     # private
-    # change account access level
-    def __change_access(self, account, level):
-        pass
-
-    # private
     # assign section
     def __bulk_assign_section(self, educator_id, course, section, student_id):
         pass

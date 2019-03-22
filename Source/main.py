@@ -44,7 +44,7 @@ def log_in_search(login_data, top):
     elif int(split[2]) is 1:
         obj = create_educator_obj(None, data, False)
     elif int(split[2]) is 2:
-        pass
+        obj = create_student_obj(None, data, False)
     else:
         return None
 
@@ -195,10 +195,53 @@ def create_educator_obj(top, data, is_new):
 
 
 def create_student_obj(top, data, is_new):
-    top.destroy()
+
+    if top is not None:
+        top.destroy()
+
     f = Form()
-    main_screen(f, 0, None)
-    return None
+
+    stud = Student(data['user_name'], data['password'], 2, is_new)
+
+    if is_new:
+        data_list = [data['first_name'], data["last_name"], data["student_ID"], data["ec_name"], data['ec_relationship']
+            , data['ec_email'], data['med_notes'], data['grade_level'], data['current_inst_ID'], data['grades']
+            , data['grade_notes'], data['address']]
+
+        stud.set_data(data_list)
+
+        write_list = [stud.ownerID, 2, data['first_name'], data["last_name"], data["student_ID"], data["ec_name"],
+                      data['ec_relationship'], data['ec_email'], data['med_notes'], data['grade_level'],
+                      data['current_inst_ID'], data['grades'], data['grade_notes'], data['address']]
+
+        write_to_file('student', write_list)
+        main_screen(f, 0, stud)
+    else:
+        # "user_name": user, "password": password, "user_id": split[3], "access_level": split[2]
+        # search for record
+        script_dir = os.path.dirname(__file__)  # absolute dir the script is in
+        rel_path = "db/students.txt"
+        abs_file_path = os.path.join(script_dir, rel_path)
+
+        return_list = list()
+
+        with open(abs_file_path) as f:
+            content = f.readlines()
+            content = [x.strip() for x in content]
+
+            for line in content:
+                split = line.split("\t")  # choose split type
+                # print(split)
+                if split[0] == data['user_id']:
+                    return_list = line.split("\t")
+                    break
+        f.close()
+        # fill in data
+        print(return_list)
+        stud.set_id(return_list[0])
+        stud.set_data(return_list[4:])
+
+        return stud
 
 
 def institution_creation(top):
@@ -296,26 +339,6 @@ def view_edu(top, access_level, user):
     data = [user.get_name()]
     data.extend(user.get_personal_info())
     data.extend(user.get_professional_info())
-
-    # retrieving institution name from id linked in educator record
-    script_dir = os.path.dirname(__file__)  # absolute dir the script is in
-    rel_path = "db/institutions.txt"
-    abs_file_path = os.path.join(script_dir, rel_path)
-
-    return_list = list()
-
-    with open(abs_file_path) as tf:
-        content = tf.readlines()
-        content = [x.strip() for x in content]
-
-        for line in content:
-            split = line.split("\t")  # choose split type
-            if split[0] == data[9]:
-                return_list = line.split("\t")
-                break
-    tf.close()
-
-    data[9] = return_list[4]
     print(data)
 
     f.view_educator(user.accessLevel, data)
@@ -354,11 +377,16 @@ def view_inst(top, access_level, user):
     return None
 
 
-def view_student(top, access_level):
+def view_student(top, access_level, user):
     top.destroy()
     f = Form()
 
-    f.view_student(access_level, None)
+    # get the data form the obj
+    data = [user.get_name(), user.get_student_id(), user.get_current_grade(), user.get_current_institution(),
+            user.get_home_address(), user.get_emergency_contact(), user.get_relationship(), user.get_ec_email(),
+            user.get_medical_notes(), user.get_grades()]
+
+    f.view_student(access_level, data)
 
     frame = tk.Frame()
     frame.pack(pady=10)
@@ -402,7 +430,7 @@ def main_screen(top, access_level, user):
     button_frame_6.pack()
 
     if access_level is 0:
-        new_edu_button = tk.Button(button_frame, text="New Educator", command=lambda:educator_creation(f))
+        new_edu_button = tk.Button(button_frame, text="New Educator", command=lambda: educator_creation(f))
         new_edu_button.pack(side=tk.LEFT, pady=10)
 
         new_inst_button = tk.Button(button_frame_1, text="New Institution", command=lambda: institution_creation(f))
@@ -424,13 +452,20 @@ def main_screen(top, access_level, user):
         view_edu_button = tk.Button(button_frame_3, text="View Educator", command=lambda: view_edu(f, 1, user))
         view_edu_button.pack(side=tk.LEFT, pady=10)
 
-        view_inst_button = tk.Button(button_frame_4, text="View Institution", command=lambda: view_inst(f, 0))
+        view_inst_button = tk.Button(button_frame_4, text="View Institution", command=lambda: view_inst(f, 1))
         view_inst_button.pack(side=tk.LEFT, pady=10)
 
-        view_student_button = tk.Button(button_frame_5, text="View Student", command=lambda: view_student(f, 0))
+        view_student_button = tk.Button(button_frame_5, text="View Student", command=lambda: view_student(f, 1))
         view_student_button.pack(side=tk.LEFT, pady=10)
 
-    close_button = tk.Button(button_frame_6, text="Close", command=f.destroy)
+    if access_level is 2:
+        view_student_button = tk.Button(button_frame_5, text="View Student", command=lambda: view_student(f, 2, user))
+        view_student_button.pack(side=tk.LEFT, pady=10)
+
+        view_inst_button = tk.Button(button_frame_4, text="View Institution", command=lambda: view_inst(f, 2))
+        view_inst_button.pack(side=tk.LEFT, pady=10)
+
+    close_button = tk.Button(button_frame_6, text="Log Out", command=f.destroy)
     close_button.pack(side=tk.LEFT, padx=10)
 
     return None

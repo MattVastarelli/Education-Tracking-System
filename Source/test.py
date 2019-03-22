@@ -23,6 +23,8 @@ with open(abs_file_path) as f:
         split = line.split()  # choose split type
         if split[0]  == str(1):
             return_list = line.split()
+            break
+    f.close()
 
 
 

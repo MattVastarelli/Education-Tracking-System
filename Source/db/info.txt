@@ -7,4 +7,4 @@ Educators file column order (tab-delimited):
 educatorID  AccessLevel username	password	first_name	last_name	full-address	phone-number	email	empID   licenses	courses	preferred-subjects	grade-levels	current-InstitutionID
 
 Students file column order (tab-delimited):
-studentID   AccessLevel username    password    first-name	last-name	EC-name	EC-relationship	EC-email	med notes	grade-level	grades	grade-notes	address
+studentID   AccessLevel username    password    first-name	last-name	inst_studID	EC-name	EC-relationship	EC-email	med-notes	grade-level	current-InstitutionID	grades	grade-notes	address

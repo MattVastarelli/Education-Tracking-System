@@ -101,7 +101,24 @@ class Educator(Account):
         return [self.__phoneNum, self.__email, self.__homeAddress]
 
     def get_professional_info(self):
-        return [self.licenses, self.__educatorID, self.__prefCourses, self.__prefSubjects, self.gradeLevels, self.currentInst]
+        script_dir = os.path.dirname(__file__)  # absolute dir the script is in
+        rel_path = "db/institutions.txt"
+        abs_file_path = os.path.join(script_dir, rel_path)
+
+        return_list = list()
+
+        with open(abs_file_path) as f:
+            content = f.readlines()
+            content = [x.strip() for x in content]
+
+            for line in content:
+                split = line.split("\t")  # choose split type
+                if split[0] == str(self.currentInst):
+                    return_list = line.split("\t")
+                    break
+            f.close()
+
+        return [self.licenses, self.__educatorID, self.__prefCourses, self.__prefSubjects, self.gradeLevels, return_list[4]]
 
     # getter for only public attributes, for when profile view called by lower access level
     def get_public_info(self):

@@ -415,11 +415,11 @@ class Form:
 
         # the items everyone can see
         # frames
-        f_name_frame = tk.Frame(frame)
-        f_name_frame.pack()
+        name_frame = tk.Frame(frame)
+        name_frame.pack()
 
-        l_name_frame = tk.Frame(frame)
-        l_name_frame.pack()
+        student_id_frame = tk.Frame(frame)
+        student_id_frame.pack()
 
         current_grade_frame = tk.Frame(frame)
         current_grade_frame.pack()
@@ -427,29 +427,24 @@ class Form:
         current_institution_frame = tk.Frame(frame)
         current_institution_frame.pack()
 
-        student_id_frame = tk.Frame(frame)
-        student_id_frame.pack()
-
         # labels
-        f_name_label = tk.Label(f_name_frame, text="First Name: ", anchor="nw")
-        l_name_label = tk.Label(l_name_frame, text="Last Name: ", anchor="nw")
-        current_grade_label = tk.Label(current_grade_frame, text="Current Grade: ", anchor="nw")
-        current_institution_label = tk.Label(current_institution_frame, text="Current Institution: ", anchor="nw")
+        name_label = tk.Label(name_frame, text="Name: ", anchor="nw")
         student_id_label = tk.Label(student_id_frame, text="Student ID: ", anchor="nw")
+        current_grade_label = tk.Label(current_grade_frame, text="Current Grade Level: ", anchor="nw")
+        current_institution_label = tk.Label(current_institution_frame, text="Current Institution: ", anchor="nw")
 
         # data labels
-        f_name = tk.Label(f_name_frame, text="Data", anchor="nw")
-        l_name = tk.Label(l_name_frame, text="Data", anchor="nw")
-        current_grade = tk.Label(current_grade_frame, text="Data", anchor="nw")
-        current_institution = tk.Label(current_institution_frame, text="Data", anchor="nw")
-        student_id = tk.Label(student_id_frame, text="Data", anchor="nw")
+        name = tk.Label(name_frame, text=data[0], anchor="nw")
+        student_id = tk.Label(student_id_frame, text=data[1], anchor="nw")
+        current_grade = tk.Label(current_grade_frame, text=data[2], anchor="nw")
+        current_institution = tk.Label(current_institution_frame, text=data[3], anchor="nw")
 
         # pack
-        f_name_label.pack(side=tk.LEFT)
-        f_name.pack(side=tk.LEFT)
+        name_label.pack(side=tk.LEFT)
+        name.pack(side=tk.LEFT)
 
-        l_name_label.pack(side=tk.LEFT)
-        l_name.pack(side=tk.LEFT)
+        student_id_label.pack(side=tk.LEFT)
+        student_id.pack(side=tk.LEFT)
 
         current_grade_label.pack(side=tk.LEFT)
         current_grade.pack(side=tk.LEFT)
@@ -457,16 +452,10 @@ class Form:
         current_institution_label.pack(side=tk.LEFT)
         current_institution.pack(side=tk.LEFT)
 
-        student_id_label.pack(side=tk.LEFT)
-        student_id.pack(side=tk.LEFT)
-
         if access_level is 0 or access_level is 2:
             # institution view student
-            ec_phone_frame = tk.Frame(frame)
-            ec_phone_frame.pack()
-
-            ec_email_frame = tk.Frame(frame)
-            ec_email_frame.pack()
+            address_frame = tk.Frame(frame)
+            address_frame.pack()
 
             emergency_contact_frame = tk.Frame(frame)
             emergency_contact_frame.pack()
@@ -474,31 +463,34 @@ class Form:
             relation_frame = tk.Frame(frame)
             relation_frame.pack()
 
+            ec_phone_frame = tk.Frame(frame)
+            ec_phone_frame.pack()
+
+            ec_email_frame = tk.Frame(frame)
+            ec_email_frame.pack()
+
             medical_notes_frame = tk.Frame(frame)
             medical_notes_frame.pack()
 
             current_grade_frame = tk.Frame(frame)
             current_grade_frame.pack()
 
-            address_frame = tk.Frame(frame)
-            address_frame.pack()
-
-            address_label = tk.Label(address_frame, text="Address: ", anchor="nw")
+            address_label = tk.Label(address_frame, text="Home Address: ", anchor="nw")
             emergency_contact_label = tk.Label(emergency_contact_frame, text="Emergency Contact Name: ", anchor="nw")
+            ec_relation_label = tk.Label(relation_frame, text="Emergency Contact Relation: ", anchor="nw")
             ec_phone_label = tk.Label(ec_phone_frame, text="Emergency Contact Phone: ", anchor="nw")
             ec_email_label = tk.Label(ec_email_frame, text="Emergency Contact Email: ", anchor="nw")
-            ec_relation_label = tk.Label(relation_frame, text="Emergency Contact Relation: ", anchor="nw")
-            current_grade_label = tk.Label(current_grade_frame, text="Current Grade: ", anchor="nw")
             medical_notes_label = tk.Label(medical_notes_frame, text="Medical Notes: ", anchor="nw")
+            current_grade_label = tk.Label(current_grade_frame, text="Current Grades: ", anchor="nw")
 
             # data
-            address = tk.Label(address_frame, text="Data", anchor="nw")
-            emergency_contact = tk.Label(emergency_contact_frame, text="Data", anchor="nw")
-            ec_phone = tk.Label(ec_phone_frame, text="Data", anchor="nw")
-            ec_email = tk.Label(ec_email_frame, text="Data", anchor="nw")
-            ec_relation = tk.Label(relation_frame, text="Data", anchor="nw")
-            current_grade = tk.Label(current_grade_frame, text="Data", anchor="nw")
-            medical_notes = tk.Label(medical_notes_frame, text="Data", anchor="nw")
+            address = tk.Label(address_frame, text=data[4], anchor="nw")
+            emergency_contact = tk.Label(emergency_contact_frame, text=data[5], anchor="nw")
+            ec_relation = tk.Label(relation_frame, text=data[6], anchor="nw")
+            ec_phone = tk.Label(ec_phone_frame, text="", anchor="nw")
+            ec_email = tk.Label(ec_email_frame, text=data[7], anchor="nw")
+            medical_notes = tk.Label(medical_notes_frame, text=data[8], anchor="nw")
+            current_grade = tk.Label(current_grade_frame, text=data[9], anchor="nw")
 
             address_label.pack(side=tk.LEFT)
             address.pack(side=tk.LEFT)
@@ -506,20 +498,20 @@ class Form:
             emergency_contact_label.pack(side=tk.LEFT)
             emergency_contact.pack(side=tk.LEFT)
 
+            ec_relation_label.pack(side=tk.LEFT)
+            ec_relation.pack(side=tk.LEFT)
+
             ec_phone_label.pack(side=tk.LEFT)
             ec_phone.pack(side=tk.LEFT)
 
             ec_email_label.pack(side=tk.LEFT)
             ec_email.pack(side=tk.LEFT)
 
-            ec_relation_label.pack(side=tk.LEFT)
-            ec_relation.pack(side=tk.LEFT)
+            medical_notes_label.pack(side=tk.LEFT)
+            medical_notes.pack(side=tk.LEFT)
 
             current_grade_label.pack(side=tk.LEFT)
             current_grade.pack(side=tk.LEFT)
-
-            medical_notes_label.pack(side=tk.LEFT)
-            medical_notes.pack(side=tk.LEFT)
 
             return self.top
         elif access_level is 1:

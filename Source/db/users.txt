@@ -5,3 +5,13 @@ rbrem	rosana  1   14
 aclem	adele   1   15
 clabo	cosimo  1   16
 bweat	brier   1   17
+rdif	1234	2	3
+mlav	1234	2	4
+hmcm	1234	2	5
+mran	1234	2	6
+asne	1234	2	7
+smin	1234	2	8
+ssly	1234	2	9
+dgil	1234    2   10
+phai	1234    2   11
+fmug	1234	2	12

@@ -1,4 +1,6 @@
 from Source.Account import Account
+import csv
+import os
 
 
 class Student(Account):
@@ -12,7 +14,7 @@ class Student(Account):
         self.__fname = ''
 
         # private
-        # student first name
+        # student last name
         self.__lname = ''
 
         # private
@@ -67,12 +69,13 @@ class Student(Account):
         self.__relationship = data[4]
         self.__ec_email = data[5]
         self.__medical_notes = data[6]
-        self.__grades = data[6]
-        self.__educators = data[7]
+        self.__current_grade = data[7]
+        self.__educators = []
         self.__current_institution = data[8]
-        self.__current_grade = data[9]
+        self.__grades = data[9]
         self.__grade_notes = data[10]
         self.__home_address = data[11]
+
         return None
 
     # private
@@ -97,7 +100,7 @@ class Student(Account):
 
     # get name concatenate fname and lname
     def get_name(self):
-        name = self.fname + " " + self.lname
+        name = self.__fname + " " + self.__lname
         return name
 
     # get Student ID
@@ -135,10 +138,26 @@ class Student(Account):
         stud_educators = self.__educators
         return stud_educators
 
-    # get current
+    # get current institution
     def get_current_institution(self):
-        current_institution = self.__current_institution
-        return current_institution
+        script_dir = os.path.dirname(__file__)  # absolute dir the script is in
+        rel_path = "db/institutions.txt"
+        abs_file_path = os.path.join(script_dir, rel_path)
+
+        return_list = list()
+
+        with open(abs_file_path) as f:
+            content = f.readlines()
+            content = [x.strip() for x in content]
+
+            for line in content:
+                split = line.split("\t")  # choose split type
+                if split[0] == str(self.__current_institution):
+                    return_list = line.split("\t")
+                    break
+            f.close()
+
+        return return_list[4]
 
     # get current grade
     def get_current_grade(self):
