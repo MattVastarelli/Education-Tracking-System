@@ -721,9 +721,8 @@ class Form:
         # add many grades
         pass
 
-    def view_courses(self):
+    def view_courses(self, data):
         # view one or many courses
-        self.top.resizable(width=False, height=False)
         self.top.geometry("550x350")
         self.top.title("Institution")
 
@@ -744,6 +743,9 @@ class Form:
         courses_label = tk.Label(courses_frame, text="Courses: ", anchor="nw")
         courses_label.pack()
 
+        # self.course = tk.Text(courses_frame)
+        # self.course.pack()
+
         return self.top
 
     def add_license(self):
@@ -760,7 +762,6 @@ class Form:
 
     def add_note(self):
         # form add notes to records
-        self.top.resizable(width=False, height=False)
         self.top.geometry("550x350")
 
         # main frame
@@ -786,13 +787,76 @@ class Form:
 
         return self.top
 
+    def get_note(self):
+        return self.note.text
+
     def view_note(self):
         # view a students notes
         pass
 
-    def view_grade(self):
-        # finds and displays a students grade
-        pass
+    def view_grade(self, subject, grade):
+        # form view a students grade
+        self.top.geometry("550x350")
+
+        # main frame
+        frame = tk.Frame(self.top)
+        frame.pack(pady=25)
+
+        self.top.title("Grades")
+
+        # frames
+        sub_frame = tk.Frame(frame)
+        sub_frame.pack()
+
+        grade_frame = tk.Frame(frame)
+        grade_frame.pack()
+
+        # labels
+        sub_label = tk.Label(sub_frame, text="Subject: ", anchor="nw")
+        sub_label.pack()
+
+        sub = tk.Label(sub_frame, text=subject, anchor="nw")
+        sub.pack()
+
+        sub_label = tk.Label(grade_frame, text="Grade: ", anchor="nw")
+        sub_label.pack()
+
+        grade_rec = tk.Label(grade_frame, text=grade, anchor="nw")
+        grade_rec.pack()
+
+        return self.top
+
+    def view_reports_as_student(self, edu, report):
+        # form add notes to records
+        self.top.geometry("550x350")
+
+        # main frame
+        frame = tk.Frame(self.top)
+        frame.pack(pady=25)
+
+        self.top.title("My Reports")
+
+        # frames
+        edu_frame = tk.Frame(frame)
+        edu_frame.pack()
+
+        report_frame = tk.Frame(frame)
+        report_frame.pack()
+
+        # labels
+        edu_label = tk.Label(edu_frame, text="Add Notes: ", anchor="nw")
+        edu_label.pack()
+
+        edu_name = tk.Label(edu_frame, text=edu, anchor="nw")
+        edu_name.pack()
+
+        report_label = tk.Label(report_frame, text="Report: ", anchor="nw")
+        report_label.pack()
+
+        report_l = tk.Label(report_frame, text=report, anchor="nw")
+        report_l.pack()
+
+        return self.top
 
     def edit_account_info(self):
         # edit form
@@ -801,3 +865,67 @@ class Form:
     def view_profile(self):
         # view a given profile
         pass
+
+    def view_standards(self, standards):
+        # form view a students grade
+        self.top.geometry("550x350")
+
+        # main frame
+        frame = tk.Frame(self.top)
+        frame.pack(pady=25)
+
+        self.top.title("Standards")
+
+        # frames
+        stand_frame = tk.Frame(frame)
+        stand_frame.pack()
+
+        acc_range_frame = tk.Frame(frame)
+        acc_range_frame.pack()
+
+        # labels
+        stand_label = tk.Label(stand_frame, text="Standards: ", anchor="nw")
+        stand_label.pack()
+
+        stand = tk.Label(stand_frame, text=standards.subject, anchor="nw")
+        stand.pack()
+
+        acc_range_label = tk.Label(acc_range_frame, text="Grade: ", anchor="nw")
+        acc_range_label.pack()
+
+        acc_range = tk.Label(acc_range_frame, text=standards.acceptable_range, anchor="nw")
+        acc_range.pack()
+
+        return self.top
+
+    def view_edu_assessments(self, edu, assessment):
+        # form add notes to records
+        self.top.geometry("550x350")
+
+        # main frame
+        frame = tk.Frame(self.top)
+        frame.pack(pady=25)
+
+        self.top.title("Educator Assessments")
+
+        # frames
+        edu_frame = tk.Frame(frame)
+        edu_frame.pack()
+
+        assessment_frame = tk.Frame(frame)
+        assessment_frame.pack()
+
+        # labels
+        edu_label = tk.Label(edu_frame, text="Educator: ", anchor="nw")
+        edu_label.pack()
+
+        edu_l = tk.Label(edu_frame, text=edu, anchor="nw")
+        edu_l.pack()
+
+        assessment_label = tk.Label(assessment_frame, text="Assessments: ", anchor="nw")
+        assessment_label.pack()
+
+        assessment_l = tk.Label(assessment_frame, text=assessment)
+        assessment_l.pack()
+
+        return self.top
