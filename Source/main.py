@@ -205,6 +205,13 @@ class Main:
         f.destroy()
         f = Form()
 
+        if last_name:
+            return None
+        elif student_id:
+            return None
+        else:
+            return None
+
         f.search_screen()
         return None
 
