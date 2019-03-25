@@ -204,6 +204,7 @@ class Main:
     def search_student(self, student_id, last_name, access_level_of_searcher, f):
         f.destroy()
         f = Form()
+        f.search_screen()
 
         if last_name:
             return None
@@ -212,7 +213,7 @@ class Main:
         else:
             return None
 
-        f.search_screen()
+
         return None
 
     def get_standards(self, standards):
