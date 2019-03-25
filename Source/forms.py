@@ -37,6 +37,13 @@ class Form:
 
         return self.top
 
+    def search_screen(self):
+        def main_screen(self):
+            self.top.geometry("300x450")
+            self.top.title("Search")
+
+            return self.top
+
     def run(self):
         self.top.mainloop()
         return None

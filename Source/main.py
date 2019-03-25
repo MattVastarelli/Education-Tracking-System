@@ -182,7 +182,7 @@ class Main:
 
             return_list = list()
 
-            with open(abs_file_path) as f:
+            with open(abs_file_path) as file:
                 content = f.readlines()
                 content = [x.strip() for x in content]
 
@@ -192,7 +192,7 @@ class Main:
                     if split[0] == data['user_id']:
                         return_list = line.split("\t")
                         break
-            f.close()
+            file.close()
             # fill in data
             print(return_list)
             educ.set_id(return_list[0])
