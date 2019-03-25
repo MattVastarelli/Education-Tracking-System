@@ -131,8 +131,8 @@ class Main:
 
             return_list = list()
 
-            with open(abs_file_path) as f:
-                content = f.readlines()
+            with open(abs_file_path) as file:
+                content = file.readlines()
                 content = [x.strip() for x in content]
 
                 for line in content:
@@ -140,7 +140,7 @@ class Main:
                     if split[0] == data['user_id']:
                         return_list = split
 
-            f.close()
+            file.close()
             # fill in data
             print(return_list)
             inst.set_id(return_list[0])
@@ -183,7 +183,7 @@ class Main:
             return_list = list()
 
             with open(abs_file_path) as file:
-                content = f.readlines()
+                content = file.readlines()
                 content = [x.strip() for x in content]
 
                 for line in content:
@@ -205,7 +205,12 @@ class Main:
         f = Form()
 
         f.search_screen()
+        return None
 
+    def get_standards(self, standards):
+        f = Form()
+
+        f.view_standards(standards)
 
         return None
 
@@ -240,8 +245,8 @@ class Main:
 
             return_list = list()
 
-            with open(abs_file_path) as f:
-                content = f.readlines()
+            with open(abs_file_path) as file:
+                content = file.readlines()
                 content = [x.strip() for x in content]
 
                 for line in content:
@@ -250,7 +255,7 @@ class Main:
                     if split[0] == data['user_id']:
                         return_list = line.split("\t")
                         break
-            f.close()
+            file.close()
             # fill in data
             print(return_list)
             stud.set_id(return_list[0])
