@@ -149,9 +149,6 @@ class Main:
             return inst
 
     def create_educator_obj(self, data, is_new, f):
-        f.destroy()
-
-        f = Form()
 
         educ = Educator(data['user_name'], data['password'], is_new)
 
@@ -215,8 +212,6 @@ class Main:
         return None
 
     def create_student_obj(self, data, is_new, f):
-        f.destroy()
-        f = Form()
 
         stud = Student(data['user_name'], data['password'], 2, is_new)
 
