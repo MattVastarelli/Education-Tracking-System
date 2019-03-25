@@ -200,6 +200,15 @@ class Main:
 
             return educ
 
+    def search_student(self, data, access_level_of_searcher, f):
+        f.destroy()
+        f = Form()
+
+        f.search_screen()
+
+
+        return None
+
     def create_student_obj(self, data, is_new, f):
         f.destroy()
         f = Form()

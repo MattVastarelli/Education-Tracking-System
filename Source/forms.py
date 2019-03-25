@@ -30,6 +30,7 @@ class Form:
         self.user_name_box = None
         self.password_box = None
         self.note = None
+        self.search_box = None
 
     def main_screen(self):
         self.top.geometry("300x450")
@@ -38,11 +39,21 @@ class Form:
         return self.top
 
     def search_screen(self):
-        def main_screen(self):
-            self.top.geometry("300x450")
-            self.top.title("Search")
+        self.top.geometry("300x450")
+        self.top.title("Search")
 
-            return self.top
+        # main frame
+        frame = tk.Frame(self.top)
+        frame.pack(pady=75)
+
+        # form fields names
+        search_frame = tk.Frame(frame)
+        search_frame.pack()
+
+        self.search_box = tk.Entry(search_frame)
+        self.search_box.pack()
+
+        return self.top
 
     def run(self):
         self.top.mainloop()
