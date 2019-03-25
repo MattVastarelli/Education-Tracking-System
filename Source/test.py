@@ -2,6 +2,28 @@ from Source import forms
 import tkinter as tk
 import os
 
+data = [1,2,3,4]
+btn_list = list()
+
+top = tk.Tk()
+top.geometry("350x150")
+
+# main frame
+frame = tk.Frame(top)
+frame.pack()
+
+# frames
+itter_frame = tk.Frame(frame)
+itter_frame.pack()
+
+for item in data:
+    btn_list.append(tk.Button(itter_frame, text="New Btn", command=""))
+
+for item in btn_list:
+    item.pack(padx=2)
+
+tk.mainloop()
+
 """
 view class types
 add new classes
