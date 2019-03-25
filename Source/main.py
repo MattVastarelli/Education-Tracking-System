@@ -12,6 +12,7 @@ class Main:
         self.edu = list()
         self.inst = str()
         self.stu = list()
+        self.user = None
 
     def log_in_search(self, login_data, f):
         user = login_data['user_name']
@@ -46,12 +47,15 @@ class Main:
 
         if int(split[2]) is 0:
             obj = self.create_institution_obj(data, False, f)
+            self.user = obj
         elif int(split[2]) is 1:
             pass
             obj = self.create_educator_obj(data, False, f)
+            self.user = obj
         elif int(split[2]) is 2:
             pass
             obj = self.create_student_obj(data, False, f)
+            self.user = obj
         else:
             return None
 
@@ -197,7 +201,7 @@ class Main:
 
             return educ
 
-    def search_student(self, data, access_level_of_searcher, f):
+    def search_student(self, student_id, last_name, access_level_of_searcher, f):
         f.destroy()
         f = Form()
 
