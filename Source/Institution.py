@@ -93,17 +93,7 @@ class Institution(Account):
 
     # private
     # view institution self
-    def __view_institution(self):
-        pass
-
-    # private
-    # view educator profile
-    def __view_educator(self):
-        pass
-
-    # private
-    # view student profile
-    def __view_student(self):
+    def view_institution(self):
         pass
 
     # private
@@ -133,3 +123,10 @@ class Institution(Account):
     def create_new(self, access_level, something):
         pass
 
+    # view educator profile
+    def view_educator(self, data, search_type):
+        return None
+
+    # view student profile
+    def view_student(self, data, search_type):
+        return None

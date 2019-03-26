@@ -241,3 +241,9 @@ class Student(Account):
     def create_new(self, access_level, something):
         return None
 
+    def view_inst(self):
+        return None
+
+    # view educator profile
+    def view_educator(self, data, search_type):
+        return None

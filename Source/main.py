@@ -201,18 +201,97 @@ class Main:
 
             return educ
 
-    def search_student(self, student_id, last_name, access_level_of_searcher, f):
+    def search_student_form(self,  access_level, f):
         f.destroy()
         f = Form()
         f.search_screen()
 
-        if last_name:
-            return None
-        elif student_id:
-            return None
-        else:
-            return None
+        frame = tk.Frame()
+        frame.pack(pady=10)
 
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
+
+        var = None
+
+        R1 = tk.Radiobutton(button_frame, text="Last Name", variable=var, value=1)
+        R1.pack(pady=2)
+
+        R2 = tk.Radiobutton(button_frame, text="Student Id", variable=var, value=2)
+        R2.pack(pady=2)
+
+        new_search_button = tk.Button(button_frame, text="Search",
+                                      command=lambda: self.search_for_student(access_level, f, var, f.search_box.get()))
+        new_search_button.pack(pady=2)
+
+        back_button = tk.Button(button_frame, text="Back",
+                                      command=lambda: self.main_screen(self.user.accessLevel, self.user, f))
+        back_button.pack(pady=2)
+
+        return None
+
+    def search_for_student(self, access_level, f, var, data):
+        f.destroy()
+        f = Form()
+
+        student = None
+        search_type = None
+
+        if var is 1:
+            search_type = "last name"
+        else:
+            search_type = "student id"
+
+        student = self.user.view_student(data, search_type)
+
+        self.view_student(access_level, student, f)
+
+        return None
+
+    def search_edu_form(self,  access_level, f,):
+        f.destroy()
+        f = Form()
+        f.search_screen()
+
+        frame = tk.Frame()
+        frame.pack(pady=10)
+
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
+
+        var = None
+
+        R1 = tk.Radiobutton(button_frame, text="Last Name", variable=var, value=1)
+        R1.pack(pady=2)
+
+        R2 = tk.Radiobutton(button_frame, text="Educator Id", variable=var, value=2)
+        R2.pack(pady=2)
+
+        new_search_button = tk.Button(button_frame, text="Search",
+                                      command=lambda: self.search_for_edu(access_level, f, var, f.search_box.get()))
+        new_search_button.pack(pady=2)
+
+        back_button = tk.Button(button_frame, text="Back",
+                                command=lambda: self.main_screen(self.user.accessLevel, self.user, f))
+        back_button.pack(pady=2)
+
+        return None
+
+    def search_for_edu(self, access_level, f, var, data):
+        f.destroy()
+        f = Form()
+
+        edu = None
+        search_type = None
+
+        if var is 1:
+            search_type = "last name"
+        else:
+            search_type = "educator id"
+
+        edu = self.user.view_educator(data, search_type)
+
+        self.view_edu(access_level, edu, f)
 
         return None
 
@@ -462,37 +541,41 @@ class Main:
 
             """ will error need intermediate screen to pick teacher """
             view_edu_button = tk.Button(button_frame_3, text="View Educator",
-                                        command=lambda: self.view_edu(0, None, f))
+                                        command=lambda: self.search_edu_form(0, f))
             view_edu_button.pack(side=tk.LEFT, pady=10)
 
             view_inst_button = tk.Button(button_frame_4, text="View Institution",
                                          command=lambda: self.view_inst(0, user, f))
             view_inst_button.pack(side=tk.LEFT, pady=10)
-            """ will error need intermediate screen to pick student """
+
             view_student_button = tk.Button(button_frame_5, text="View Student",
-                                            command=lambda: self.view_student(0, None, f))
+                                            command=lambda: self.search_student_form(0, f))
             view_student_button.pack(side=tk.LEFT, pady=10)
 
         if access_level is 1:
-            view_edu_button = tk.Button(button_frame_3, text="View Educator", command=lambda: self.view_edu(1, user, f))
+            view_edu_button = tk.Button(button_frame_1, text="View Educator", command=lambda: self.view_edu(1, user, f))
             view_edu_button.pack(side=tk.LEFT, pady=10)
-            """ need find inst that the edu belongs to """
-            view_inst_button = tk.Button(button_frame_4, text="View Institution",
-                                         command=lambda: self.view_inst(1, None, f))
+
+            view_inst_button = tk.Button(button_frame_2, text="View Institution",
+                                         command=lambda: self.user.view_inst())
             view_inst_button.pack(side=tk.LEFT, pady=10)
-            """ will error need intermediate screen to pick student """
-            view_student_button = tk.Button(button_frame_5, text="View Student",
-                                            command=lambda: self.view_student(1, None, f))
+
+            view_student_button = tk.Button(button_frame_3, text="View Student",
+                                            command=lambda: self.search_student_form(1, f))
             view_student_button.pack(side=tk.LEFT, pady=10)
 
         if access_level is 2:
-            view_student_button = tk.Button(button_frame_5, text="View Student",
+            view_student_button = tk.Button(button_frame_1, text="View Student",
                                             command=lambda: self.view_student(2, user, f))
             view_student_button.pack(side=tk.LEFT, pady=10)
             """ need find inst that the edu belongs to """
-            view_inst_button = tk.Button(button_frame_4, text="View Institution",
-                                         command=lambda: self.view_inst(2, None, f))
+            view_inst_button = tk.Button(button_frame_2, text="View Institution",
+                                         command=lambda: self.user.view_inst())
             view_inst_button.pack(side=tk.LEFT, pady=10)
+
+            view_edu_button = tk.Button(button_frame_3, text="View Educators",
+                                        command=lambda: self.search_edu_form(2, f))
+            view_edu_button.pack(side=tk.LEFT, pady=10)
 
         close_button = tk.Button(button_frame_6, text="Log Out", command=lambda: self.log_in(f))
         close_button.pack(side=tk.LEFT, padx=10)

@@ -196,6 +196,9 @@ class Educator(Account):
     def viewCourses(self):
         pass
 
-    # function to view students assigned to Educator's active sections
-    def viewStudents(self):
-        pass
+    def view_inst(self):
+        return None
+
+    # view student profile
+    def view_student(self, data, search_type):
+        return None
