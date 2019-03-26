@@ -947,3 +947,36 @@ class Form:
         assessment_l.pack()
 
         return self.top
+
+    def view_edu_feedback(self, edu, feedback):
+
+        # form add notes to records
+        self.top.geometry("550x350")
+
+        # main frame
+        frame = tk.Frame(self.top)
+        frame.pack(pady=25)
+
+        self.top.title("Educator Feedback")
+
+        # frames
+        edu_frame = tk.Frame(frame)
+        edu_frame.pack()
+
+        feedback_frame = tk.Frame(frame)
+        feedback_frame.pack()
+
+        # labels
+        edu_label = tk.Label(edu_frame, text="Educator: ", anchor="nw")
+        edu_label.pack()
+
+        edu_l = tk.Label(edu_frame, text=edu, anchor="nw")
+        edu_l.pack()
+
+        feedback_label = tk.Label(feedback_frame, text="Feedback: ", anchor="nw")
+        feedback_label.pack()
+
+        feedback_listbox = tk.Listbox(feedback_frame, text=feedback)
+        feedback_listbox.pack()
+
+        return self.top
