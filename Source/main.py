@@ -38,7 +38,7 @@ class Main:
                     password_match = True
 
                 if user_name_match and password_match:
-                    print(split)
+                    #print(split)
                     data = {
                         "user_name": user, "password": password, "user_id": split[3], "access_level": split[2]
                     }
@@ -212,7 +212,7 @@ class Main:
         button_frame = tk.Frame(frame)
         button_frame.pack()
 
-        var = None
+        var = tk.IntVar()
 
         R1 = tk.Radiobutton(button_frame, text="Last Name", variable=var, value=1)
         R1.pack(pady=2)
@@ -221,7 +221,8 @@ class Main:
         R2.pack(pady=2)
 
         new_search_button = tk.Button(button_frame, text="Search",
-                                      command=lambda: self.search_for_student(access_level, f, var, f.search_box.get()))
+                                      command=lambda: self.search_for_student(access_level, f, var.get(),
+                                                                              f.search_box.get()))
         new_search_button.pack(pady=2)
 
         back_button = tk.Button(button_frame, text="Back",
@@ -234,17 +235,27 @@ class Main:
         f.destroy()
         f = Form()
 
+        index = -1
         student = None
-        search_type = None
-
         if var is 1:
-            search_type = "last name"
+            index = 5
         else:
-            search_type = "student id"
+            index = 0
 
-        student = self.user.view_student(data, search_type)
+        script_dir = os.path.dirname(__file__)  # absolute dir the script is in
+        rel_path = "db/students.txt"
+        abs_file_path = os.path.join(script_dir, rel_path)
 
-        self.view_student(access_level, student, f)
+        with open(abs_file_path) as file:
+            content = file.readlines()
+            content = [x.strip() for x in content]
+
+            for line in content:
+                split = line.split()  # choose split type
+                if data == split[index]:
+                    print(split)
+
+        #self.view_student(access_level, student, f)
 
         return None
 
@@ -259,7 +270,7 @@ class Main:
         button_frame = tk.Frame(frame)
         button_frame.pack()
 
-        var = None
+        var = tk.IntVar()
 
         R1 = tk.Radiobutton(button_frame, text="Last Name", variable=var, value=1)
         R1.pack(pady=2)
@@ -268,7 +279,7 @@ class Main:
         R2.pack(pady=2)
 
         new_search_button = tk.Button(button_frame, text="Search",
-                                      command=lambda: self.search_for_edu(access_level, f, var, f.search_box.get()))
+                                      command=lambda: self.search_for_edu(access_level, f, var.get(), f.search_box.get()))
         new_search_button.pack(pady=2)
 
         back_button = tk.Button(button_frame, text="Back",
@@ -281,17 +292,27 @@ class Main:
         f.destroy()
         f = Form()
 
+        index = -1
         edu = None
-        search_type = None
-
         if var is 1:
-            search_type = "last name"
+            index = 5
         else:
-            search_type = "educator id"
+            index = 0
 
-        edu = self.user.view_educator(data, search_type)
+        script_dir = os.path.dirname(__file__)  # absolute dir the script is in
+        rel_path = "db/students.txt"
+        abs_file_path = os.path.join(script_dir, rel_path)
 
-        self.view_edu(access_level, edu, f)
+        with open(abs_file_path) as file:
+            content = file.readlines()
+            content = [x.strip() for x in content]
+
+            for line in content:
+                split = line.split()  # choose split type
+                if data == split[index]:
+                    print(split)
+
+        #self.view_edu(access_level, edu, f)
 
         return None
 
