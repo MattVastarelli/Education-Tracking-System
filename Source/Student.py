@@ -1,4 +1,5 @@
 from Source.Account import Account
+from Source.Institution import Institution
 import csv
 import os
 
@@ -243,18 +244,21 @@ class Student(Account):
 
     def view_inst(self):
         script_dir = os.path.dirname(__file__)  # absolute dir the script is in
-        rel_path = "db/institution.txt"
+        rel_path = "db/institutions.txt"
         abs_file_path = os.path.join(script_dir, rel_path)
 
         with open(abs_file_path) as file:
             content = file.readlines()
             content = [x.strip() for x in content]
-
+            instData = list()
             for line in content:
-                split = line.split()  # choose split type
+                split = line.split("\t")  # choose split type
                 if self.get_current_institution() == split[0]:
-                    print(split) # found the inst
+                    instData = split # found the inst
                     # create and return obj
+                    inst = Institution(username=instData[2], password=instData[3], access=0, is_new=False)
+                    inst.set_data([instData[4], instData[5], instData[6], instData[8], instData[7], instData[9]])
+                    return inst
 
         return None
 

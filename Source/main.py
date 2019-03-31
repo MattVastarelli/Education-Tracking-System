@@ -300,7 +300,7 @@ class Main:
             index = 0
 
         script_dir = os.path.dirname(__file__)  # absolute dir the script is in
-        rel_path = "db/students.txt"
+        rel_path = "db/educators.txt"
         abs_file_path = os.path.join(script_dir, rel_path)
 
         with open(abs_file_path) as file:
@@ -575,9 +575,9 @@ class Main:
         if access_level is 1:
             view_edu_button = tk.Button(button_frame_1, text="View Educator", command=lambda: self.view_edu(1, user, f))
             view_edu_button.pack(side=tk.LEFT, pady=10)
-            """ some thing like self.view_inst(1, self.user.view_inst(), f) where view inst returns an instution"""
+
             view_inst_button = tk.Button(button_frame_2, text="View Institution",
-                                         command=lambda: self.user.view_inst())
+                                         command=lambda: self.view_inst(1, self.user.view_inst(), f))
             view_inst_button.pack(side=tk.LEFT, pady=10)
 
             view_student_button = tk.Button(button_frame_3, text="View Student",
@@ -588,9 +588,9 @@ class Main:
             view_student_button = tk.Button(button_frame_1, text="View Student",
                                             command=lambda: self.view_student(2, user, f))
             view_student_button.pack(side=tk.LEFT, pady=10)
-            """ some thing like self.view_inst(2, self.user.view_inst(), f) where view inst returns an instution"""
+
             view_inst_button = tk.Button(button_frame_2, text="View Institution",
-                                         command=lambda: self.user.view_inst())
+                                         command=lambda: self.view_inst(2, self.user.view_inst(), f))
             view_inst_button.pack(side=tk.LEFT, pady=10)
 
             view_edu_button = tk.Button(button_frame_3, text="View Educators",
