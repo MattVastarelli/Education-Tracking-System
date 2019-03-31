@@ -240,7 +240,7 @@ class Main:
         if var is 1:
             index = 5
         else:
-            index = 0
+            index = 6
 
         script_dir = os.path.dirname(__file__)  # absolute dir the script is in
         rel_path = "db/students.txt"
@@ -452,17 +452,17 @@ class Main:
 
         return None
 
-    def view_edu(self, access_level, user, f):
+    def view_edu(self, access_level, edu, f):
         f.destroy()
         f = Form()
 
         # get the data from the obj
-        data = [user.get_name()]
-        data.extend(user.get_personal_info())
-        data.extend(user.get_professional_info())
+        data = [edu.get_name()]
+        data.extend(edu.get_personal_info())
+        data.extend(edu.get_professional_info())
         print(data)
 
-        f.view_educator(user.accessLevel, data)
+        f.view_educator(access_level, data)
 
         frame = tk.Frame()
         frame.pack(pady=10)
@@ -475,15 +475,15 @@ class Main:
 
         return None
 
-    def view_inst(self,access_level, user, f):
+    def view_inst(self,access_level, inst, f):
         f.destroy()
         f = Form()
 
         # get the data form the obj
-        data = [user.get_name(), user.get_address(), user.get_institution_type(),
-                user.get_grade_min(), user.get__grade_max(), user.get_main_phone_num()]
+        data = [inst.get_name(), inst.get_address(), inst.get_institution_type(),
+                inst.get_grade_min(), inst.get__grade_max(), inst.get_main_phone_num()]
 
-        f.view_institution(user.accessLevel, data)
+        f.view_institution(access_level, data)
 
         frame = tk.Frame()
         frame.pack(pady=10)
@@ -496,14 +496,14 @@ class Main:
 
         return None
 
-    def view_student(self, access_level, user, f):
+    def view_student(self, access_level, stu, f):
         f.destroy()
         f = Form()
 
         # get the data form the obj
-        data = [user.get_name(), user.get_student_id(), user.get_current_grade(), user.get_current_institution(),
-                user.get_home_address(), user.get_emergency_contact(), user.get_relationship(), user.get_ec_email(),
-                user.get_medical_notes(), user.get_grades()]
+        data = [stu.get_name(), stu.get_student_id(), stu.get_current_grade(), stu.get_current_institution(),
+                stu.get_home_address(), stu.get_emergency_contact(), stu.get_relationship(), stu.get_ec_email(),
+                stu.get_medical_notes(), stu.get_grades()]
 
         f.view_student(access_level, data)
 

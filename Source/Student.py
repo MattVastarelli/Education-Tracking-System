@@ -242,6 +242,19 @@ class Student(Account):
         return None
 
     def view_inst(self):
+        script_dir = os.path.dirname(__file__)  # absolute dir the script is in
+        rel_path = "db/institution.txt"
+        abs_file_path = os.path.join(script_dir, rel_path)
+
+        with open(abs_file_path) as file:
+            content = file.readlines()
+            content = [x.strip() for x in content]
+
+            for line in content:
+                split = line.split()  # choose split type
+                if self.get_current_institution() == split[0]:
+                    print(split) # found the inst
+
         return None
 
     # view educator profile
