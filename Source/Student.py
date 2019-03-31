@@ -254,6 +254,7 @@ class Student(Account):
                 split = line.split()  # choose split type
                 if self.get_current_institution() == split[0]:
                     print(split) # found the inst
+                    # create and return obj
 
         return None
 

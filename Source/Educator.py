@@ -209,7 +209,8 @@ class Educator(Account):
                 split = line.split()  # choose split type
                 if self.currentInst == split[0]:
                     print(split)  # found the inst
-
+                    # create and return obj
+                    
         return None
 
     # view student profile
