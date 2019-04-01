@@ -302,8 +302,8 @@ class Main:
         # f.destroy()
         #f = Form()
 
+        match = False
         index = -1
-        edu = None
         if var is 1:
             index = 5
         else:
@@ -321,8 +321,15 @@ class Main:
                 split = line.split("\t")  # choose split type
                 if data == split[index]:
                     print(split)
+                    match = True
+                    edu_data = split
+                    edu = Educator(username=edu_data[2], password=edu_data[3], is_new=False)
 
-        #self.view_edu(access_level, edu, f)
+                    edu.set_data(edu_data[4:])
+                    self.view_edu(access_level, edu, f)
+
+        if match is False:
+            self.search_edu_form(access_level, f)
 
         return None
 
