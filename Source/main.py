@@ -270,7 +270,7 @@ class Main:
                     print(split)
                     data_list.append(split)
 
-        return  data_list()
+        return  data_list
 
 
     def search_for_student(self, access_level, f, var, data):
