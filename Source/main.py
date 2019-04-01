@@ -232,8 +232,8 @@ class Main:
         return None
 
     def search_for_student(self, access_level, f, var, data):
-        f.destroy()
-        f = Form()
+        #f.destroy()
+        #f = Form()
 
         index = -1
         student = None
@@ -245,17 +245,27 @@ class Main:
         script_dir = os.path.dirname(__file__)  # absolute dir the script is in
         rel_path = "db/students.txt"
         abs_file_path = os.path.join(script_dir, rel_path)
-
+        studentData = list()
+        match = False
         with open(abs_file_path) as file:
             content = file.readlines()
             content = [x.strip() for x in content]
 
             for line in content:
-                split = line.split()  # choose split type
+                split = line.split("\t")  # choose split type
                 if data == split[index]:
                     print(split)
+                    match = True
+                    studentData = split
+                    student = Student(username=studentData[2], password=studentData[3], access_level=2, is_new=False)
 
-        #self.view_student(access_level, student, f)
+                    student.set_data([studentData[4], studentData[5], studentData[6], studentData[7],
+                                     studentData[8], studentData[9], studentData[10], studentData[11],
+                                      studentData[12], studentData[13], studentData[14], studentData[15]])
+
+                    self.view_student(access_level, student, f)
+        if match is False:
+            self.search_student_form(access_level, f)
 
         return None
 
@@ -289,8 +299,8 @@ class Main:
         return None
 
     def search_for_edu(self, access_level, f, var, data):
-        f.destroy()
-        f = Form()
+        # f.destroy()
+        #f = Form()
 
         index = -1
         edu = None
@@ -308,7 +318,7 @@ class Main:
             content = [x.strip() for x in content]
 
             for line in content:
-                split = line.split()  # choose split type
+                split = line.split("\t")  # choose split type
                 if data == split[index]:
                     print(split)
 

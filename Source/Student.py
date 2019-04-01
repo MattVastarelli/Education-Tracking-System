@@ -159,6 +159,7 @@ class Student(Account):
             f.close()
 
         return return_list[4]
+        # return self.__current_institution
 
     # get current grade
     def get_current_grade(self):
