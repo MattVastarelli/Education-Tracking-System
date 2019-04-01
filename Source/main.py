@@ -253,6 +253,26 @@ class Main:
 
         return None
 
+    def search(self, thing_to_match, file_name_to_search):
+        script_dir = os.path.dirname(__file__)  # absolute dir the script is in
+        rel_path = "db/" + file_name_to_search + ".txt"
+        abs_file_path = os.path.join(script_dir, rel_path)
+
+        data_list = list()
+
+        with open(abs_file_path) as file:
+            content = file.readlines()
+            content = [x.strip() for x in content]
+
+            for line in content:
+                split = line.split("\t")  # choose split type
+                if thing_to_match == split:
+                    print(split)
+                    data_list.append(split)
+
+        return  data_list()
+
+
     def search_for_student(self, access_level, f, var, data):
         #f.destroy()
         #f = Form()
