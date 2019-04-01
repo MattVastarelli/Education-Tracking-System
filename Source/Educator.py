@@ -71,6 +71,9 @@ class Educator(Account):
 
         return None
 
+    def get_courses(self):
+        return self.__prefCourses
+
     # private
     def __view(self):
         # what an Educator can see on their own profile

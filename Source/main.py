@@ -9,14 +9,17 @@ import os
 
 class Main:
     def __init__(self):
-        self.edu = list()
+        self.edu_list = list()
         self.inst = str()
-        self.stu = list()
+        self.stu_list = list()
         self.user = None
 
     def log_in_search(self, login_data, f):
         user = login_data['user_name']
         password = login_data['password']
+
+        self.edu_list = list()
+        self.stu_list = list()
 
         script_dir = os.path.dirname(__file__)  # absolute dir the script is in
         rel_path = "db/users.txt"
@@ -48,6 +51,8 @@ class Main:
         if int(split[2]) is 0:
             obj = self.create_institution_obj(data, False, f)
             self.user = obj
+            self.get_inst_educators(self.user.get_id())
+            self.get_inst_students(self.user.get_id())
         elif int(split[2]) is 1:
             pass
             obj = self.create_educator_obj(data, False, f)
@@ -83,6 +88,23 @@ class Main:
         user_writer = csv.writer(user_file, delimiter='\t')
         user_writer.writerow(user_data)
         user_file.close()
+
+        return None
+
+    def view_all_edu_courses(self, f):
+        f.destroy()
+        f = Form()
+
+        f.view_courses(self.edu_list)
+
+        frame = tk.Frame()
+        frame.pack(pady=10)
+
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
+
+        back = tk.Button(button_frame, text="Back", command=lambda: self.main_screen(0, None, f))
+        back.pack(side=tk.LEFT, padx=10)
 
         return None
 
@@ -295,6 +317,51 @@ class Main:
         back_button = tk.Button(button_frame, text="Back",
                                 command=lambda: self.main_screen(self.user.accessLevel, self.user, f))
         back_button.pack(pady=2)
+
+        return None
+
+    def get_inst_educators(self, inst_ID):
+        script_dir = os.path.dirname(__file__)  # absolute dir the script is in
+        rel_path = "db/educators.txt"
+        abs_file_path = os.path.join(script_dir, rel_path)
+
+        with open(abs_file_path) as file:
+            content = file.readlines()
+            content = [x.strip() for x in content]
+
+            for line in content:
+                split = line.split("\t")  # choose split type
+                if inst_ID == split[-1]: # last item
+                    print(split)
+                    match = True
+                    edu_data = split
+                    edu = Educator(username=edu_data[2], password=edu_data[3], is_new=False)
+
+                    edu.set_data(edu_data[4:])
+                    self.edu_list.append(edu)
+        return None
+
+    def get_inst_students(self, id_to_match):
+        script_dir = os.path.dirname(__file__)  # absolute dir the script is in
+        rel_path = "db/students.txt"
+        abs_file_path = os.path.join(script_dir, rel_path)
+        studentData = list()
+        with open(abs_file_path) as file:
+            content = file.readlines()
+            content = [x.strip() for x in content]
+
+            for line in content:
+                split = line.split("\t")  # choose split type
+                if id_to_match == split[12]:
+                    print(split)
+                    match = True
+                    studentData = split
+                    student = Student(username=studentData[2], password=studentData[3], access_level=2, is_new=False)
+
+                    student.set_data([studentData[4], studentData[5], studentData[6], studentData[7],
+                                      studentData[8], studentData[9], studentData[10], studentData[11],
+                                      studentData[12], studentData[13], studentData[14], studentData[15]])
+                    self.stu_list.append(student)
 
         return None
 
@@ -565,6 +632,12 @@ class Main:
         button_frame_6 = tk.Frame(frame)
         button_frame_6.pack()
 
+        button_frame_7 = tk.Frame(frame)
+        button_frame_7.pack()
+
+        close_frame = tk.Frame(frame)
+        close_frame.pack()
+
         if access_level is 0:
             new_edu_button = tk.Button(button_frame, text="New Educator", command=lambda: self.educator_creation(f))
             new_edu_button.pack(side=tk.LEFT, pady=10)
@@ -588,6 +661,10 @@ class Main:
             view_student_button = tk.Button(button_frame_5, text="View Student",
                                             command=lambda: self.search_student_form(0, f))
             view_student_button.pack(side=tk.LEFT, pady=10)
+
+            view_edu_courses = tk.Button(button_frame_6, text="View All Educator Courses",
+                                            command=lambda: self.view_all_edu_courses(f))
+            view_edu_courses.pack(side=tk.LEFT, pady=10)
 
         if access_level is 1:
             view_edu_button = tk.Button(button_frame_1, text="View Educator", command=lambda: self.view_edu(1, user, f))
@@ -614,7 +691,7 @@ class Main:
                                         command=lambda: self.search_edu_form(2, f))
             view_edu_button.pack(side=tk.LEFT, pady=10)
 
-        close_button = tk.Button(button_frame_6, text="Log Out", command=lambda: self.log_in(f))
+        close_button = tk.Button(close_frame, text="Log Out", command=lambda: self.log_in(f))
         close_button.pack(side=tk.LEFT, padx=10)
 
         return None

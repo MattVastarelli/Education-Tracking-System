@@ -44,6 +44,9 @@ class Institution(Account):
     def set_id(self, new_id):
         self.ownerID = new_id
 
+    def get_id(self):
+        return self.ownerID
+
     def __set_name(self, name):
         self.name = name
 

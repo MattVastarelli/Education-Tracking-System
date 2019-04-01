@@ -744,25 +744,27 @@ class Form:
         self.top.geometry("550x350")
         self.top.title("Institution")
 
+        display_list_edu = list()
+        display_list_course = list()
+        display_list_frames = list()
+
         # main frame
         frame = tk.Frame(self.top)
         frame.pack()
 
-        # frames
-        name_frame = tk.Frame(frame)
-        name_frame.pack()
+        for item in data:
+            display_list_frames.append(tk.Frame(frame))
 
-        courses_frame = tk.Frame(frame)
-        courses_frame.pack()
+        count = 0
+        for item in data:
+            display_list_frames[count].pack()
+            display_list_edu.append(tk.Label(display_list_frames[count], text=item.get_name() + ": ", anchor="nw"))
+            display_list_course.append(tk.Label(display_list_frames[count], text=item.get_courses(), anchor="nw"))
+            count += 1
 
-        name_label = tk.Label(name_frame, text="Course Name", anchor="nw")
-        name_label.pack()
-
-        courses_label = tk.Label(courses_frame, text="Courses: ", anchor="nw")
-        courses_label.pack()
-
-        # self.course = tk.Text(courses_frame)
-        # self.course.pack()
+        for x in range(0, len(display_list_edu)):
+            display_list_edu[x].pack(pady=2, side=tk.LEFT)
+            display_list_course[x].pack(pady=2, side=tk.LEFT)
 
         return self.top
 
