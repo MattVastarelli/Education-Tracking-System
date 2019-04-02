@@ -56,6 +56,8 @@ class Educator(Account):
         # current Institution/Employer
         self.currentInst = ''
 
+        self.feedback = list()
+
     def set_data(self, data):
         self.fname = data[0]
         self.lname = data[1]
@@ -68,8 +70,12 @@ class Educator(Account):
         self.__prefSubjects = data[8]
         self.gradeLevels = data[9]
         self.currentInst = data[10]
+        self.feedback = data[11]
 
         return None
+
+    def get_feedback(self):
+        return self.feedback
 
     def set_courses(self, courses):
         self.__prefCourses = courses
