@@ -8,3 +8,9 @@ educatorID  AccessLevel username	password	first_name	last_name	full-address	phon
 
 Students file column order (tab-delimited):
 studentID   AccessLevel username    password    first-name	last-name	inst_studID	EC-name	EC-relationship	EC-email	med-notes	grade-level	current-InstitutionID	grades	grade-notes	address
+
+Courses file column order (tab-delimited):
+InstID  EducID  CourseName
+
+Subjects file column order (tab-delimited):
+InstID  SubjectName
