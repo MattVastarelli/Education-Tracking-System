@@ -168,7 +168,7 @@ class Main:
 
             file.close()
             # fill in data
-            print(return_list)
+            #(return_list)
             inst.set_id(return_list[0])
             inst.set_data(return_list[4:])
 
@@ -217,7 +217,7 @@ class Main:
                         break
             file.close()
             # fill in data
-            print(return_list)
+            #print(return_list)
             educ.set_id(return_list[0])
             educ.set_data(return_list[4:])
 
@@ -267,11 +267,11 @@ class Main:
             for line in content:
                 split = line.split("\t")  # choose split type
                 if thing_to_match == split:
-                    print(split)
+                    #print(split)
                     data_list.append(split)
 
+        # returns a list of list
         return  data_list
-
 
     def search_for_student(self, access_level, f, var, data):
         #f.destroy()
@@ -296,7 +296,7 @@ class Main:
             for line in content:
                 split = line.split("\t")  # choose split type
                 if data == split[index]:
-                    print(split)
+                    #print(split)
                     match = True
                     studentData = split
                     student = Student(username=studentData[2], password=studentData[3], access_level=2, is_new=False)
@@ -352,7 +352,7 @@ class Main:
             for line in content:
                 split = line.split("\t")  # choose split type
                 if inst_ID == split[-1]: # last item
-                    print(split)
+                    #print(split)
                     match = True
                     edu_data = split
                     edu = Educator(username=edu_data[2], password=edu_data[3], is_new=False)
@@ -373,7 +373,7 @@ class Main:
             for line in content:
                 split = line.split("\t")  # choose split type
                 if id_to_match == split[12]:
-                    print(split)
+                    #print(split)
                     match = True
                     studentData = split
                     student = Student(username=studentData[2], password=studentData[3], access_level=2, is_new=False)
@@ -468,7 +468,7 @@ class Main:
                         break
             file.close()
             # fill in data
-            print(return_list)
+            #print(return_list)
             stud.set_id(return_list[0])
             stud.set_data(return_list[4:])
 
@@ -564,7 +564,7 @@ class Main:
         data = [edu.get_name()]
         data.extend(edu.get_personal_info())
         data.extend(edu.get_professional_info())
-        print(data)
+        #print(data)
 
         f.view_educator(access_level, data)
 
@@ -710,6 +710,10 @@ class Main:
             view_edu_button = tk.Button(button_frame_3, text="View Educators",
                                         command=lambda: self.search_edu_form(2, f))
             view_edu_button.pack(side=tk.LEFT, pady=10)
+
+            view_stu_reports = tk.Button(button_frame_4, text="View My Reports",
+                                        command=lambda: self.search_edu_form(2, f))
+            view_stu_reports.pack(side=tk.LEFT, pady=10)
 
         close_button = tk.Button(close_frame, text="Log Out", command=lambda: self.log_in(f))
         close_button.pack(side=tk.LEFT, padx=10)

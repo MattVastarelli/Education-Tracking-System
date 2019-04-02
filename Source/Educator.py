@@ -71,8 +71,12 @@ class Educator(Account):
 
         return None
 
+    def set_courses(self, courses):
+        self.__prefCourses = courses
+
     def get_courses(self):
-        return self.__prefCourses
+        #return self.__prefCourses # desired
+        return self.__prefSubjects
 
     # private
     def __view(self):
