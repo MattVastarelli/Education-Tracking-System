@@ -33,7 +33,7 @@ class Form:
         self.search_box = None
 
     def main_screen(self):
-        self.top.geometry("300x450")
+        self.top.geometry("300x650")
         self.top.title("EduTrac Dashboard")
 
         return self.top
@@ -993,7 +993,9 @@ class Form:
         feedback_label = tk.Label(feedback_frame, text="Feedback: ", anchor="nw")
         feedback_label.pack()
 
-        feedback_listbox = tk.Listbox(feedback_frame, text=feedback)
-        feedback_listbox.pack()
+        feedback_text = tk.Label(feedback_frame, text=feedback, anchor="nw")
+        feedback_text.pack()
+        #feedback_listbox = tk.Listbox(feedback_frame, text=feedback)
+        #feedback_listbox.pack()
 
         return self.top

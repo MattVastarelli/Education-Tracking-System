@@ -344,6 +344,73 @@ class Main:
 
         return None
 
+    def get_feedback(self, id):
+        script_dir = os.path.dirname(__file__)  # absolute dir the script is in
+        rel_path = "db/feedback.txt"
+        abs_file_path = os.path.join(script_dir, rel_path)
+
+        with open(abs_file_path) as file:
+            content = file.readlines()
+            content = [x.strip() for x in content]
+            for line in content:
+                split = line.split(",")  # choose split type
+
+                if str(id) == split[0]:  # last item
+                    return split[1]
+
+        return ""
+
+    def feedback_search(self, f):
+        f.destroy()
+        f = Form()
+        f.search_screen()
+
+        frame = tk.Frame()
+        frame.pack(pady=10)
+
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
+
+        var = tk.IntVar()
+
+        #R1 = tk.Radiobutton(button_frame, text="Last Name", variable=var, value=1)
+        #R1.pack(pady=2)
+
+        R2 = tk.Radiobutton(button_frame, text="Educator Id", variable=var, value=2)
+        R2.pack(pady=2)
+
+        new_search_button = tk.Button(button_frame, text="Search",
+                                      command=lambda: self.view_feedback(f.search_box.get(), f))
+        new_search_button.pack(pady=2)
+
+        back_button = tk.Button(button_frame, text="Back",
+                                command=lambda: self.main_screen(self.user.accessLevel, self.user, f))
+        back_button.pack(pady=2)
+
+        return None
+
+    def view_feedback(self, data, f):
+        f.destroy()
+        f = Form()
+        name = None
+        for edu in self.edu_list:
+            if edu.get_id() == data:
+                name = edu.get_name()
+                f.view_edu_feedback(name, edu.get_feedback())
+
+
+        frame = tk.Frame()
+        frame.pack(pady=10)
+
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
+
+        back_button = tk.Button(button_frame, text="Back",
+                                command=lambda: self.main_screen(self.user.accessLevel, self.user, f))
+        back_button.pack(pady=2)
+
+        return None
+
     def get_inst_educators(self, inst_ID):
         script_dir = os.path.dirname(__file__)  # absolute dir the script is in
         rel_path = "db/educators.txt"
@@ -356,12 +423,11 @@ class Main:
             for line in content:
                 split = line.split("\t")  # choose split type
                 if inst_ID == split[-1]: # last item
-                    #print(split)
-                    match = True
                     edu_data = split
                     edu = Educator(username=edu_data[2], password=edu_data[3], is_new=False)
 
                     edu.set_data(edu_data[4:])
+                    edu.set_feedback(self.get_feedback(edu.get_id()))
                     self.edu_list.append(edu)
         return None
 
@@ -417,6 +483,7 @@ class Main:
                     edu = Educator(username=edu_data[2], password=edu_data[3], is_new=False)
 
                     edu.set_data(edu_data[4:])
+                    edu.set_feedback(self.get_feedback(edu.get_id()))
                     self.view_edu(access_level, edu, f)
 
         if match is False:
@@ -689,6 +756,10 @@ class Main:
             view_edu_courses = tk.Button(button_frame_6, text="View All Educator Courses",
                                             command=lambda: self.view_all_edu_courses(f, 0))
             view_edu_courses.pack(side=tk.LEFT, pady=10)
+
+            view_edu_feedback = tk.Button(button_frame_7, text="Educator Feedback",
+                                         command=lambda: self.feedback_search(f))
+            view_edu_feedback.pack(side=tk.LEFT, pady=10)
 
         if access_level is 1:
             view_edu_button = tk.Button(button_frame_1, text="View Educator", command=lambda: self.view_edu(1, user, f))

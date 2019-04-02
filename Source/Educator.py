@@ -70,12 +70,18 @@ class Educator(Account):
         self.__prefSubjects = data[8]
         self.gradeLevels = data[9]
         self.currentInst = data[10]
-        self.feedback = data[11]
+        self.feedback = ""
 
         return None
 
+    def get_id(self):
+        return self.__educatorID
+
     def get_feedback(self):
         return self.feedback
+
+    def set_feedback(self, data):
+        self.feedback = data
 
     def set_courses(self, courses):
         self.__prefCourses = courses
