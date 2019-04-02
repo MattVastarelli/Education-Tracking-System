@@ -91,11 +91,15 @@ class Main:
 
         return None
 
-    def view_all_edu_courses(self, f):
+    def view_all_edu_courses(self, f, flag):
         f.destroy()
         f = Form()
 
-        f.view_courses(self.edu_list)
+        if flag == 0:
+            f.view_courses(self.edu_list, flag)
+        else:
+            print(type(self.user.get_courses()))
+            f.view_courses(self.user.get_courses(), 1)
 
         frame = tk.Frame()
         frame.pack(pady=10)
@@ -683,7 +687,7 @@ class Main:
             view_student_button.pack(side=tk.LEFT, pady=10)
 
             view_edu_courses = tk.Button(button_frame_6, text="View All Educator Courses",
-                                            command=lambda: self.view_all_edu_courses(f))
+                                            command=lambda: self.view_all_edu_courses(f, 0))
             view_edu_courses.pack(side=tk.LEFT, pady=10)
 
         if access_level is 1:
@@ -697,6 +701,10 @@ class Main:
             view_student_button = tk.Button(button_frame_3, text="View Student",
                                             command=lambda: self.search_student_form(1, f))
             view_student_button.pack(side=tk.LEFT, pady=10)
+
+            view_edu_courses = tk.Button(button_frame_4, text="View All Courses",
+                                         command=lambda: self.view_all_edu_courses(f, 1))
+            view_edu_courses.pack(side=tk.LEFT, pady=10)
 
         if access_level is 2:
             view_student_button = tk.Button(button_frame_1, text="View Student",

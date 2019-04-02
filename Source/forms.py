@@ -739,10 +739,10 @@ class Form:
         # add many grades
         pass
 
-    def view_courses(self, data):
+    def view_courses(self, data, flag):
         # view one or many courses
         self.top.geometry("550x350")
-        self.top.title("Institution")
+        self.top.title("Courses")
 
         display_list_edu = list()
         display_list_course = list()
@@ -752,18 +752,33 @@ class Form:
         frame = tk.Frame(self.top)
         frame.pack()
 
+        if flag == 1:
+            f = tk.Frame(frame)
+            f.pack()
+
+            c = tk.Label(f, text=data, anchor="nw")
+            c.pack()
+            return self.top
+
         for item in data:
             display_list_frames.append(tk.Frame(frame))
 
         count = 0
         for item in data:
+
             display_list_frames[count].pack()
-            display_list_edu.append(tk.Label(display_list_frames[count], text=item.get_name() + ": ", anchor="nw"))
-            display_list_course.append(tk.Label(display_list_frames[count], text=item.get_courses(), anchor="nw"))
+            if flag is 0:
+                display_list_edu.append(tk.Label(display_list_frames[count], text=item.get_name() + ": ", anchor="nw"))
+                display_list_course.append(tk.Label(display_list_frames[count], text=item.get_courses(), anchor="nw"))
+            #else:
+               # display_list_course.append(tk.Label(display_list_frames[count], text=item, anchor="nw"))
+
             count += 1
 
         for x in range(0, len(display_list_edu)):
-            display_list_edu[x].pack(pady=2, side=tk.LEFT)
+            if flag is 0:
+                display_list_edu[x].pack(pady=2, side=tk.LEFT)
+
             display_list_course[x].pack(pady=2, side=tk.LEFT)
 
         return self.top
