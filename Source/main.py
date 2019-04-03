@@ -257,7 +257,42 @@ class Main:
 
         return None
 
-    def search(self, thing_to_match, file_name_to_search):
+    def student_view_reports(self, f):
+        f.destroy()
+        f = Form()
+
+        feedback = self.search(thing_to_match=self.user.get_student_id(), file_name_to_search="studentReports", split_type=",")
+        print(feedback[0])
+
+        edu_list = list()
+        feedback_list = list()
+        for x in feedback:
+            edu_bool = True
+            for y in x:
+                if edu_bool:
+                    edu_bool = False
+                    edu_list.append(y)
+                else:
+                    feedback_list.append(y)
+
+        print(edu_list)
+        print(feedback_list)
+
+        f.view_edu_feedback(edu_list[0], feedback_list[0])
+
+        frame = tk.Frame()
+        frame.pack(pady=10)
+
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
+
+        back_button = tk.Button(button_frame, text="Back",
+                                command=lambda: self.main_screen(self.user.accessLevel, self.user, f))
+        back_button.pack(pady=2)
+
+        return None
+
+    def search(self, thing_to_match, file_name_to_search, split_type):
         script_dir = os.path.dirname(__file__)  # absolute dir the script is in
         rel_path = "db/" + file_name_to_search + ".txt"
         abs_file_path = os.path.join(script_dir, rel_path)
@@ -269,8 +304,9 @@ class Main:
             content = [x.strip() for x in content]
 
             for line in content:
-                split = line.split("\t")  # choose split type
-                if thing_to_match == split:
+                split = line.split(split_type)  # choose split type
+                #print(split)
+                if thing_to_match in split:
                     #print(split)
                     data_list.append(split)
 
@@ -397,7 +433,6 @@ class Main:
             if edu.get_id() == data:
                 name = edu.get_name()
                 f.view_edu_feedback(name, edu.get_feedback())
-
 
         frame = tk.Frame()
         frame.pack(pady=10)
@@ -791,7 +826,7 @@ class Main:
             view_edu_button.pack(side=tk.LEFT, pady=10)
 
             view_stu_reports = tk.Button(button_frame_4, text="View My Reports",
-                                        command=lambda: self.search_edu_form(2, f))
+                                        command=lambda: self.student_view_reports(f))
             view_stu_reports.pack(side=tk.LEFT, pady=10)
 
         close_button = tk.Button(close_frame, text="Log Out", command=lambda: self.log_in(f))
