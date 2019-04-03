@@ -98,7 +98,7 @@ class Main:
         if flag == 0:
             f.view_courses(self.edu_list, flag)
         else:
-            print(type(self.user.get_courses()))
+            #print(type(self.user.get_courses()))
             f.view_courses(self.user.get_courses(), 1)
 
         frame = tk.Frame()
@@ -257,7 +257,43 @@ class Main:
 
         return None
 
-    def search(self, thing_to_match, file_name_to_search):
+    def student_view_reports(self, f):
+        f.destroy()
+        f = Form()
+
+        feedback = self.search(thing_to_match=self.user.get_student_id(), file_name_to_search="studentReports", split_type=",")
+        #t(feedback[0])
+
+        edu_list = list()
+        feedback_list = list()
+        for x in feedback:
+            count = 0
+            for y in x:
+                if count == 0:
+                    count += 1
+                    continue
+                elif count == 1:
+                    edu = self.search(str(y), "educators", "\t")
+                    edu_list.append(edu[0][4] + " " + edu[0][5])
+                else:
+                    feedback_list.append(y)
+                count += 1
+
+        f.view_edu_feedback(edu_list[0], feedback_list[0])
+
+        frame = tk.Frame()
+        frame.pack(pady=10)
+
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
+
+        back_button = tk.Button(button_frame, text="Back",
+                                command=lambda: self.main_screen(self.user.accessLevel, self.user, f))
+        back_button.pack(pady=2)
+
+        return None
+
+    def search(self, thing_to_match, file_name_to_search, split_type):
         script_dir = os.path.dirname(__file__)  # absolute dir the script is in
         rel_path = "db/" + file_name_to_search + ".txt"
         abs_file_path = os.path.join(script_dir, rel_path)
@@ -269,8 +305,9 @@ class Main:
             content = [x.strip() for x in content]
 
             for line in content:
-                split = line.split("\t")  # choose split type
-                if thing_to_match == split:
+                split = line.split(split_type)  # choose split type
+                #print(split)
+                if thing_to_match in split:
                     #print(split)
                     data_list.append(split)
 
@@ -312,6 +349,48 @@ class Main:
                     self.view_student(access_level, student, f)
         if match is False:
             self.search_student_form(access_level, f)
+
+        return None
+
+    def view_standards(self, f, flag, data):
+        f.destroy()
+
+        if flag == 0:
+            # search
+            pass
+        else:
+            # view all
+            pass
+
+        return None
+
+    def search_standards(self, f):
+        f.destroy()
+        f = Form()
+        f.search_screen()
+
+        frame = tk.Frame()
+        frame.pack(pady=10)
+
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
+
+        var = tk.IntVar()
+
+        R1 = tk.Radiobutton(button_frame, text="Subject", variable=var, value=1)
+        R1.pack(pady=2)
+
+        new_search_button = tk.Button(button_frame, text="Search",
+                                      command=lambda: self.view_standards(f, 1, f.search_box.get()))
+        new_search_button.pack(pady=2)
+
+        view_all_button = tk.Button(button_frame, text="View All",
+                                      command=lambda: self.view_standards(f, 0, f.search_box.get()))
+        view_all_button.pack(pady=2)
+
+        back_button = tk.Button(button_frame, text="Back",
+                                command=lambda: self.main_screen(self.user.accessLevel, self.user, f))
+        back_button.pack(pady=15)
 
         return None
 
@@ -398,7 +477,6 @@ class Main:
                 name = edu.get_name()
                 f.view_edu_feedback(name, edu.get_feedback())
 
-
         frame = tk.Frame()
         frame.pack(pady=10)
 
@@ -477,7 +555,7 @@ class Main:
             for line in content:
                 split = line.split("\t")  # choose split type
                 if data == split[index]:
-                    print(split)
+                    #print(split)
                     match = True
                     edu_data = split
                     edu = Educator(username=edu_data[2], password=edu_data[3], is_new=False)
@@ -726,6 +804,9 @@ class Main:
         button_frame_7 = tk.Frame(frame)
         button_frame_7.pack()
 
+        standards_frame = tk.Frame(frame)
+        standards_frame.pack()
+
         close_frame = tk.Frame(frame)
         close_frame.pack()
 
@@ -791,11 +872,14 @@ class Main:
             view_edu_button.pack(side=tk.LEFT, pady=10)
 
             view_stu_reports = tk.Button(button_frame_4, text="View My Reports",
-                                        command=lambda: self.search_edu_form(2, f))
+                                        command=lambda: self.student_view_reports(f))
             view_stu_reports.pack(side=tk.LEFT, pady=10)
 
+        standards_button = tk.Button(standards_frame, text="Standards", command=lambda: self.search_standards(f))
+        standards_button.pack(side=tk.LEFT, pady=10)
+
         close_button = tk.Button(close_frame, text="Log Out", command=lambda: self.log_in(f))
-        close_button.pack(side=tk.LEFT, padx=10)
+        close_button.pack(side=tk.LEFT, pady=25)
 
         return None
 
