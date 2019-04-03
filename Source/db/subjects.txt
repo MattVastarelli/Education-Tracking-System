@@ -1,0 +1,16 @@
+1	Math
+1	English
+1	Science
+1	History
+1	Gym
+2	Math
+2	English
+2	Science
+2	History
+2	Language
+2	Art
+2	Gym
+2	Music
+2	Home Economics
+2	Trade Skills
+2	Computer Science
