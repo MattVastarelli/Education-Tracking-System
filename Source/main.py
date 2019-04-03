@@ -98,7 +98,7 @@ class Main:
         if flag == 0:
             f.view_courses(self.edu_list, flag)
         else:
-            print(type(self.user.get_courses()))
+            #print(type(self.user.get_courses()))
             f.view_courses(self.user.get_courses(), 1)
 
         frame = tk.Frame()
@@ -262,21 +262,22 @@ class Main:
         f = Form()
 
         feedback = self.search(thing_to_match=self.user.get_student_id(), file_name_to_search="studentReports", split_type=",")
-        print(feedback[0])
+        #t(feedback[0])
 
         edu_list = list()
         feedback_list = list()
         for x in feedback:
-            edu_bool = True
+            count = 0
             for y in x:
-                if edu_bool:
-                    edu_bool = False
-                    edu_list.append(y)
+                if count == 0:
+                    count += 1
+                    continue
+                elif count == 1:
+                    edu = self.search(str(y), "educators", "\t")
+                    edu_list.append(edu[0][4] + " " + edu[0][5])
                 else:
                     feedback_list.append(y)
-
-        print(edu_list)
-        print(feedback_list)
+                count += 1
 
         f.view_edu_feedback(edu_list[0], feedback_list[0])
 
@@ -512,7 +513,7 @@ class Main:
             for line in content:
                 split = line.split("\t")  # choose split type
                 if data == split[index]:
-                    print(split)
+                    #print(split)
                     match = True
                     edu_data = split
                     edu = Educator(username=edu_data[2], password=edu_data[3], is_new=False)
