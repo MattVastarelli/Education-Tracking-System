@@ -352,6 +352,32 @@ class Main:
 
         return None
 
+    def search_standards(self, f):
+        f.destroy()
+        f = Form()
+        f.search_screen()
+
+        frame = tk.Frame()
+        frame.pack(pady=10)
+
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
+
+        var = tk.IntVar()
+
+        R1 = tk.Radiobutton(button_frame, text="Subject", variable=var, value=1)
+        R1.pack(pady=2)
+
+        new_search_button = tk.Button(button_frame, text="Search",
+                                      command=lambda: 2 + 2)
+        new_search_button.pack(pady=2)
+
+        back_button = tk.Button(button_frame, text="Back",
+                                command=lambda: self.main_screen(self.user.accessLevel, self.user, f))
+        back_button.pack(pady=2)
+
+        return None
+
     def search_edu_form(self,  access_level, f,):
         f.destroy()
         f = Form()
@@ -762,6 +788,9 @@ class Main:
         button_frame_7 = tk.Frame(frame)
         button_frame_7.pack()
 
+        standards_frame = tk.Frame(frame)
+        standards_frame.pack()
+
         close_frame = tk.Frame(frame)
         close_frame.pack()
 
@@ -829,6 +858,9 @@ class Main:
             view_stu_reports = tk.Button(button_frame_4, text="View My Reports",
                                         command=lambda: self.student_view_reports(f))
             view_stu_reports.pack(side=tk.LEFT, pady=10)
+
+        standards_button = tk.Button(standards_frame, text="Search Standards", command=lambda: self.search_standards(f))
+        standards_button.pack(side=tk.LEFT, pady=10)
 
         close_button = tk.Button(close_frame, text="Log Out", command=lambda: self.log_in(f))
         close_button.pack(side=tk.LEFT, padx=10)
