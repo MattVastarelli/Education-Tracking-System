@@ -1,0 +1,24 @@
+344,96313,Needs help with math
+4353,96313,A pleasure to have in class
+2993,5060,A pleasure to have in class
+3886,5060,Needs to read more
+57676,12,Good luck next year
+92384,12,A pleasure to have in class
+23774,6166,You will do well in the future
+12396,6166,A pleasure to have in class
+8556,23,Said to see you go to a new school
+93485,23,Good Student
+
+        with open(abs_file_path) as file:
+            content = file.readlines()
+            content = [x.strip() for x in content]
+
+            for line in content:
+                split = line.split(",")  # choose split type
+                # print(split)
+                if s_id in split:
+                    split.append(note.strip())
+                    #print(split)
+                out.append(split)
+
+        file.close()

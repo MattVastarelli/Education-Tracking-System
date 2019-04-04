@@ -798,18 +798,12 @@ class Main:
         rel_path = "db/studentReports.txt"
         abs_file_path = os.path.join(script_dir, rel_path)
 
-        with open(abs_file_path) as file:
-            content = file.readlines()
-            content = [x.strip() for x in content]
-
-            for line in content:
-                split = line.split(",")  # choose split type
-                # print(split)
-                if s_id in split:
-                    split.append(note.strip())
-                    print(split)
-
-            print(content)
+        out = [s_id, self.user.get_id(), str(note).strip()]
+        print(out)
+        file = open(abs_file_path, 'a', newline='\n')
+        writer = csv.writer(file, delimiter=',')
+        writer.writerow(out)
+        file.close()
 
         self.main_screen(1, None, f)
         return None
