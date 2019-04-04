@@ -797,7 +797,7 @@ class Form:
 
     def add_note(self):
         # form add notes to records
-        self.top.geometry("550x350")
+        self.top.geometry("550x550")
 
         # main frame
         frame = tk.Frame(self.top)
@@ -818,6 +818,7 @@ class Form:
         text_frame.pack()
 
         self.note = tk.Text(text_frame)
+        self.note.config(highlightbackground="black")
         self.note.pack()
 
         return self.top

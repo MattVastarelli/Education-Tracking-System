@@ -792,6 +792,26 @@ class Main:
 
         return None
 
+    def add_notes(self, f, student):
+        f.destroy()
+        f = Form()
+
+        f.add_note()
+
+        frame = tk.Frame()
+        frame.pack(pady=10)
+
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
+
+        add = tk.Button(button_frame, text="Add", command=lambda: self.main_screen(1, None, f))
+        add.pack(side=tk.LEFT, pady=10)
+
+        back = tk.Button(button_frame, text="Back", command=lambda: self.main_screen(1, None, f))
+        back.pack(side=tk.LEFT, pady=10)
+
+        return None
+
     def view_student(self, access_level, stu, f):
         f.destroy()
         f = Form()
@@ -811,6 +831,10 @@ class Main:
 
         back = tk.Button(button_frame, text="Back", command=lambda: self.main_screen(access_level, None, f))
         back.pack(side=tk.LEFT, padx=10)
+
+        if access_level == 1:
+            notes = tk.Button(button_frame, text="Add Notes", command=lambda: self.add_notes(f, stu))
+            notes.pack(side=tk.LEFT, pady=10)
 
         return None
 
