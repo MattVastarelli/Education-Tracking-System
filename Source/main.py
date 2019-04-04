@@ -792,22 +792,44 @@ class Main:
 
         return None
 
+    def write_note(self, f, s_id, note):
+
+        script_dir = os.path.dirname(__file__)  # absolute dir the script is in
+        rel_path = "db/studentReports.txt"
+        abs_file_path = os.path.join(script_dir, rel_path)
+
+        with open(abs_file_path) as file:
+            content = file.readlines()
+            content = [x.strip() for x in content]
+
+            for line in content:
+                split = line.split(",")  # choose split type
+                # print(split)
+                if s_id in split:
+                    split.append(note.strip())
+                    print(split)
+
+            print(content)
+
+        self.main_screen(1, None, f)
+        return None
+
     def add_notes(self, f, student):
         f.destroy()
         f = Form()
 
         f.add_note()
-
         frame = tk.Frame()
         frame.pack(pady=10)
 
         button_frame = tk.Frame(frame)
         button_frame.pack()
 
-        add = tk.Button(button_frame, text="Add", command=lambda: self.main_screen(1, None, f))
+        add = tk.Button(button_frame, text="Add",
+                        command=lambda: self.write_note(f, student.get_student_id(), f.get_note()))
         add.pack(side=tk.LEFT, pady=10)
 
-        back = tk.Button(button_frame, text="Back", command=lambda: self.main_screen(1, None, f))
+        back = tk.Button(button_frame, text="Back", command=lambda: self.main_screen(1, self.user, f))
         back.pack(side=tk.LEFT, pady=10)
 
         return None
@@ -829,7 +851,7 @@ class Main:
         button_frame = tk.Frame(frame)
         button_frame.pack()
 
-        back = tk.Button(button_frame, text="Back", command=lambda: self.main_screen(access_level, None, f))
+        back = tk.Button(button_frame, text="Back", command=lambda: self.main_screen(access_level, self.user, f))
         back.pack(side=tk.LEFT, padx=10)
 
         if access_level == 1:

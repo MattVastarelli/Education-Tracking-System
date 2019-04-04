@@ -824,7 +824,7 @@ class Form:
         return self.top
 
     def get_note(self):
-        return self.note.text
+        return self.note.get("1.0", tk.END)
 
     def view_note(self):
         # view a students notes
