@@ -838,7 +838,7 @@ class Form:
         frame = tk.Frame(self.top)
         frame.pack(pady=25)
 
-        self.top.title("Grades")
+        self.top.title("My Grades")
 
         # frames
         sub_frame = tk.Frame(frame)

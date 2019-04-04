@@ -854,6 +854,23 @@ class Main:
 
         return None
 
+    def view_my_grades(self, f):
+        f.destroy()
+        f = Form()
+
+        f.view_grade(subject="", grade="")
+
+        frame = tk.Frame()
+        frame.pack(pady=10)
+
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
+
+        back = tk.Button(button_frame, text="Back", command=lambda: self.main_screen(2, self.user, f))
+        back.pack(side=tk.LEFT, pady=10)
+
+        return None
+
     def main_screen(self, access_level, user, f):
         f.destroy()
 
@@ -957,6 +974,10 @@ class Main:
             view_stu_reports = tk.Button(button_frame_4, text="View My Reports",
                                         command=lambda: self.student_view_reports(f))
             view_stu_reports.pack(side=tk.LEFT, pady=10)
+
+            view_grades = tk.Button(button_frame_5, text="View My Grades/Course History",
+                                         command=lambda: self.view_my_grades(f))
+            view_grades.pack(side=tk.LEFT, pady=10)
 
         standards_button = tk.Button(standards_frame, text="Standards", command=lambda: self.search_standards(f))
         standards_button.pack(side=tk.LEFT, pady=10)
