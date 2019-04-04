@@ -911,25 +911,24 @@ class Form:
 
         self.top.title("Standards")
 
-        # frames
-        stand_frame = tk.Frame(frame)
-        stand_frame.pack()
+        display_list_subject= list()
+        display_list_range = list()
+        display_list_frames =list()
 
-        acc_range_frame = tk.Frame(frame)
-        acc_range_frame.pack()
+        for item in standards:
+            display_list_frames.append(tk.Frame(frame))
 
-        # labels
-        stand_label = tk.Label(stand_frame, text="Standards: ", anchor="nw")
-        stand_label.pack()
+        count = 0
+        for item in standards:
+            print(item)
+            display_list_frames[count].pack()
+            display_list_subject.append(tk.Label(display_list_frames[count], text="Subject: " + item.subject, anchor="nw"))
+            display_list_range.append(tk.Label(display_list_frames[count], text="Acceptable Range: " + item.acceptable_range, anchor="nw"))
+            count += 1
 
-        stand = tk.Label(stand_frame, text=standards.subject, anchor="nw")
-        stand.pack()
-
-        acc_range_label = tk.Label(acc_range_frame, text="Grade: ", anchor="nw")
-        acc_range_label.pack()
-
-        acc_range = tk.Label(acc_range_frame, text=standards.acceptable_range, anchor="nw")
-        acc_range.pack()
+        for x in range(0, len(display_list_subject)):
+            display_list_subject[x].pack(pady=2, side=tk.LEFT)
+            display_list_range[x].pack(pady=2, side=tk.LEFT)
 
         return self.top
 

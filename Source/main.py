@@ -3,6 +3,7 @@ from Source.Educator import Educator
 from Source.forms import Form
 from Source.Student import Student
 from Source.Institution import Institution
+from Source.standards import Standards
 import tkinter as tk
 import csv
 import os
@@ -354,13 +355,55 @@ class Main:
 
     def view_standards(self, f, flag, data):
         f.destroy()
+        f = Form()
 
-        if flag == 0:
+        # do init search for all standards fore a given inst then filter
+        id = int()
+
+        if type(self.user) == Student:
+            id = self.user.get_inst_id()
+        elif type(self.user) == Educator:
+            id = self.user.currentInst
+        else:
+            id = self.user.get_id()
+
+        rows = self.search(thing_to_match=str(id), file_name_to_search="standards", split_type=",")
+
+        #print(rows)
+        standards_list = list()
+        if flag == 1:
             # search
             pass
         else:
             # view all
-            pass
+            for x in rows:
+                count = 0
+                sub = ""
+                for y in x:
+                    if count == 0:
+                        count += 1
+                        continue
+                    elif count == 1:
+                        #print("Subject", y)
+                        sub = y
+                    else:
+                        #print("Range", y)
+                        a_range = y # y.split(" ")
+                        standards_list.append(Standards(subject=sub, acc_range=a_range))
+
+                    count += 1
+
+        f.view_standards(standards=standards_list)
+
+        frame = tk.Frame()
+        frame.pack(pady=10)
+
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
+
+        back_button = tk.Button(button_frame, text="Back",
+                                command=lambda: self.main_screen(self.user.accessLevel, self.user, f))
+        back_button.pack(pady=15)
 
         return None
 

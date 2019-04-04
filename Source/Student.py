@@ -139,6 +139,9 @@ class Student(Account):
         stud_educators = self.__educators
         return stud_educators
 
+    def get_inst_id(self):
+        return self.__current_institution
+
     # get current institution
     def get_current_institution(self):
         script_dir = os.path.dirname(__file__)  # absolute dir the script is in
