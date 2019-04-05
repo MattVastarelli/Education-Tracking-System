@@ -31,6 +31,7 @@ class Form:
         self.password_box = None
         self.note = None
         self.search_box = None
+        self.gbox = None
 
     def main_screen(self):
         self.top.geometry("300x650")
@@ -117,7 +118,6 @@ class Form:
 
     def add_new(self, access_level):
         # form to add a new record
-        self.top.resizable(width=False, height=False)
         self.top.geometry("550x350")
 
         # main frame
@@ -208,6 +208,9 @@ class Form:
             l_name_frame = tk.Frame(frame)
             l_name_frame.pack()
 
+            u_frame = tk.Frame(frame)
+            u_frame.pack()
+
             phone_frame = tk.Frame(frame)
             phone_frame.pack()
 
@@ -229,9 +232,14 @@ class Form:
             license_frame = tk.Frame(frame)
             license_frame.pack()
 
+            glevel = tk.Frame(frame)
+            glevel.pack()
+
+
             # labels
             f_name = tk.Label(f_name_frame, text="First Name: ", anchor="nw")
             l_name = tk.Label(l_name_frame, text="Last Name: ", anchor="nw")
+            u = tk.Label(u_frame, text="User Name: ", anchor="nw")
             password = tk.Label(password_frame, text="Password: ", anchor="nw")
             address = tk.Label(address_frame, text="Address: ", anchor="nw")
             courses = tk.Label(courses_frame, text="Courses Taught: ", anchor="nw")
@@ -239,10 +247,12 @@ class Form:
             pref_subject = tk.Label(pref_subject_frame, text="Preferred Subjects: ", anchor="nw")
             edu_license = tk.Label(license_frame, text="Educational License: ", anchor="nw")
             email = tk.Label(email_frame, text="Email: ", anchor="nw")
+            glabel = tk.Label(glevel, text="Grade Level: ", anchor="nw")
 
             # text boxes
             self.f_name_box = tk.Entry(f_name_frame)
             self.l_name_box = tk.Entry(l_name_frame)
+            self.user_name_box = tk.Entry(u_frame)
             self.password_box = tk.Entry(password_frame)
             self.address_box = tk.Entry(address_frame)
             self.courses_box = tk.Entry(courses_frame)
@@ -250,6 +260,7 @@ class Form:
             self.phone_box = tk.Entry(phone_frame)
             self.email_box = tk.Entry(email_frame)
             self.edu_license_box = tk.Entry(license_frame)
+            self.gbox = tk.Entry(glevel)
 
             # pack items
             f_name.pack(side=tk.LEFT)
@@ -257,6 +268,9 @@ class Form:
 
             l_name.pack(side=tk.LEFT)
             self.l_name_box.pack(side=tk.LEFT)
+
+            u.pack(side=tk.LEFT)
+            self.user_name_box.pack(side=tk.LEFT)
 
             password.pack(side=tk.LEFT)
             self.password_box.pack(side=tk.LEFT)
@@ -279,6 +293,9 @@ class Form:
             email.pack(side=tk.LEFT)
             self.email_box.pack(side=tk.LEFT)
 
+            glabel.pack(side=tk.LEFT)
+            self.gbox.pack(side=tk.LEFT)
+
             return self.top
         elif access_level is 2:
             self.top.title("Add New Student")
@@ -289,6 +306,9 @@ class Form:
 
             l_name_frame = tk.Frame(frame)
             l_name_frame.pack()
+
+            u_frame = tk.Frame(frame)
+            u_frame.pack()
 
             ec_phone_frame = tk.Frame(frame)
             ec_phone_frame.pack()
@@ -317,6 +337,7 @@ class Form:
             # labels
             f_name = tk.Label(f_name_frame, text="First Name: ", anchor="nw")
             l_name = tk.Label(l_name_frame, text="Last Name: ", anchor="nw")
+            u = tk.Label(u_frame, text="User Name: ", anchor="nw")
             password = tk.Label(password_frame, text="Password: ", anchor="nw")
             address = tk.Label(address_frame, text="Address: ", anchor="nw")
             emergency_contact = tk.Label(emergency_contact_frame, text="Emergency Contact Name: ", anchor="nw")
@@ -326,9 +347,11 @@ class Form:
             current_grade = tk.Label(current_grade_frame, text="Current Grade: ", anchor="nw")
             medical_notes = tk.Label(medical_notes_frame, text="Medical Notes: ", anchor="nw")
 
+
             # text boxes
             self.f_name_box = tk.Entry(f_name_frame)
             self.l_name_box = tk.Entry(l_name_frame)
+            self.user_name_box = tk.Entry(u_frame)
             self.password_box = tk.Entry(password_frame)
             self.address_box = tk.Entry(address_frame)
             self.emergency_contact_box = tk.Entry(emergency_contact_frame)
@@ -344,6 +367,9 @@ class Form:
 
             l_name.pack(side=tk.LEFT)
             self.l_name_box.pack(side=tk.LEFT)
+
+            u.pack(side=tk.LEFT)
+            self.user_name_box.pack(side=tk.LEFT)
 
             password.pack(side=tk.LEFT)
             self.password_box.pack(side=tk.LEFT)
@@ -383,11 +409,16 @@ class Form:
         phone = self.phone_box.get()
         email = self.email_box.get()
         edu_license = self.edu_license_box.get()
+        u = self.user_name_box.get()
+        c = self.courses_box.get()
+        glevel = self.gbox.get()
+
 
         data = {
             "first_name": f_name, "last_name": l_name, "password": password, "address": address,
             "courses": courses, "preferred_subject": pref_subject, "phone": phone, "email": email,
-            "edu_license": edu_license
+            "edu_license": edu_license, "user_name": u, "preferred_courses": c, "grade_levels": glevel,
+            "preferred_subjects": pref_subject
         }
 
         return data
@@ -403,11 +434,13 @@ class Form:
         email = self.ec_email_box.get()
         current_grade = self.current_grade_box.get()
         medical = self.medical_notes_box.get()
+        u = self.user_name_box.get()
+
 
         data = {
             "first_name": f_name, "last_name": l_name, "password": password, "address": address,
             "emergency_contact": ec_contact, "emergency_contact_phone": phone, "emergency_contact_email": email,
-            "emergency_contact_relation": relation, "current_grade": current_grade, "medical": medical
+            "emergency_contact_relation": relation, "current_grade": current_grade, "medical": medical, "user_name": u
         }
 
         return data

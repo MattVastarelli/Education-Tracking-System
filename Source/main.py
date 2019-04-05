@@ -186,17 +186,17 @@ class Main:
         if is_new:
             data_list = [
                 data['first_name'], data["last_name"], data["address"], data['phone'],
-                data['email'], data['emp_ID'], data['licenses'], data['preferred_courses'],
-                data['preferred_subjects'], data['grade_levels'], data['current_inst_ID']
+                data['email'], educ.get_id(), data['edu_license'], data['preferred_courses'],
+                data['preferred_subjects'], data['grade_levels'], self.user.get_id()
             ]
 
             educ.set_data(data_list)
 
             write_list = [
                 educ.ownerID, 1, data['user_name'], data['password'], data['first_name'],
-                data["last_name"], data["address"], data['phone'], data['email'], data['emp_ID'],
-                data['licenses'], data['preferred_courses'], data['preferred_subjects'],
-                data['grade_levels'], data['current_inst_ID']
+                data["last_name"], data["address"], data['phone'], data['email'], educ.get_id() , #data['emp_ID']
+                data['edu_license'], data['preferred_courses'], data['preferred_subjects'],
+                data['grade_levels'], self.user.get_id()
             ]
 
             self.write_to_file('educator', write_list)
@@ -723,7 +723,7 @@ class Main:
         back = tk.Button(button_frame, text="Back", command=lambda: self.main_screen(0, None, f))
         back.pack(side=tk.LEFT, padx=10)
 
-        save_button = tk.Button(button_frame, text="Save", command=lambda: self.create_student_obj(None, False, f))
+        save_button = tk.Button(button_frame, text="Save", command=lambda: self.create_student_obj(f.get_student_data(), False, f))
         save_button.pack(side=tk.LEFT)
 
         return None
@@ -743,7 +743,7 @@ class Main:
         back = tk.Button(button_frame, text="Back", command=lambda: self.main_screen(0, None, f))
         back.pack(side=tk.LEFT, padx=10)
 
-        save_button = tk.Button(button_frame, text="Save", command=lambda: self.create_educator_obj(None, False, f))
+        save_button = tk.Button(button_frame, text="Save", command=lambda: self.create_educator_obj(f.get_educator_data(), True, f))
         save_button.pack(side=tk.LEFT)
 
         return None
