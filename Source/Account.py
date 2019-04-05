@@ -13,11 +13,13 @@ class Account:
             rel_path = "db/metadata.txt"
             abs_file_path = os.path.join(script_dir, rel_path)
             file = open(abs_file_path, 'r')
-            next_id = int(file.read())
+            next_id = file.read()
+            file.close()
 
-            self.ownerID = next_id
-            next_id += 1
-            file.write(str(next_id))
+            file = open(abs_file_path, 'w')
+            self.ownerID = int(next_id)
+            wid = self.ownerID + 1
+            file.write(str(wid))
             file.close()
         else:
             self.ownerID = 0

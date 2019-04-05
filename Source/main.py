@@ -75,7 +75,7 @@ class Main:
         # rel_path = 'db/test.txt'
         abs_file_path = os.path.join(script_dir, rel_path)
 
-        file = open(abs_file_path, 'a', newline='')
+        file = open(abs_file_path, 'a', newline='\n')
         writer = csv.writer(file, delimiter='\t')
         writer.writerow(data)
         file.close()
@@ -147,8 +147,8 @@ class Main:
 
             inst.set_data(data_list)
 
-            write_list = [inst.ownerID, 0, data['name'], data['password'], data['name'], data["address"],
-                          data['instiution_type'], data['grade_min'], data['grade_max'], data['phone']]
+            write_list = [inst.ownerID, 0, data['username'], data['password'], data['name'], data["address"],
+                          data['instution_type'], data['grade_min'], data['grade_max'], data['phone']]
 
             self.write_to_file('institution', write_list)
             self.main_screen(0, inst, f)
@@ -934,9 +934,11 @@ class Main:
             new_edu_button = tk.Button(button_frame, text="New Educator", command=lambda: self.educator_creation(f))
             new_edu_button.pack(side=tk.LEFT, pady=10)
 
-            new_inst_button = tk.Button(button_frame_1, text="New Institution",
+            """
+                new_inst_button = tk.Button(button_frame_1, text="New Institution",
                                         command=lambda: self.institution_creation(f))
-            new_inst_button.pack(side=tk.LEFT, pady=10)
+                new_inst_button.pack(side=tk.LEFT, pady=10)
+            """
 
             new_student_button = tk.Button(button_frame_2, text="New Student",
                                            command=lambda: self.student_creation(f))

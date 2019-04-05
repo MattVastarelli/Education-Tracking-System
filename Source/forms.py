@@ -131,6 +131,9 @@ class Form:
             name_frame = tk.Frame(frame)
             name_frame.pack()
 
+            u_frame = tk.Frame(frame)
+            u_frame.pack()
+
             password_frame = tk.Frame(frame)
             password_frame.pack()
 
@@ -151,6 +154,7 @@ class Form:
 
             # labels
             name = tk.Label(name_frame, text="Institution Name: ", anchor="nw")
+            u = tk.Label(u_frame, text="User Name: ", anchor="nw")
             password = tk.Label(password_frame, text="Password: ", anchor="nw")
             address = tk.Label(address_frame, text="Address: ", anchor="nw")
             grade_min = tk.Label(grade_min_frame, text="Lowest Grade: ", anchor="nw")
@@ -160,6 +164,7 @@ class Form:
 
             # text boxes
             self.name_box = tk.Entry(name_frame)
+            self.user_name_box = tk.Entry(u_frame)
             self.password_box = tk.Entry(password_frame)
             self.address_box = tk.Entry(address_frame)
             self.grade_min_box = tk.Entry(grade_min_frame)
@@ -170,6 +175,9 @@ class Form:
             # pack items
             name.pack(side=tk.LEFT)
             self.name_box.pack(side=tk.LEFT)
+
+            u.pack(side=tk.LEFT)
+            self.user_name_box.pack(side=tk.LEFT)
 
             password.pack(side=tk.LEFT)
             self.password_box.pack(side=tk.LEFT)
@@ -413,11 +421,12 @@ class Form:
         max_grade = self.grade_max_box.get()
         phone = self.phone_box.get()
         institution_type = self.institution_type_box.get()
+        u_name = self.user_name_box.get()
 
         data = {
             "name": name, "password": password, "address": address,
             "grade_min": min_grade, "grade_max": max_grade,
-            "phone": phone, "instution_type": institution_type
+            "phone": phone, "instution_type": institution_type, "username": u_name
         }
 
         return data
