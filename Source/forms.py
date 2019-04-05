@@ -830,7 +830,7 @@ class Form:
         # view a students notes
         pass
 
-    def view_grade(self, subject, grade):
+    def view_grade(self, subject_list, grade_list):
         # form view a students grade
         self.top.geometry("550x350")
 
@@ -840,25 +840,25 @@ class Form:
 
         self.top.title("My Grades")
 
-        # frames
-        sub_frame = tk.Frame(frame)
-        sub_frame.pack()
+        display_list_subject = list()
+        display_list_grade = list()
+        display_list_frames = list()
 
-        grade_frame = tk.Frame(frame)
-        grade_frame.pack()
+        for item in grade_list:
+            display_list_frames.append(tk.Frame(frame))
 
-        # labels
-        sub_label = tk.Label(sub_frame, text="Subject: ", anchor="nw")
-        sub_label.pack()
+        count = 0
+        for item in grade_list:
+            display_list_frames[count].pack()
+            display_list_subject.append(
+                tk.Label(display_list_frames[count], text="Subject: " + subject_list[count], anchor="nw"))
+            display_list_grade.append(
+                tk.Label(display_list_frames[count], text="Grade: " + item, anchor="nw"))
+            count += 1
 
-        sub = tk.Label(sub_frame, text=subject, anchor="nw")
-        sub.pack()
-
-        sub_label = tk.Label(grade_frame, text="Grade: ", anchor="nw")
-        sub_label.pack()
-
-        grade_rec = tk.Label(grade_frame, text=grade, anchor="nw")
-        grade_rec.pack()
+        for x in range(0, len(display_list_subject)):
+            display_list_subject[x].pack(pady=2, side=tk.LEFT)
+            display_list_grade[x].pack(pady=2, side=tk.LEFT)
 
         return self.top
 

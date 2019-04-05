@@ -858,7 +858,27 @@ class Main:
         f.destroy()
         f = Form()
 
-        f.view_grade(subject="", grade="")
+        grades = self.search(thing_to_match=self.user.get_student_id(), file_name_to_search="grades",
+                               split_type=",")
+
+        sub_list = list()
+        grade_list = list()
+        for x in grades:
+            count = 0
+            for y in x:
+                if count == 0:
+                    count += 1
+                    continue
+                elif count == 1:
+                    sub_list.append(y)
+                else:
+                    grade_list.append(y)
+                count += 1
+
+        print("grades", grade_list)
+        print("subject", sub_list)
+
+        f.view_grade(subject_list=sub_list, grade_list=grade_list)
 
         frame = tk.Frame()
         frame.pack(pady=10)
