@@ -625,17 +625,17 @@ class Main:
 
         if is_new:
             data_list = [
-                data['first_name'], data["last_name"], data["student_ID"], data["ec_name"],
-                data['ec_relationship'], data['ec_email'], data['med_notes'],
-                data['grade_level'], data['current_inst_ID'], data['grades'],
-                data['grade_notes'], data['address']
+                data['first_name'], data["last_name"], stud.get_student_id(), data["emergency_contact"],
+                data['emergency_contact_relation'], data['emergency_contact_email'], data['medical'],
+                data['grade_level'], self.user.get_id(), "",
+                "", data['address']
             ]
 
             stud.set_data(data_list)
 
-            write_list = [stud.ownerID, 2, data['first_name'], data["last_name"], data["student_ID"], data["ec_name"],
-                          data['ec_relationship'], data['ec_email'], data['med_notes'], data['grade_level'],
-                          data['current_inst_ID'], data['grades'], data['grade_notes'], data['address']]
+            write_list = [stud.ownerID, 2, data['first_name'], data["last_name"], stud.get_student_id(), data["emergency_contact"],
+                          data['emergency_contact_relation'], data['emergency_contact_email'], data['medical'], data['grade_level'],
+                          self.user.get_id(), "", "", data['address']]
 
             self.write_to_file('student', write_list)
             self.main_screen(0, stud, f)
@@ -723,7 +723,7 @@ class Main:
         back = tk.Button(button_frame, text="Back", command=lambda: self.main_screen(0, None, f))
         back.pack(side=tk.LEFT, padx=10)
 
-        save_button = tk.Button(button_frame, text="Save", command=lambda: self.create_student_obj(f.get_student_data(), False, f))
+        save_button = tk.Button(button_frame, text="Save", command=lambda: self.create_student_obj(f.get_student_data(), True, f))
         save_button.pack(side=tk.LEFT)
 
         return None

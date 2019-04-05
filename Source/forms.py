@@ -435,12 +435,14 @@ class Form:
         current_grade = self.current_grade_box.get()
         medical = self.medical_notes_box.get()
         u = self.user_name_box.get()
+        grade = self.current_grade_box.get()
 
 
         data = {
             "first_name": f_name, "last_name": l_name, "password": password, "address": address,
             "emergency_contact": ec_contact, "emergency_contact_phone": phone, "emergency_contact_email": email,
-            "emergency_contact_relation": relation, "current_grade": current_grade, "medical": medical, "user_name": u
+            "emergency_contact_relation": relation, "current_grade": current_grade, "medical": medical, "user_name": u,
+            "grade_level": grade
         }
 
         return data
