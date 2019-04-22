@@ -1043,3 +1043,34 @@ class Form:
         #feedback_listbox.pack()
 
         return self.top
+
+    def view_others_standards(self, standards):
+        # form view a students grade
+        self.top.geometry("550x350")
+
+        # main frame
+        frame = tk.Frame(self.top)
+        frame.pack(pady=25)
+
+        self.top.title("Standards")
+
+        display_list_subject= list()
+        display_list_range = list()
+        display_list_frames =list()
+
+        for item in standards:
+            display_list_frames.append(tk.Frame(frame))
+
+        count = 0
+        for item in standards:
+            print(item)
+            display_list_frames[count].pack()
+            display_list_subject.append(tk.Label(display_list_frames[count], text="Subject: " + item.subject, anchor="nw"))
+            display_list_range.append(tk.Label(display_list_frames[count], text="Acceptable Range: " + item.acceptable_range, anchor="nw"))
+            count += 1
+
+        for x in range(0, len(display_list_subject)):
+            display_list_subject[x].pack(pady=2, side=tk.LEFT)
+            display_list_range[x].pack(pady=2, side=tk.LEFT)
+
+        return self.top

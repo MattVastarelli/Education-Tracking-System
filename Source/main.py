@@ -1052,7 +1052,10 @@ class Main:
         return None
 
     def run(self):
-        self.start_screen()
+        #self.start_screen()
+        f = Form()
+        f.view_others_standards([])
+        f.run()
 
 
 if __name__ == '__main__':
