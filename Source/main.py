@@ -924,6 +924,12 @@ class Main:
         button_frame_7 = tk.Frame(frame)
         button_frame_7.pack()
 
+        button_frame_8 = tk.Frame(frame)
+        button_frame_8.pack()
+
+        button_frame_9 = tk.Frame(frame)
+        button_frame_9.pack()
+
         standards_frame = tk.Frame(frame)
         standards_frame.pack()
 
@@ -964,6 +970,16 @@ class Main:
                                          command=lambda: self.feedback_search(f))
             view_edu_feedback.pack(side=tk.LEFT, pady=10)
 
+            """ id 11 view outliers """
+            view_outliers = tk.Button(button_frame_8, text="outliers",
+                                          command=lambda: self.feedback_search(f))
+            view_outliers.pack(side=tk.LEFT, pady=10)
+
+            """ id 15 view all students compared to standards """
+            view_student_std = tk.Button(button_frame_9, text="Student Standards",
+                                      command=lambda: self.feedback_search(f))
+            view_student_std.pack(side=tk.LEFT, pady=10)
+
         if access_level is 1:
             view_edu_button = tk.Button(button_frame_1, text="View Educator", command=lambda: self.view_edu(1, user, f))
             view_edu_button.pack(side=tk.LEFT, pady=10)
@@ -979,6 +995,11 @@ class Main:
             view_edu_courses = tk.Button(button_frame_4, text="View All Courses",
                                          command=lambda: self.view_all_edu_courses(f, 1))
             view_edu_courses.pack(side=tk.LEFT, pady=10)
+
+            """ to work on backlog id 8 """
+            student_standards = tk.Button(button_frame_5, text="How are my students doing",
+                                         command=lambda: self.view_all_edu_courses(f, 1))
+            student_standards.pack(side=tk.LEFT, pady=10)
 
         if access_level is 2:
             view_student_button = tk.Button(button_frame_1, text="View Student",
