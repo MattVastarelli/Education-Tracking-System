@@ -4,6 +4,7 @@ from Source.forms import Form
 from Source.Student import Student
 from Source.Institution import Institution
 from Source.standards import Standards
+from Source.viewStdViewModel import ViewStdViewModel
 import tkinter as tk
 import csv
 import os
@@ -1054,7 +1055,12 @@ class Main:
     def run(self):
         #self.start_screen()
         f = Form()
-        f.view_others_standards([])
+
+        dataList = list()
+        data = ViewStdViewModel()
+        dataList.append(data)
+
+        f.view_others_standards(dataList)
         f.run()
 
 
