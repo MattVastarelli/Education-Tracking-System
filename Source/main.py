@@ -54,6 +54,7 @@ class Main:
             obj = self.create_institution_obj(data, False, f)
             self.user = obj
             self.get_inst_educators(self.user.get_id())
+            self.stu_list = list()
             self.get_inst_students(self.user.get_id())
         elif int(split[2]) is 1:
             pass
@@ -308,9 +309,9 @@ class Main:
 
             for line in content:
                 split = line.split(split_type)  # choose split type
-                #print(split)
+                #print("Split", split)
                 if thing_to_match in split:
-                    #print(split)
+                    #print("match ",split)
                     data_list.append(split)
 
         # returns a list of list
@@ -385,11 +386,9 @@ class Main:
                         count += 1
                         continue
                     elif count == 1:
-                        #print("Subject", y)
                         sub = y
                     else:
-                        #print("Range", y)
-                        a_range = y # y.split(" ")
+                        a_range = y
                         standards_list.append(Standards(subject=sub, acc_range=a_range))
 
                     count += 1
@@ -892,6 +891,69 @@ class Main:
 
         return None
 
+    def process_standards(self, student_id):
+        std = self.search(self.user.get_id(), "standards", ",")
+        stu = self.search(student_id, "studentStd", ",")
+
+        standards_list = list()
+        studentObj = ViewStdViewModel()
+
+        # get all standards
+        for x in std:
+            count = 0
+            sub = ""
+            for y in x:
+                if count == 0:
+                    count += 1
+                    continue
+                elif count == 1:
+                    sub = y
+                else:
+                    a_range = y
+                    standards_list.append(Standards(subject=sub, acc_range=a_range))
+                count += 1
+
+        for student in stu:
+            count = 0
+            for y in student:
+                if count == 0:
+                    studentObj.persons = y  # id but will replace
+                elif count == 1:
+                    studentObj.subject = y
+                else:
+                    studentObj.gradeRecived = y
+                count += 1
+
+        # merge
+
+        for std in standards_list:
+            if studentObj.subject == std.subject:
+                studentObj.stdRange = std.acceptable_range
+
+        return studentObj
+
+    def view_student_standards(self, f, access_level):
+        f.destroy()
+        f = Form()
+
+        compareStandardList = list()
+        #instStudents = self.search(self.user.get_id(), "students", "\t")
+
+        if access_level is 0:
+           # use the student list to get their standards
+            for student in self.stu_list:
+                newVM = ViewStdViewModel()
+                newVM = self.process_standards(student.get_student_id())
+                newVM.persons = student.get_name()
+                compareStandardList.append(newVM)
+
+        elif access_level is 1:
+            pass
+
+        f.view_others_standards(compareStandardList)
+
+        return None
+
     def main_screen(self, access_level, user, f):
         f.destroy()
 
@@ -973,12 +1035,12 @@ class Main:
 
             """ id 11 view outliers """
             view_outliers = tk.Button(button_frame_8, text="outliers",
-                                          command=lambda: self.feedback_search(f))
+                                          command=lambda: self.view_student_standards(f, 0))
             view_outliers.pack(side=tk.LEFT, pady=10)
 
             """ id 15 view all students compared to standards """
             view_student_std = tk.Button(button_frame_9, text="Student Standards",
-                                      command=lambda: self.feedback_search(f))
+                                      command=lambda: self.view_student_standards(f, 0))
             view_student_std.pack(side=tk.LEFT, pady=10)
 
         if access_level is 1:
@@ -1053,7 +1115,8 @@ class Main:
         return None
 
     def run(self):
-        #self.start_screen()
+        self.start_screen()
+        """
         f = Form()
 
         dataList = list()
@@ -1062,6 +1125,8 @@ class Main:
 
         f.view_others_standards(dataList)
         f.run()
+        """
+
 
 
 if __name__ == '__main__':

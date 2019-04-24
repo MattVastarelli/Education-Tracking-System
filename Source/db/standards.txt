@@ -1,6 +1,18 @@
 0,Math,C A
 0,English,B+
-1, Science,D B+
+0,Science,D B+
+0,History,B-
+0,Art,A A+
+0,Comp. Sci,C B A
+1,Math,C A
+1,English,B+
+1,Science,D B+
 1,History,B-
+1,Art,A A+
+1,Comp. Sci,C B A
+19,Math,C A
+19,English,B+
 19,Art,A A+
 19,Comp. Sci,C B A
+19,Science,D B+
+19,History,B-

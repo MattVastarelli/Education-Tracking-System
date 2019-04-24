@@ -1046,7 +1046,7 @@ class Form:
 
     def view_others_standards(self, standards):
         # form view a students grade
-        self.top.geometry("550x350")
+        self.top.geometry("550x550")
 
         # main frame
         frame = tk.Frame(self.top)
