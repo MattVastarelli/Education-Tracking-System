@@ -1045,7 +1045,7 @@ class Form:
         return self.top
 
     def view_others_standards(self, standards):
-        # form view a students grade
+        # form view a students grade 
         self.top.geometry("550x550")
 
         # main frame
