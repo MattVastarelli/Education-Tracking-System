@@ -891,12 +891,17 @@ class Main:
 
         return None
 
-    def process_standards(self, student_id):
-        std = self.search(self.user.get_id(), "standards", ",")
+    def process_standards(self, student_id, edu_inst_id=0):
+        std = list()
         stu = self.search(student_id, "studentStd", ",")
 
         standards_list = list()
         studentObj = ViewStdViewModel()
+
+        if edu_inst_id != 0:
+            std = self.search(edu_inst_id, "standards", ",")
+        else:
+            std = self.search(self.user.get_id(), "standards", ",")
 
         # get all standards
         for x in std:
@@ -913,6 +918,7 @@ class Main:
                     standards_list.append(Standards(subject=sub, acc_range=a_range))
                 count += 1
 
+        # parse the student
         for student in stu:
             count = 0
             for y in student:
@@ -946,11 +952,26 @@ class Main:
                 newVM = self.process_standards(student.get_student_id())
                 newVM.persons = student.get_name()
                 compareStandardList.append(newVM)
-
         elif access_level is 1:
-            pass
+            # students
+            self.stu_list = list()
+            self.get_inst_students(str(self.user.currentInst))
+            for student in self.stu_list:
+                newVM = ViewStdViewModel()
+                newVM = self.process_standards(student.get_student_id(), edu_inst_id=self.user.currentInst)
+                newVM.persons = student.get_name()
+                compareStandardList.append(newVM)
 
         f.view_others_standards(compareStandardList)
+
+        frame = tk.Frame()
+        frame.pack(pady=10)
+
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
+
+        back = tk.Button(button_frame, text="Back", command=lambda: self.main_screen(access_level, self.user, f))
+        back.pack(side=tk.LEFT, pady=10)
 
         return None
 
@@ -1061,7 +1082,7 @@ class Main:
 
             """ to work on backlog id 8 """
             student_standards = tk.Button(button_frame_5, text="How are my students doing",
-                                         command=lambda: self.view_all_edu_courses(f, 1))
+                                         command=lambda: self.view_student_standards(f, 1))
             student_standards.pack(side=tk.LEFT, pady=10)
 
         if access_level is 2:
