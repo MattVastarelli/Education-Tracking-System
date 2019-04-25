@@ -1,20 +1,20 @@
-3344,Algebra 1,A
-3344,Orchestra,B
-4353,Statistics,C
-4353,World History,D
+3344,Math 1,A
+3344,English,B
+4353,English,C
+4353,Math,D
 2993,Algebra 1,A-
-2993,Culinary 2,B+
-3886,Gym,C+
-3886,Statistics,B-
-57676,Culinary 2,A+
-57676,Algebra 1,C-
-92384,World History,D
-92384,Statistics,F
-23774,Orchestra,B-
-23774,Algebra 1,A-
-12396,Orchestra,C
-12396,World History,A
-8556,Statistics,B
-8556,Algebra 1,C+
-93485,World History,D+
-93485,Statistics,D-
+2993,Art,B+
+3886,Math,C+
+3886,English,B-
+57676,Art,A+
+57676,Comp. Sci,C-
+92384,Art,D
+92384,Math,F
+23774,Comp. Sci,B-
+23774,English,A-
+12396,Math,C
+12396,Art,A
+8556,English,B
+8556,Math,C+
+93485,Comp. Sci,D+
+93485,English,D-

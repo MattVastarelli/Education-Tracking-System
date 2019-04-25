@@ -931,7 +931,54 @@ class Main:
                 count += 1
 
         # merge
+        for std in standards_list:
+            if studentObj.subject == std.subject:
+                studentObj.stdRange = std.acceptable_range
 
+        return studentObj
+
+    def proccess_standards_as_stu(self):
+
+        grades = self.search(thing_to_match=self.user.get_student_id(), file_name_to_search="grades",
+                             split_type=",")
+        std = self.search(self.user.get_inst_id(), "standards", ",")
+
+        sub_list = list()
+        grade_list = list()
+        standards_list = list()
+        studentObj = ViewStdViewModel()
+        studentObj.persons = self.user.get_name()
+
+        for x in grades:
+            count = 0
+            for y in x:
+                if count == 0:
+                    count += 1
+                    continue
+                elif count == 1:
+                    sub_list.append(y)
+                    studentObj.subject = y
+                else:
+                    grade_list.append(y)
+                    studentObj.gradeRecived = y
+                count += 1
+
+        # get all standards
+        for x in std:
+            count = 0
+            sub = ""
+            for y in x:
+                if count == 0:
+                    count += 1
+                    continue
+                elif count == 1:
+                    sub = y
+                else:
+                    a_range = y
+                    standards_list.append(Standards(subject=sub, acc_range=a_range))
+                count += 1
+
+        # merge
         for std in standards_list:
             if studentObj.subject == std.subject:
                 studentObj.stdRange = std.acceptable_range
@@ -961,6 +1008,9 @@ class Main:
                 newVM = self.process_standards(student.get_student_id(), edu_inst_id=self.user.currentInst)
                 newVM.persons = student.get_name()
                 compareStandardList.append(newVM)
+        elif access_level is 2:
+            vm = self.proccess_standards_as_stu()
+            compareStandardList.append(vm)
 
         f.view_others_standards(compareStandardList)
 
@@ -1105,6 +1155,10 @@ class Main:
             view_grades = tk.Button(button_frame_5, text="View My Grades/Course History",
                                          command=lambda: self.view_my_grades(f))
             view_grades.pack(side=tk.LEFT, pady=10)
+
+            student_standards = tk.Button(button_frame_6, text="How am I doing",
+                                          command=lambda: self.view_student_standards(f, 2))
+            student_standards.pack(side=tk.LEFT, pady=10)
 
         standards_button = tk.Button(standards_frame, text="Standards", command=lambda: self.search_standards(f))
         standards_button.pack(side=tk.LEFT, pady=10)
