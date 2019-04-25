@@ -891,7 +891,7 @@ class Main:
 
         return None
 
-    def process_standards(self, student_id, edu_inst_id=0):
+    def process_standards(self, student_id, edu_inst_id=0, opt_outlier=False):
         std = list()
         stu = self.search(student_id, "studentStd", ",")
 
@@ -934,6 +934,16 @@ class Main:
         for std in standards_list:
             if studentObj.subject == std.subject:
                 studentObj.stdRange = std.acceptable_range
+                if opt_outlier is True:
+                    #print("Range ", self.find_in_between(std.acceptable_range))
+                    #print("grade ", studentObj.gradeRecived)
+                    #print("actual range ", std.acceptable_range)
+                    if studentObj.gradeRecived not in self.find_in_between(std.acceptable_range):
+
+                        return studentObj
+                    else:
+                        return None
+
 
         return studentObj
 
@@ -985,7 +995,29 @@ class Main:
 
         return studentObj
 
-    def view_student_standards(self, f, access_level):
+    def find_in_between(self, range):
+        arr = range.split(" ")
+        high = arr[1]
+        low = arr[0]
+        grades = ["F", "D-", "D", "D+", "C-", "C", "C+", "B-", "B", "B+", "A-", "A", "A+"]
+
+        count = 0
+        highIndex = 0
+        lowIndex = 0
+        for grade in grades:
+            print(grade)
+            if grade == low:
+                print("low", grade)
+                lowIndex = count
+            elif grade == high:
+                print("high", grade)
+                highIndex = count
+            count += 1
+
+        return grades[lowIndex:highIndex + 1]
+
+
+    def view_student_standards(self, f, access_level, opt_outlier=False):
         f.destroy()
         f = Form()
 
@@ -996,9 +1028,10 @@ class Main:
            # use the student list to get their standards
             for student in self.stu_list:
                 newVM = ViewStdViewModel()
-                newVM = self.process_standards(student.get_student_id())
-                newVM.persons = student.get_name()
-                compareStandardList.append(newVM)
+                newVM = self.process_standards(student.get_student_id(), opt_outlier=opt_outlier)
+                if newVM is not None:
+                    newVM.persons = student.get_name()
+                    compareStandardList.append(newVM)
         elif access_level is 1:
             # students
             self.stu_list = list()
@@ -1106,7 +1139,7 @@ class Main:
 
             """ id 11 view outliers """
             view_outliers = tk.Button(button_frame_8, text="outliers",
-                                          command=lambda: self.view_student_standards(f, 0))
+                                          command=lambda: self.view_student_standards(f, 0, opt_outlier=True))
             view_outliers.pack(side=tk.LEFT, pady=10)
 
             """ id 15 view all students compared to standards """
@@ -1190,18 +1223,8 @@ class Main:
         return None
 
     def run(self):
-        self.start_screen()
-        """
-        f = Form()
-
-        dataList = list()
-        data = ViewStdViewModel()
-        dataList.append(data)
-
-        f.view_others_standards(dataList)
-        f.run()
-        """
-
+        self.start_screen() # B A+  C A
+        #print(self.find_in_between(" A+"))
 
 
 if __name__ == '__main__':
