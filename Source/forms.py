@@ -768,8 +768,22 @@ class Form:
         pass
 
     def bulk_add_records(self):
-        # add many records
-        pass
+        self.top.title("Bulk Upload")
+
+        # main frame
+        frame = tk.Frame(self.top)
+        frame.pack()
+
+        instruct_frame = tk.Frame(frame)
+        instruct_frame.pack()
+
+        instructions = tk.Label(instruct_frame, text="Choose what type of accounts you are uploading:")
+        instructions.pack()
+
+        self.top.rowconfigure(0, weight=1)
+        self.top.rowconfigure(1, weight=1)
+        self.top.columnconfigure(0, weight=1)
+        self.top.columnconfigure(1, weight=1)
 
     def change_grade(self):
         # change a students grade
