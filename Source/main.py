@@ -6,6 +6,8 @@ from Source.Institution import Institution
 from Source.standards import Standards
 from Source.viewStdViewModel import ViewStdViewModel
 import tkinter as tk
+from tkinter.filedialog import askopenfilename
+from tkinter import messagebox
 import csv
 import os
 
@@ -35,7 +37,7 @@ class Main:
 
             for line in content:
                 split = line.split()  # choose split type
-                # print(split)
+                print(split)
 
                 if user in split[0]:
                     user_name_match = True
@@ -93,6 +95,65 @@ class Main:
         user_file.close()
 
         return None
+
+    def read_upload_file(self, acct_type):
+        file_name = askopenfilename(initialdir=".", title="choose your file", filetypes=(("txt files", "*.txt"),
+                                                                                         ("all files", "*.*")))
+        file = file_name
+
+        return_list = list()
+
+        with open(file) as fullList:
+            content = fullList.readlines()
+            content = [x.strip() for x in content]
+            for line in content:
+                split = line.split('\t')  # choose split type
+                return_list.append(split)
+
+            fullList.close()
+        print(return_list)
+
+        alltext = "Data Found, click OK to confirm upload.\n\n"
+        rowtext = ""
+        for sublist in return_list:
+            for item in sublist:
+                rowtext += str(item) + "\t"
+            alltext += rowtext + "\n"
+            rowtext = ""
+
+        if tk.messagebox.askokcancel('Confirm Upload', alltext):
+            md_dir = os.path.dirname(__file__)  # absolute dir the script is in
+            md_path = "db/metadata.txt"
+            md_abs_file_path = os.path.join(md_dir, md_path)
+            file = open(md_abs_file_path, 'r')
+            next_id = int(file.read())
+            file.close()
+
+            # formatting lists and adding internal system values (access level, unique ID, and InstID) to records
+            # plus adding blank fields new students would not have yet (ie grades, grade notes, feedback, etc)
+            for record in return_list:
+                record.insert(0,str(acct_type))
+                record.insert(0,next_id)
+                next_id += 1
+
+                if acct_type == 1:
+                    record.insert(-1, str(self.user.get_id()))
+                    record.insert(11, "")
+                    self.write_to_file('educator', record)
+                else:
+                    record.insert(12, str(self.user.get_id()))
+                    record.insert(13, "")
+                    record.insert(14, "")
+                    self.write_to_file('student', record)
+
+            # updating metadata file
+            file = open(md_abs_file_path, 'w')
+            file.write(str(next_id))
+            file.close()
+
+        return None
+
+
 
     def view_all_edu_courses(self, f, flag):
         f.destroy()
@@ -728,6 +789,30 @@ class Main:
 
         return None
 
+    def bulk_student_creation(self, f):
+        f.destroy()
+        f = Form()
+        f.bulk_add_records()
+
+        frame = tk.Frame()
+        frame.pack(pady=10)
+
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
+
+        opts = tk.Listbox(button_frame, selectmode='single')
+        opts.grid(row=0, rowspan=1, column=1, sticky="w")
+        opts.pack(pady=2)
+        opts.insert(1, "Educators")
+        opts.insert(2, "Students")
+        getfile = tk.Button(button_frame, text="Get File", command=lambda: self.read_upload_file(opts.curselection()[0]+1))
+        getfile.pack(pady=2)
+        back_button = tk.Button(button_frame, text="Back",
+                                      command=lambda: self.main_screen(self.user.accessLevel, self.user, f))
+        back_button.pack(pady=2)
+
+        return None
+
     def educator_creation(self, f):
         f.destroy()
         f = Form()
@@ -1104,7 +1189,7 @@ class Main:
         close_frame.pack()
 
         if access_level is 0:
-            new_edu_button = tk.Button(button_frame, text="New Educator", command=lambda: self.educator_creation(f))
+            new_edu_button = tk.Button(button_frame, text="Add Educator", command=lambda: self.educator_creation(f))
             new_edu_button.pack(side=tk.LEFT, pady=10)
 
             """
@@ -1113,9 +1198,13 @@ class Main:
                 new_inst_button.pack(side=tk.LEFT, pady=10)
             """
 
-            new_student_button = tk.Button(button_frame_2, text="New Student",
+            new_student_button = tk.Button(button_frame_1, text="Add Student",
                                            command=lambda: self.student_creation(f))
             new_student_button.pack(side=tk.LEFT, pady=10)
+
+            bulk_student_button = tk.Button(button_frame_2, text="Bulk Add Records",
+                                           command=lambda: self.bulk_student_creation(f))
+            bulk_student_button.pack(side=tk.LEFT, pady=10)
 
             view_edu_button = tk.Button(button_frame_3, text="View Educator",
                                         command=lambda: self.search_edu_form(0, f))

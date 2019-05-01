@@ -15,6 +15,10 @@ InstID  EducID  CourseName
 Subjects file column order (tab-delimited):
 InstID  SubjectName
 
+Section file column order (tab-delimited):
+SectNum	CourseName	RoomNum	EndDate	StartTime	StudID
+SectionNumber   CourseName  RoomNumber  EndDate StartTime   StudentList
+
 Feedback file column order (comma-delimited):
 EduID,Feedback
 
