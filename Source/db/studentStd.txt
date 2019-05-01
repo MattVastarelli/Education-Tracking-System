@@ -1,0 +1,10 @@
+3344,Math,A
+4353,English,C
+2993,Art,A-
+3886,English,C+
+57676,Comp. Sci,A+
+92384,Art,D
+23774,Math,B-
+12396,Comp. Sci,C
+8556,Art,B
+93485,Comp. Sci,D+

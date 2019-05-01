@@ -4,6 +4,7 @@ from Source.forms import Form
 from Source.Student import Student
 from Source.Institution import Institution
 from Source.standards import Standards
+from Source.viewStdViewModel import ViewStdViewModel
 import tkinter as tk
 from tkinter.filedialog import askopenfilename
 from tkinter import messagebox
@@ -55,6 +56,7 @@ class Main:
             obj = self.create_institution_obj(data, False, f)
             self.user = obj
             self.get_inst_educators(self.user.get_id())
+            self.stu_list = list()
             self.get_inst_students(self.user.get_id())
         elif int(split[2]) is 1:
             pass
@@ -368,9 +370,9 @@ class Main:
 
             for line in content:
                 split = line.split(split_type)  # choose split type
-                #print(split)
+                #print("Split", split)
                 if thing_to_match in split:
-                    #print(split)
+                    #print("match ",split)
                     data_list.append(split)
 
         # returns a list of list
@@ -445,11 +447,9 @@ class Main:
                         count += 1
                         continue
                     elif count == 1:
-                        #print("Subject", y)
                         sub = y
                     else:
-                        #print("Range", y)
-                        a_range = y # y.split(" ")
+                        a_range = y
                         standards_list.append(Standards(subject=sub, acc_range=a_range))
 
                     count += 1
@@ -976,6 +976,173 @@ class Main:
 
         return None
 
+    def process_standards(self, student_id, edu_inst_id=0, opt_outlier=False):
+        std = list()
+        stu = self.search(student_id, "studentStd", ",")
+
+        standards_list = list()
+        studentObj = ViewStdViewModel()
+
+        if edu_inst_id != 0:
+            std = self.search(edu_inst_id, "standards", ",")
+        else:
+            std = self.search(self.user.get_id(), "standards", ",")
+
+        # get all standards
+        for x in std:
+            count = 0
+            sub = ""
+            for y in x:
+                if count == 0:
+                    count += 1
+                    continue
+                elif count == 1:
+                    sub = y
+                else:
+                    a_range = y
+                    standards_list.append(Standards(subject=sub, acc_range=a_range))
+                count += 1
+
+        # parse the student
+        for student in stu:
+            count = 0
+            for y in student:
+                if count == 0:
+                    studentObj.persons = y  # id but will replace
+                elif count == 1:
+                    studentObj.subject = y
+                else:
+                    studentObj.gradeRecived = y
+                count += 1
+
+        # merge
+        for std in standards_list:
+            if studentObj.subject == std.subject:
+                studentObj.stdRange = std.acceptable_range
+                if opt_outlier is True:
+                    #print("Range ", self.find_in_between(std.acceptable_range))
+                    #print("grade ", studentObj.gradeRecived)
+                    #print("actual range ", std.acceptable_range)
+                    if studentObj.gradeRecived not in self.find_in_between(std.acceptable_range):
+
+                        return studentObj
+                    else:
+                        return None
+
+
+        return studentObj
+
+    def proccess_standards_as_stu(self):
+
+        grades = self.search(thing_to_match=self.user.get_student_id(), file_name_to_search="grades",
+                             split_type=",")
+        std = self.search(self.user.get_inst_id(), "standards", ",")
+
+        sub_list = list()
+        grade_list = list()
+        standards_list = list()
+        studentObj = ViewStdViewModel()
+        studentObj.persons = self.user.get_name()
+
+        for x in grades:
+            count = 0
+            for y in x:
+                if count == 0:
+                    count += 1
+                    continue
+                elif count == 1:
+                    sub_list.append(y)
+                    studentObj.subject = y
+                else:
+                    grade_list.append(y)
+                    studentObj.gradeRecived = y
+                count += 1
+
+        # get all standards
+        for x in std:
+            count = 0
+            sub = ""
+            for y in x:
+                if count == 0:
+                    count += 1
+                    continue
+                elif count == 1:
+                    sub = y
+                else:
+                    a_range = y
+                    standards_list.append(Standards(subject=sub, acc_range=a_range))
+                count += 1
+
+        # merge
+        for std in standards_list:
+            if studentObj.subject == std.subject:
+                studentObj.stdRange = std.acceptable_range
+
+        return studentObj
+
+    def find_in_between(self, range):
+        arr = range.split(" ")
+        high = arr[1]
+        low = arr[0]
+        grades = ["F", "D-", "D", "D+", "C-", "C", "C+", "B-", "B", "B+", "A-", "A", "A+"]
+
+        count = 0
+        highIndex = 0
+        lowIndex = 0
+        for grade in grades:
+            print(grade)
+            if grade == low:
+                print("low", grade)
+                lowIndex = count
+            elif grade == high:
+                print("high", grade)
+                highIndex = count
+            count += 1
+
+        return grades[lowIndex:highIndex + 1]
+
+
+    def view_student_standards(self, f, access_level, opt_outlier=False):
+        f.destroy()
+        f = Form()
+
+        compareStandardList = list()
+        #instStudents = self.search(self.user.get_id(), "students", "\t")
+
+        if access_level is 0:
+           # use the student list to get their standards
+            for student in self.stu_list:
+                newVM = ViewStdViewModel()
+                newVM = self.process_standards(student.get_student_id(), opt_outlier=opt_outlier)
+                if newVM is not None:
+                    newVM.persons = student.get_name()
+                    compareStandardList.append(newVM)
+        elif access_level is 1:
+            # students
+            self.stu_list = list()
+            self.get_inst_students(str(self.user.currentInst))
+            for student in self.stu_list:
+                newVM = ViewStdViewModel()
+                newVM = self.process_standards(student.get_student_id(), edu_inst_id=self.user.currentInst)
+                newVM.persons = student.get_name()
+                compareStandardList.append(newVM)
+        elif access_level is 2:
+            vm = self.proccess_standards_as_stu()
+            compareStandardList.append(vm)
+
+        f.view_others_standards(compareStandardList)
+
+        frame = tk.Frame()
+        frame.pack(pady=10)
+
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
+
+        back = tk.Button(button_frame, text="Back", command=lambda: self.main_screen(access_level, self.user, f))
+        back.pack(side=tk.LEFT, pady=10)
+
+        return None
+
     def main_screen(self, access_level, user, f):
         f.destroy()
 
@@ -1061,12 +1228,12 @@ class Main:
 
             """ id 11 view outliers """
             view_outliers = tk.Button(button_frame_8, text="outliers",
-                                          command=lambda: self.feedback_search(f))
+                                          command=lambda: self.view_student_standards(f, 0, opt_outlier=True))
             view_outliers.pack(side=tk.LEFT, pady=10)
 
             """ id 15 view all students compared to standards """
             view_student_std = tk.Button(button_frame_9, text="Student Standards",
-                                      command=lambda: self.feedback_search(f))
+                                      command=lambda: self.view_student_standards(f, 0))
             view_student_std.pack(side=tk.LEFT, pady=10)
 
         if access_level is 1:
@@ -1087,7 +1254,7 @@ class Main:
 
             """ to work on backlog id 8 """
             student_standards = tk.Button(button_frame_5, text="How are my students doing",
-                                         command=lambda: self.view_all_edu_courses(f, 1))
+                                         command=lambda: self.view_student_standards(f, 1))
             student_standards.pack(side=tk.LEFT, pady=10)
 
         if access_level is 2:
@@ -1110,6 +1277,10 @@ class Main:
             view_grades = tk.Button(button_frame_5, text="View My Grades/Course History",
                                          command=lambda: self.view_my_grades(f))
             view_grades.pack(side=tk.LEFT, pady=10)
+
+            student_standards = tk.Button(button_frame_6, text="How am I doing",
+                                          command=lambda: self.view_student_standards(f, 2))
+            student_standards.pack(side=tk.LEFT, pady=10)
 
         standards_button = tk.Button(standards_frame, text="Standards", command=lambda: self.search_standards(f))
         standards_button.pack(side=tk.LEFT, pady=10)
@@ -1141,10 +1312,8 @@ class Main:
         return None
 
     def run(self):
-        #self.start_screen()
-        f = Form()
-        f.view_others_standards([])
-        f.run()
+        self.start_screen() # B A+  C A
+        #print(self.find_in_between(" A+"))
 
 
 if __name__ == '__main__':
