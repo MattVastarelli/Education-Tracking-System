@@ -257,7 +257,7 @@ class Student(Account):
             instData = list()
             for line in content:
                 split = line.split("\t")  # choose split type
-                if self.get_current_institution() == split[0]:
+                if str(self.__current_institution) == split[0]:
                     instData = split # found the inst
                     # create and return obj
                     inst = Institution(username=instData[2], password=instData[3], access=0, is_new=False)
