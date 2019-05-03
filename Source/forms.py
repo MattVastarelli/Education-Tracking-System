@@ -1095,3 +1095,72 @@ class Form:
             display_list_actual[x].pack(pady=2, side=tk.LEFT)
 
         return self.top
+
+    def view_inst_stats(self, e_count, s_count, g_names, g_count):
+        # form view basic institute statistics
+        # self.top.geometry("550x350")
+
+        # main frame
+        frame = tk.Frame(self.top)
+        frame.pack(pady=25, anchor='nw')
+
+        self.top.title("Institute Statistics")
+
+        # frames
+        header_frame = tk.Frame(frame)
+        header_frame.pack()
+
+        stats_frame_1 = tk.Frame(frame)
+        stats_frame_1.pack()
+
+        stats_frame_1_label = tk.Frame(stats_frame_1)
+        stats_frame_1_label.pack(side=tk.LEFT)
+        stats_frame_1_results = tk.Frame(stats_frame_1)
+        stats_frame_1_results.pack(side=tk.LEFT)
+
+
+        stats_frame_2 = tk.Frame(frame)
+        stats_frame_2.pack()
+
+        stats_frame_2_label = tk.Frame(stats_frame_2)
+        stats_frame_2_label.pack(side=tk.LEFT)
+        stats_frame_2_results = tk.Frame(stats_frame_2)
+        stats_frame_2_results.pack(side=tk.LEFT)
+
+
+        stats_frame_3 = tk.Frame(frame)
+        stats_frame_3.pack()
+
+        stats_frame_3_label = tk.Frame(stats_frame_3)
+        stats_frame_3_label.pack(side=tk.LEFT, anchor='n')
+        stats_frame_3_grades = tk.Frame(stats_frame_3)
+        stats_frame_3_grades.pack(side=tk.LEFT)
+        stats_frame_3_results = tk.Frame(stats_frame_3)
+        stats_frame_3_results.pack(side=tk.LEFT)
+
+
+        e_count_text = tk.StringVar(value=e_count)
+        s_count_text = tk.StringVar(value=s_count)
+        g_names = tk.StringVar(value=g_names)
+        g_count_list = tk.StringVar(value=g_count)
+
+        # labels
+        header_label = tk.Label(header_frame, text="General Statistics", anchor="nw")
+        header_label.pack()
+
+        e_count_label = tk.Label(stats_frame_1_label, text="Total Employed Educators:")
+        e_count_label.pack()
+        e_count_display = tk.Message(stats_frame_1_results, textvariable=e_count_text)
+        e_count_display.pack()
+        s_count_label = tk.Label(stats_frame_2_label, text="Total Enrolled Students:")
+        s_count_label.pack()
+        s_count_display = tk.Message(stats_frame_2_results, textvariable=s_count_text)
+        s_count_display.pack()
+        grades_count_label = tk.Label(stats_frame_3_label, text="Students By Grade:")
+        grades_count_label.pack()
+        g_count_display = tk.Message(stats_frame_3_grades, textvariable=g_names)
+        g_count_display.pack()
+        g_count_results = tk.Message(stats_frame_3_results, textvariable=g_count_list)
+        g_count_results.pack()
+
+        return self.top

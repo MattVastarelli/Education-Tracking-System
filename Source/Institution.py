@@ -35,8 +35,8 @@ class Institution(Account):
         self.name = data[0]
         self.address = data[1]
         self.institution_type = data[2]
-        self.grade_max = data[3]
-        self.grade_min = data[4]
+        self.grade_min = data[3]
+        self.grade_max = data[4]
         self.main_phone_num = data[5]
 
         return None

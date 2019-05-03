@@ -137,7 +137,7 @@ class Main:
                 next_id += 1
 
                 if acct_type == 1:
-                    record.insert(-1, str(self.user.get_id()))
+                    record.insert(13, str(self.user.get_id()))
                     record.insert(11, "")
                     self.write_to_file('educator', record)
                 else:
@@ -1143,6 +1143,74 @@ class Main:
 
         return None
 
+    def view_inst_stats(self, f, inst_id):
+        f.destroy()
+        f = Form()
+
+        s_list = list()
+        e_list = list()
+
+        script_dir = os.path.dirname(__file__)  # absolute dir the script is in
+        rel_path_s = "db/students.txt"
+        abs_s_file_path = os.path.join(script_dir, rel_path_s)
+
+        rel_path_e = "db/educators.txt"
+        abs_e_file_path = os.path.join(script_dir, rel_path_e)
+
+        with open(abs_s_file_path) as fullList:
+            content = fullList.readlines()
+            content = [x.strip() for x in content]
+            for line in content:
+                split = line.split('\t')  # choose split type
+                if split[12] == str(inst_id):
+                    s_list.append(split)
+
+        with open(abs_e_file_path) as fullList:
+            content = fullList.readlines()
+            content = [x.strip() for x in content]
+            for line in content:
+                split = line.split('\t')  # choose split type
+                if split[14] == str(inst_id):
+                    e_list.append(split)
+
+        grade_count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+        for student in s_list:
+            if student[11] == 'K':
+                grade_count[0] += 1
+            else:
+                grade_count[int(student[11])] += 1
+
+        e_text = str(len(e_list))
+        s_text = str(len(s_list))
+        g_list = ""
+        g_text = ""
+
+        min_g = self.user.grade_min
+        if min_g == 'K':
+            min_g = '0'
+        max_g = self.user.grade_max
+
+        for i in range(int(min_g),int(max_g)+1):
+            if i == 0:
+                g_list += "Kindergarten:\n"
+                g_text += str(grade_count[i]) + '\n'
+            else:
+                g_list += "Grade " + str(i) + ":\n"
+                g_text += str(grade_count[i]) + '\n'
+
+        f.view_inst_stats(e_text, s_text, g_list, g_text)
+
+        frame = tk.Frame()
+        frame.pack(pady=10)
+
+        button_frame = tk.Frame(frame)
+        button_frame.pack()
+
+        back = tk.Button(button_frame, text="Back",
+                         command=lambda: self.main_screen(self.user.accessLevel, self.user, f))
+        back.pack(side=tk.LEFT, pady=10)
+
     def main_screen(self, access_level, user, f):
         f.destroy()
 
@@ -1184,6 +1252,9 @@ class Main:
 
         standards_frame = tk.Frame(frame)
         standards_frame.pack()
+
+        button_frame_10 = tk.Frame(frame)
+        button_frame_10.pack()
 
         close_frame = tk.Frame(frame)
         close_frame.pack()
@@ -1227,7 +1298,7 @@ class Main:
             view_edu_feedback.pack(side=tk.LEFT, pady=10)
 
             """ id 11 view outliers """
-            view_outliers = tk.Button(button_frame_8, text="outliers",
+            view_outliers = tk.Button(button_frame_8, text="View Outliers",
                                           command=lambda: self.view_student_standards(f, 0, opt_outlier=True))
             view_outliers.pack(side=tk.LEFT, pady=10)
 
@@ -1235,6 +1306,10 @@ class Main:
             view_student_std = tk.Button(button_frame_9, text="Student Standards",
                                       command=lambda: self.view_student_standards(f, 0))
             view_student_std.pack(side=tk.LEFT, pady=10)
+
+            view_stats = tk.Button(button_frame_10, text="View Statistics",
+                                   command=lambda: self.view_inst_stats(f, self.user.get_id()))
+            view_stats.pack(side=tk.LEFT,pady=10)
 
         if access_level is 1:
             view_edu_button = tk.Button(button_frame_1, text="View Educator", command=lambda: self.view_edu(1, user, f))
