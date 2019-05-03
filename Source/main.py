@@ -1220,44 +1220,58 @@ class Main:
         frame = tk.Frame()
         frame.pack(pady=50)
 
-        button_frame = tk.Frame(frame)
+        header = tk.Frame(frame)
+        header.pack()
+
+        all_buttons = tk.Frame(frame)
+        all_buttons.pack()
+
+        button_col_1 = tk.Frame(all_buttons)
+        button_col_1.pack(side=tk.LEFT)
+        button_col_2 = tk.Frame(all_buttons)
+        button_col_2.pack(side=tk.LEFT)
+
+        button_frame = tk.Frame(button_col_1)
         button_frame.pack()
 
-        button_frame_1 = tk.Frame(frame)
+        button_frame_1 = tk.Frame(button_col_2)
         button_frame_1.pack()
 
-        button_frame_2 = tk.Frame(frame)
+        button_frame_2 = tk.Frame(button_col_1)
         button_frame_2.pack()
 
-        button_frame_3 = tk.Frame(frame)
+        button_frame_3 = tk.Frame(button_col_2)
         button_frame_3.pack()
 
-        button_frame_4 = tk.Frame(frame)
+        button_frame_4 = tk.Frame(button_col_1)
         button_frame_4.pack()
 
-        button_frame_5 = tk.Frame(frame)
+        button_frame_5 = tk.Frame(button_col_2)
         button_frame_5.pack()
 
-        button_frame_6 = tk.Frame(frame)
+        button_frame_6 = tk.Frame(button_col_1)
         button_frame_6.pack()
 
-        button_frame_7 = tk.Frame(frame)
+        button_frame_7 = tk.Frame(button_col_2)
         button_frame_7.pack()
 
-        button_frame_8 = tk.Frame(frame)
+        button_frame_8 = tk.Frame(button_col_1)
         button_frame_8.pack()
 
-        button_frame_9 = tk.Frame(frame)
+        button_frame_9 = tk.Frame(button_col_2)
         button_frame_9.pack()
 
-        standards_frame = tk.Frame(frame)
+        standards_frame = tk.Frame(button_col_1)
         standards_frame.pack()
 
-        button_frame_10 = tk.Frame(frame)
+        button_frame_10 = tk.Frame(button_col_2)
         button_frame_10.pack()
 
         close_frame = tk.Frame(frame)
-        close_frame.pack()
+        close_frame.pack(side=tk.BOTTOM)
+
+        welcome_label = tk.Label(header, text=self.user.get_name()+"'s Dashboard",font='bold')
+        welcome_label.pack()
 
         if access_level is 0:
             new_edu_button = tk.Button(button_frame, text="Add Educator", command=lambda: self.educator_creation(f))
@@ -1289,7 +1303,7 @@ class Main:
                                             command=lambda: self.search_student_form(0, f))
             view_student_button.pack(side=tk.LEFT, pady=10)
 
-            view_edu_courses = tk.Button(button_frame_6, text="View All Educator Courses",
+            view_edu_courses = tk.Button(button_frame_6, text="All Educator Courses",
                                             command=lambda: self.view_all_edu_courses(f, 0))
             view_edu_courses.pack(side=tk.LEFT, pady=10)
 
@@ -1349,7 +1363,7 @@ class Main:
                                         command=lambda: self.student_view_reports(f))
             view_stu_reports.pack(side=tk.LEFT, pady=10)
 
-            view_grades = tk.Button(button_frame_5, text="View My Grades/Course History",
+            view_grades = tk.Button(button_frame_5, text="My Grades/Course History",
                                          command=lambda: self.view_my_grades(f))
             view_grades.pack(side=tk.LEFT, pady=10)
 

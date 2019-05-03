@@ -34,7 +34,7 @@ class Form:
         self.gbox = None
 
     def main_screen(self):
-        self.top.geometry("300x650")
+        self.top.geometry("500x500")
         self.top.title("EduTrac Dashboard")
 
         return self.top
