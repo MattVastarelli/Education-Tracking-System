@@ -8,3 +8,5 @@
 10	2	dgil	1234	Dotti	Gilder	12396	Dorothy Gilder	Mother	dgilder7@dedecms.com	"Diabetic, Asthma"	4	1			"2 Dennis Pass, Rochester, NY, 14639"
 11	2	phai	1234	Preston	Haimes	8556	Winston Haimes	Father	winhaimes8@acquirethisname.com	Latex Allergy	4	0			"750 Vera Place, New York City, NY, 10019"
 12	2	fmug	1234	Flo	Muggesto	93485	Martin Muggesto	Guardian	fmuggleston9@prnewswire.com	Asthma	6	1			"2 Lyons Hill, Albany, NY, 12227"
+37	2	cospillane	1234	Cate	O'Spillane	13344	Nate O'Spillane	Guardian	nospillane0@discovery.com	Asthma, Peanut Allergy	6	19			66509 Towne Way Newtown Connecticut 06855
+38	2	htrout	1234	Hope	Trout	59944	Polly Trout	Mother	ptrout1@youtube.com	Diabetic	7	19			2 Marquette Park Sherman Connecticut 06776

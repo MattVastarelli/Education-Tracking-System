@@ -6,3 +6,5 @@
 30	1	myanshonok	jAVR4dwbpD1q	Morgun	Yanshonok	90 Logan Junction Hartford Connecticut 06145	714-708-4334	myanshonok2@mtv.com	3501	English		Writing, Grammar	10	20
 31	1	hcarles	1iPX1GmLr9	Haskel	Carles	117 Harbort Trail New Haven Connecticut 06538	745-752-8928	hcarles3@soup.io	8441	Language		Writing, French	9	20
 32	1	npiddletown	ltn5Dt	Nicolas	Piddletown	218 Kinsman Junction New Haven Connecticut 06538	196-490-6811	npiddletown4@bravesites.com	1740	Language, English		Spanish	11	20
+33	1	ofinnis	ZBJSBU6	Otho	Finnis	9398 Elka Avenue Stamford Connecticut 06905	816-846-9447	ofinnis0@google.cn	5670	Elementary Education, Language		Spanish	6	19
+35	1	dsiggin	jDfS9K1B	Danella	Siggin	2080 6th Park Norwalk Connecticut 06854	806-557-3345	dsiggin1@prweb.com	5183	Elementary Education, History		History	8	19
